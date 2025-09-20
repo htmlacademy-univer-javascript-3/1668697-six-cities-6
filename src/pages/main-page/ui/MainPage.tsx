@@ -4,8 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { SingleCard } from '../../../widgets';
 
-export const MainPage: React.FC = () => {
-  const cardIds = Array.from({ length: 6 }, () => uuidv4());
+import { MainPageProps } from '../model/types';
+import { NUMBER_OF_CARDS } from '../model/constants';
+
+export const MainPage: React.FC<MainPageProps> = ({ offersCount }) => {
+  const cardIds = Array.from({ length: NUMBER_OF_CARDS }, () => uuidv4());
 
   return (
     <div className="page page--gray page--main">
@@ -90,7 +93,7 @@ export const MainPage: React.FC = () => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
 
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
 
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
