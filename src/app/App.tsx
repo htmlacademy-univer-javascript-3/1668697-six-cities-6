@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
 
-import { AppRoute, PrivateRoute } from '../shared';
+import { AppRoute, PrivateRoute, AuthorizationStatus } from '../shared';
 
 const App: React.FC = () => (
   <BrowserRouter>
@@ -11,7 +11,14 @@ const App: React.FC = () => (
       <Route path={AppRoute.Main} element={<MainPage offersCount={322} />} />
       <Route path={AppRoute.Login} element={<LoginPage />} />
       <Route path={AppRoute.Offer} element={<OfferPage />} />
-      <Route path={AppRoute.Favorites} element={<FavoritesPage />} />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <FavoritesPage />
+          </PrivateRoute>
+        }
+      />
 
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
