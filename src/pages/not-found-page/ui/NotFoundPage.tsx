@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { AppRoute } from '../../../shared';
 
 import '../../../../public/css/not-found.css';
 
@@ -38,7 +41,7 @@ export const NotFoundPage: React.FC = () => (
         <h1 className='not-found__title'>404</h1>
         <div className='not-found__subtitle'>Nothing here yet...</div>
 
-        <a className='not-found__back' href="#">Back To Home</a>
+        <Link to={AppRoute.Main} className='not-found__back' >Back To Home</Link>
       </section>
     </main>
   </div>
