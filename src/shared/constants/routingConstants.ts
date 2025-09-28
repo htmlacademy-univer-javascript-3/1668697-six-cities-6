@@ -3,6 +3,5 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  NotFound = '/404'
 }
-
-export const NUMBER_OF_OFFERS = 322;
