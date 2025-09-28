@@ -1,1 +1,1 @@
-export * from './single-card';
+export * from './offers-list';

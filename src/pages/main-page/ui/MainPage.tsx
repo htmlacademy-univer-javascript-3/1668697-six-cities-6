@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SingleCard } from '../../../widgets';
 import { mockOffers } from '../../../shared';
+import { OffersList } from '../../../widgets';
 
 import { MainPageProps } from '../model/types';
 
@@ -107,9 +107,7 @@ export const MainPage: React.FC<MainPageProps> = ({ offersCount }) => (
               </ul>
             </form>
 
-            <div className="cities__places-list places__list tabs__content">
-              {mockOffers.map((offerData) => <SingleCard key={offerData.id} offerData={offerData} />)}
-            </div>
+            <OffersList />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>

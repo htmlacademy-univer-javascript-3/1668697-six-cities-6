@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { PlaceType } from '../../../shared';
 
-interface SingleCardProps {
+interface SingleOfferCardProps {
   offerData: SimpleOffer;
 }
 
@@ -20,11 +21,11 @@ const getRatingPercent = (ratingNumber: number) => {
   return `${ratingPercentValue}%`;
 };
 
-export const SingleCard: React.FC<SingleCardProps> = ({ offerData }) => {
+export const SingleOfferCard: React.FC<SingleOfferCardProps> = ({ offerData }) => {
+
   const { title, rating, price, placeType, isPremium } = offerData;
 
   return (
-
     <article className="cities__card place-card">
       { isPremium && (
         <div className="place-card__mark">
