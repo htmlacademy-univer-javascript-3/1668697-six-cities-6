@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { OFFER_CARD_CLASSNAMES } from '../../../shared';
 import { getRatingPercent } from '../../../shared';
 
+import { getOfferRouteWithId } from '../model/helpers';
 import { OfferCardProps } from '../model/types';
 
-export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }) => {
+export const OfferCard: React.FC<OfferCardProps> = ({ id, offerData, offerCardType }) => {
   const { title, rating, price, placeType, isPremium, image } = offerData;
 
   return (
@@ -17,9 +19,9 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }
       ) }
 
       <div className={OFFER_CARD_CLASSNAMES[offerCardType].image}>
-        <a href="#">
+        <Link to={getOfferRouteWithId(id)}>
           <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
 
       <div className="place-card__info">
@@ -45,7 +47,9 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }
         </div>
 
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={getOfferRouteWithId(id)}>
+            {title}
+          </Link>
         </h2>
 
         <p className="place-card__type">{placeType}</p>

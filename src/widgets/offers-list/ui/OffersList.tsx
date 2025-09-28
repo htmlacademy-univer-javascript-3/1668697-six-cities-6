@@ -16,6 +16,6 @@ export const OffersList: React.FC<OffersListProps> = ({
   <div className={OFFER_CARD_CLASSNAMES[offerCardType].container}>
     {offersData
       .slice(0, numberOfOffers)
-      .map((offerData) => <OfferCard key={offerData.id} offerData={offerData.info} offerCardType={offerCardType} />)}
+      .map((offerData) => <OfferCard key={offerData.id} id={offerData.id} offerData={offerData.info} offerCardType={offerCardType} />)}
   </div>
 );
