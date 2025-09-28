@@ -1,1 +1,1 @@
-export * from './offers';
+export * from './offerMocks';

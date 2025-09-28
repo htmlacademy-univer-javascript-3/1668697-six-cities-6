@@ -1,33 +1,13 @@
 import React from 'react';
 
 import { IOfferReview } from '../../../shared';
+import { getRatingPercent } from '../../../shared';
+
+import { getFormattedDate } from '../model/helpers';
 
 interface OfferReview {
   reviewData: IOfferReview;
 }
-
-// TODO: move to helpers
-const getRatingPercent = (ratingNumber: number) => {
-  const ratingPercentValue = ratingNumber / 5 * 100;
-
-  return `${ratingPercentValue}%`;
-};
-
-// TODO: move to helpers
-const formatDate = (dateTime: string) => {
-  const date = new Date(dateTime);
-
-  // TODO: move to constants
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
-
-  return `${month} ${year}`;
-};
 
 export const OfferReview: React.FC<OfferReview> = ({ reviewData }) => {
   const { name, avatar, rating, description, dateTime } = reviewData;
@@ -56,7 +36,7 @@ export const OfferReview: React.FC<OfferReview> = ({ reviewData }) => {
           {description}
         </p>
 
-        <time className="reviews__time" dateTime={dateTime}>{formatDate(dateTime)}</time>
+        <time className="reviews__time" dateTime={dateTime}>{getFormattedDate(dateTime)}</time>
       </div>
     </li>
   );

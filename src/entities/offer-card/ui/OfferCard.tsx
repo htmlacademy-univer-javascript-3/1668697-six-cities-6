@@ -1,17 +1,12 @@
 import React from 'react';
 
 import { ISimpleOfferInfo } from '../../../shared';
+import { getRatingPercent } from '../../../shared';
 
 interface OfferCardProps {
   offerData: ISimpleOfferInfo;
 }
 
-// TODO: move to helpers
-const getRatingPercent = (ratingNumber: number) => {
-  const ratingPercentValue = ratingNumber / 5 * 100;
-
-  return `${ratingPercentValue}%`;
-};
 
 export const OfferCard: React.FC<OfferCardProps> = ({ offerData }) => {
 

@@ -2,17 +2,11 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { IDetailedOfferInfo } from '../../../shared';
+import { getRatingPercent } from '../../../shared';
 
 interface OfferInfoProps {
   offerData: IDetailedOfferInfo;
 }
-
-// TODO: move to helpers
-const getRatingPercent = (ratingNumber: number) => {
-  const ratingPercentValue = ratingNumber / 5 * 100;
-
-  return `${ratingPercentValue}%`;
-};
 
 export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
   const { features, numberOfGuests, numberOfRooms, placeType, price, rating, title, isPremium } = offerData;
