@@ -6,7 +6,7 @@ import { getRatingPercent } from '../../../shared';
 import { OfferCardProps } from '../model/types';
 
 export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }) => {
-  const { title, rating, price, placeType, isPremium } = offerData;
+  const { title, rating, price, placeType, isPremium, image } = offerData;
 
   return (
     <article className={OFFER_CARD_CLASSNAMES[offerCardType].item}>
@@ -16,10 +16,9 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }
         </div>
       ) }
 
-      {/* TODO: get one image (first item from array / add preview field) */}
       <div className={OFFER_CARD_CLASSNAMES[offerCardType].image}>
         <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
         </a>
       </div>
 

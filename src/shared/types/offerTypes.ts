@@ -14,6 +14,7 @@ export interface ISimpleOfferInfo {
   rating: number;
   price: number;
   placeType: OfferPlaceType;
+  image: string;
   isPremium?: boolean;
 }
 
