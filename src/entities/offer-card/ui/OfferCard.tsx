@@ -1,17 +1,9 @@
 import React from 'react';
 
-import { PlaceType } from '../../../shared';
+import { ISimpleOfferInfo } from '../../../shared';
 
-interface SingleOfferCardProps {
-  offerData: SimpleOffer;
-}
-
-interface SimpleOffer {
-  title: string;
-  rating: number;
-  price: number;
-  placeType: PlaceType;
-  isPremium?: boolean;
+interface OfferCardProps {
+  offerData: ISimpleOfferInfo;
 }
 
 // TODO: move to helpers
@@ -21,7 +13,7 @@ const getRatingPercent = (ratingNumber: number) => {
   return `${ratingPercentValue}%`;
 };
 
-export const SingleOfferCard: React.FC<SingleOfferCardProps> = ({ offerData }) => {
+export const OfferCard: React.FC<OfferCardProps> = ({ offerData }) => {
 
   const { title, rating, price, placeType, isPremium } = offerData;
 
