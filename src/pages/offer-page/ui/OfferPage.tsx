@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mockOffers } from '../../../shared';
+import { IDetailedOffer, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
 
 import { OfferGallery } from '../../../widgets';
@@ -9,8 +9,12 @@ import { OfferHost } from '../../../widgets';
 import { OfferReviewsList } from '../../../widgets';
 import { OffersList } from '../../../widgets';
 
-export const OfferPage: React.FC = () => {
-  const { images, info, host, reviews } = mockOffers[0]; // TODO: get data from props
+interface OfferPageProps {
+  offersData: IDetailedOffer[];
+}
+
+export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
+  const { images, info, host, reviews } = offersData[0]; // TODO: get data for selected item
 
   return (
     <div className="page">
@@ -107,6 +111,7 @@ export const OfferPage: React.FC = () => {
               </section>
             </div>
           </div>
+
           <section className="offer__map map"></section>
         </section>
 
@@ -114,9 +119,7 @@ export const OfferPage: React.FC = () => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <div className="near-places__list places__list">
-              <OffersList numberOfOffers={NEAR_OFFERS_LIST_LENGTH} />
-            </div>
+            <OffersList offerCardType={OfferCardType.Offer} offersData={offersData} numberOfOffers={NEAR_OFFERS_LIST_LENGTH} />
           </section>
         </div>
       </main>

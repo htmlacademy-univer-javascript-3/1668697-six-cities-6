@@ -45,3 +45,9 @@ export interface IOfferReview {
   description: string;
   dateTime: string;
 }
+
+export enum OfferCardType {
+  Main = 'main',
+  Offer = 'offer',
+  Favorites = 'favorites'
+}

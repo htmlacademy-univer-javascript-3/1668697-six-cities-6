@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { OffersList } from '../../../widgets';
+import { OfferCardType } from '../../../shared';
 
 import { MainPageProps } from '../model/types';
 
-export const MainPage: React.FC<MainPageProps> = ({ offersCount }) => (
+export const MainPage: React.FC<MainPageProps> = ({ offersCount, offersData }) => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -106,9 +107,7 @@ export const MainPage: React.FC<MainPageProps> = ({ offersCount }) => (
               </ul>
             </form>
 
-            <div className="cities__places-list places__list tabs__content">
-              <OffersList />
-            </div>
+            <OffersList offerCardType={OfferCardType.Main} offersData={offersData} />
 
           </section>
           <div className="cities__right-section">

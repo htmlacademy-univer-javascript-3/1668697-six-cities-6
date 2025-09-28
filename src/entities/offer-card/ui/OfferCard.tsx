@@ -1,19 +1,20 @@
 import React from 'react';
 
-import { ISimpleOfferInfo } from '../../../shared';
+import { ISimpleOfferInfo, OfferCardType } from '../../../shared';
 import { getRatingPercent } from '../../../shared';
+
+import { OFFER_CARD_CLASSNAMES } from '../../../shared';
 
 interface OfferCardProps {
   offerData: ISimpleOfferInfo;
+  offerCardType: OfferCardType;
 }
 
-
-export const OfferCard: React.FC<OfferCardProps> = ({ offerData }) => {
-
+export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }) => {
   const { title, rating, price, placeType, isPremium } = offerData;
 
   return (
-    <article className="cities__card place-card">
+    <article className={OFFER_CARD_CLASSNAMES[offerCardType].item}>
       { isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -21,7 +22,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offerData }) => {
       ) }
 
       {/* TODO: get one image (first item from array / add preview field) */}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={OFFER_CARD_CLASSNAMES[offerCardType].image}>
         <a href="#">
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
         </a>

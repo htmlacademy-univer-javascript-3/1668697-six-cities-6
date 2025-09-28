@@ -1,6 +1,6 @@
-import { OfferPlaceType, OfferHostStatus, IDetailedOffer } from '../types';
+import { OfferPlaceType, OfferHostStatus, IDetailedOffer } from '../shared';
 
-export const mockOffers: IDetailedOffer[] = [
+export const offerMocks: IDetailedOffer[] = [
   {
     id: 'd7ff50fd-07c1-4862-9dc0-a52fe909252c',
     info: {
