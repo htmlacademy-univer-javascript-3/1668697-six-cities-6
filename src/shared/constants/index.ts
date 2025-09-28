@@ -1,2 +1,2 @@
-export * from './generalConstants';
+export * from './offerConstants';
 export * from './routingConstants';

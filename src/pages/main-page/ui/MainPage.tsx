@@ -106,7 +106,10 @@ export const MainPage: React.FC<MainPageProps> = ({ offersCount }) => (
               </ul>
             </form>
 
-            <OffersList />
+            <div className="cities__places-list places__list tabs__content">
+              <OffersList />
+            </div>
+
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
