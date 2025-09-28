@@ -2,6 +2,7 @@ import { OfferPlaceType, OfferHostStatus, IDetailedOffer } from '../types';
 
 export const mockOffers: IDetailedOffer[] = [
   {
+    id: 'd7ff50fd-07c1-4862-9dc0-a52fe909252c',
     info: {
       title: 'Beautiful & luxurious studio at great location',
       rating: 4.8,
@@ -33,6 +34,7 @@ export const mockOffers: IDetailedOffer[] = [
     images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
   },
   {
+    id: 'cc434c0a-4371-4777-bd13-c2f015e520e8',
     info: {
       title: 'Beautiful & luxurious studio at great location',
       rating: 4.8,
@@ -64,6 +66,7 @@ export const mockOffers: IDetailedOffer[] = [
     images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
   },
   {
+    id: 'a99004c3-0d36-4cf2-8e5d-d518760ec50a',
     info: {
       title: 'Beautiful & luxurious studio at great location',
       rating: 4.8,
@@ -95,6 +98,7 @@ export const mockOffers: IDetailedOffer[] = [
     images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
   },
   {
+    id: '01fa807c-b9dc-466a-9217-b4df400decfc',
     info: {
       title: 'Beautiful & luxurious studio at great location',
       rating: 4.8,

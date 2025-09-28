@@ -24,6 +24,7 @@ export interface IDetailedOfferInfo extends ISimpleOfferInfo {
 }
 
 export interface IDetailedOffer {
+  id: string;
   info: IDetailedOfferInfo;
   host: IOfferHost;
   reviews: IOfferReview[];
