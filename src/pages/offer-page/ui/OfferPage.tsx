@@ -76,7 +76,7 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
                   <OfferHost hostData={offerData.host} />
 
                   <section className="offer__reviews reviews">
-                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2>
 
                     <OfferReviewsList reviews={offerData.reviews} />
 
