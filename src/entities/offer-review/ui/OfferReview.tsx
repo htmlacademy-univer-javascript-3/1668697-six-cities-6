@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { IOfferReview } from '../../../shared';
 import { getRatingPercent } from '../../../shared';
 
 import { getFormattedDate } from '../model/helpers';
+import { OfferReviewProps } from '../model/types';
 
-interface OfferReview {
-  reviewData: IOfferReview;
-}
-
-export const OfferReview: React.FC<OfferReview> = ({ reviewData }) => {
+export const OfferReview: React.FC<OfferReviewProps> = ({ reviewData }) => {
   const { name, avatar, rating, description, dateTime } = reviewData;
 
   return (

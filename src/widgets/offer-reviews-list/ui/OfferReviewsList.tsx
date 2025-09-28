@@ -1,13 +1,9 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IOfferReview } from '../../../shared';
-
 import { OfferReview } from '../../../entities';
 
-interface OfferReviewsListProps {
-  reviews: IOfferReview[];
-}
+import { OfferReviewsListProps } from '../model/types';
 
 export const OfferReviewsList: React.FC<OfferReviewsListProps> = ({ reviews }) => (
   <ul className="reviews__list">

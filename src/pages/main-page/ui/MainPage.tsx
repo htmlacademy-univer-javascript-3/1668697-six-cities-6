@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { OffersList } from '../../../widgets';
 import { OfferCardType } from '../../../shared';
+import { OffersList } from '../../../widgets';
 
 import { MainPageProps } from '../model/types';
 

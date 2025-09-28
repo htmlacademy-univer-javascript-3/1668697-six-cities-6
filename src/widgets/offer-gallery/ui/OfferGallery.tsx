@@ -1,9 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-interface OfferGalleryProps {
-  images: string[];
-}
+import { OfferGalleryProps } from '../model/types';
 
 export const OfferGallery: React.FC<OfferGalleryProps> = ({ images }) => (
   <div className="offer__gallery-container container">

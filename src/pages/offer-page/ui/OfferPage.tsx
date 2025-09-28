@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { IDetailedOffer, OfferCardType } from '../../../shared';
+import { OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
+import {
+  OfferGallery,
+  OfferHost,
+  OfferInfo,
+  OfferReviewsList,
+  OffersList
+} from '../../../widgets';
 
-import { OfferGallery } from '../../../widgets';
-import { OfferInfo } from '../../../widgets';
-import { OfferHost } from '../../../widgets';
-import { OfferReviewsList } from '../../../widgets';
-import { OffersList } from '../../../widgets';
-
-interface OfferPageProps {
-  offersData: IDetailedOffer[];
-}
+import { OfferPageProps } from '../model/types';
 
 export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
   const { images, info, host, reviews } = offersData[0]; // TODO: get data for selected item

@@ -1,14 +1,9 @@
 import React from 'react';
 
-import { ISimpleOfferInfo, OfferCardType } from '../../../shared';
+import { OFFER_CARD_CLASSNAMES } from '../../../shared';
 import { getRatingPercent } from '../../../shared';
 
-import { OFFER_CARD_CLASSNAMES } from '../../../shared';
-
-interface OfferCardProps {
-  offerData: ISimpleOfferInfo;
-  offerCardType: OfferCardType;
-}
+import { OfferCardProps } from '../model/types';
 
 export const OfferCard: React.FC<OfferCardProps> = ({ offerData, offerCardType }) => {
   const { title, rating, price, placeType, isPremium } = offerData;

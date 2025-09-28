@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { IDetailedOffer, OfferCardType } from '../../../shared';
-
+import { OfferCardType } from '../../../shared';
 import { OffersList } from '../../../widgets';
 
-interface FavoritesPageProps {
-  offersData: IDetailedOffer[];
-}
+import { FavoritesPageProps } from '../model/types';
 
 export const FavoritesPage: React.FC<FavoritesPageProps> = ({ offersData }) => (
   <div className="page">

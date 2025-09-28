@@ -3,5 +3,3 @@ export const getRatingPercent = (ratingNumber: number) => {
 
   return `${ratingPercentValue}%`;
 };
-
-

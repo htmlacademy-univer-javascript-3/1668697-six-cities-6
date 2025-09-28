@@ -1,11 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IOfferHost } from '../../../shared';
-
-interface OfferHostProps {
-  hostData: IOfferHost;
-}
+import { OfferHostProps } from '../model/types';
 
 export const OfferHost: React.FC<OfferHostProps> = ({ hostData }) => {
   const { name, avatar, description, status } = hostData;
