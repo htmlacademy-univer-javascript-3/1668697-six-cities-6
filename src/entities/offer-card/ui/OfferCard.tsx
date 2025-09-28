@@ -7,11 +7,15 @@ import { getRatingPercent } from '../../../shared';
 import { getOfferRouteWithId } from '../model/helpers';
 import { OfferCardProps } from '../model/types';
 
-export const OfferCard: React.FC<OfferCardProps> = ({ id, offerData, offerCardType }) => {
+export const OfferCard: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, handleActiveCardIdChange }) => {
   const { title, rating, price, placeType, isPremium, image } = offerData;
 
   return (
-    <article className={OFFER_CARD_CLASSNAMES[offerCardType].item}>
+    <article
+      className={OFFER_CARD_CLASSNAMES[offerCardType].item}
+      onMouseOver={() => handleActiveCardIdChange(id)}
+      onMouseLeave={() => handleActiveCardIdChange(undefined)}
+    >
       { isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
