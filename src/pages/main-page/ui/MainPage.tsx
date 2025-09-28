@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { mockOffers } from '../../../shared';
 import { OffersList } from '../../../widgets';
 
 import { MainPageProps } from '../model/types';
