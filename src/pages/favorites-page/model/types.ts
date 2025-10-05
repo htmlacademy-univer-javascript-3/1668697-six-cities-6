@@ -1,6 +1,5 @@
 import { IDetailedOffer } from '../../../shared';
 
-export interface MainPageProps {
+export interface FavoritesPageProps {
   offersData: IDetailedOffer[];
-  offersCount: number;
 }
