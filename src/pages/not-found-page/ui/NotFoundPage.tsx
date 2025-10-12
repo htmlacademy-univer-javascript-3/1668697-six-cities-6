@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { AppRoute } from '../../../shared';
 
-import '../../../../public/css/not-found.css';
+import './NotFoundPage.css';
 
 export const NotFoundPage: React.FC = () => (
   <div className="page page--not-found">

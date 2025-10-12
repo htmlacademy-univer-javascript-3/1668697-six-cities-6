@@ -1,9 +1,12 @@
 import React from 'react';
 
 import { OfferCardType } from '../../../shared';
-import { OffersList } from '../../../widgets';
+import { OffersList, OffersMap } from '../../../widgets';
 
 import { MainPageProps } from '../model/types';
+import { getOffersPoints } from '../model/helpers';
+
+import { cityMocks } from '../../../mocks/cityMocks';
 
 export const MainPage: React.FC<MainPageProps> = ({ offersCount, offersData }) => (
   <div className="page page--gray page--main">
@@ -111,7 +114,7 @@ export const MainPage: React.FC<MainPageProps> = ({ offersCount, offersData }) =
 
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(offersData)} />
           </div>
         </div>
       </div>

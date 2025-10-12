@@ -14,6 +14,8 @@ import {
 
 import { OfferPageProps } from '../model/types';
 
+import './OfferPage.css';
+
 export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
   const [offerData, setOfferData] = useState<IDetailedOffer | undefined | null>(null);
 
@@ -65,43 +67,47 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
         </div>
       </header>
 
-      {
-        offerData ? (
-          <main className="page__main page__main--offer">
-            <section className="offer">
-              <OfferGallery images={offerData.images} />
+      <main className="page__main page__main--offer">
+        {
+          !offerData ? (
+            <div className="offer-empty">
+              <div className="offer-empty__message">Nothing here yet...</div>
 
-              <div className="offer__container container">
-                <div className="offer__wrapper">
-                  <OfferInfo offerData={offerData.info} />
-                  <OfferHost hostData={offerData.host} />
-
-                  <section className="offer__reviews reviews">
-                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2>
-
-                    <OfferReviewsList reviews={offerData.reviews} />
-                    <OfferReviewForm />
-                  </section>
-                </div>
-              </div>
-
-              <section className="offer__map map"></section>
-            </section>
-
-            <div className="container">
-              <section className="near-places places">
-                <h2 className="near-places__title">Other places in the neighbourhood</h2>
-
-                <OffersList offerCardType={OfferCardType.Offer} offersData={offersData} numberOfOffers={NEAR_OFFERS_LIST_LENGTH} />
-              </section>
+              <Link to={AppRoute.Main} className="offer-empty__back" >Back To Home</Link>
             </div>
-          </main>
-        ) : (
-          <div style={{ height: '100%', width: '100%', display: 'flex', justifyItems:'center', alignItems: 'center' }}>
-            Nothing here yet...
-          </div>
-        )
-      }
+          ) : (
+            <>
+              <section className="offer">
+                <OfferGallery images={offerData.images} />
+
+                <div className="offer__container container">
+                  <div className="offer__wrapper">
+                    <OfferInfo offerData={offerData.info} />
+                    <OfferHost hostData={offerData.host} />
+
+                    <section className="offer__reviews reviews">
+                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2>
+
+                      <OfferReviewsList reviews={offerData.reviews} />
+                      <OfferReviewForm />
+                    </section>
+                  </div>
+                </div>
+
+                <section className="offer__map map"></section>
+              </section>
+
+              <div className="container">
+                <section className="near-places places">
+                  <h2 className="near-places__title">Other places in the neighbourhood</h2>
+
+                  <OffersList offerCardType={OfferCardType.Offer} offersData={offersData} numberOfOffers={NEAR_OFFERS_LIST_LENGTH} />
+                </section>
+              </div>
+            </>
+          )
+        }
+      </main>
     </div>
   );
 };
