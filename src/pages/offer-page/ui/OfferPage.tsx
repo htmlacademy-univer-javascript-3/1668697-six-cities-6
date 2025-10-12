@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { AppRoute, IDetailedOffer, OfferCardType } from '../../../shared';
+import { AppRoute, getOffersPoints, IDetailedOffer, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
 import {
   OfferGallery,
@@ -9,18 +9,24 @@ import {
   OfferInfo,
   OfferReviewForm,
   OfferReviewsList,
-  OffersList
+  OffersList,
+  OffersMap
 } from '../../../widgets';
 
 import { OfferPageProps } from '../model/types';
 
+import { cityMocks } from '../../../mocks/cityMocks';
+
 import './OfferPage.css';
 
+// TODO: nearby offers
 export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
   const [offerData, setOfferData] = useState<IDetailedOffer | undefined | null>(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  console.log('offerData', offerData);
 
   useEffect(() => {
     const newOfferData = offersData.find((offer) => offer.id === id);
@@ -94,7 +100,7 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
                   </div>
                 </div>
 
-                <section className="offer__map map"></section>
+                <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(offersData)} additionalClass='offer__map' />
               </section>
 
               <div className="container">

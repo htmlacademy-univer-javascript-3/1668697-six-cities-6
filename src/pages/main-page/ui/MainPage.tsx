@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { OfferCardType } from '../../../shared';
+import { OfferCardType, getOffersPoints } from '../../../shared';
 import { OffersList, OffersMap } from '../../../widgets';
 
 import { MainPageProps } from '../model/types';
-import { getOffersPoints } from '../model/helpers';
 
 import { cityMocks } from '../../../mocks/cityMocks';
 
@@ -113,8 +112,9 @@ export const MainPage: React.FC<MainPageProps> = ({ offersCount, offersData }) =
             <OffersList offerCardType={OfferCardType.Main} offersData={offersData} />
 
           </section>
+
           <div className="cities__right-section">
-            <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(offersData)} />
+            <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(offersData)} additionalClass='cities__map map_full' />
           </div>
         </div>
       </div>
