@@ -14,7 +14,7 @@ export const OffersList: React.FC<OffersListProps> = ({
   numberOfOffers = DEFAULT_OFFERS_LIST_LENGTH
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeCardId, setActiveCardId] = useState<string | undefined>();
+  const [, setActiveCardId] = useState<string | undefined>();
 
   const handleActiveCardIdChange = (newActiveCardId: string | undefined) => {
     setActiveCardId(newActiveCardId);
