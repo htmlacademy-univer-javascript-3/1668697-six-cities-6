@@ -18,21 +18,21 @@ import { OfferPageProps } from '../model/types';
 import { cityMocks } from '../../../mocks/cityMocks';
 
 import './OfferPage.css';
+import { getCurrentData } from '../model/helpers';
 
-// TODO: nearby offers
 export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
   const [offerData, setOfferData] = useState<IDetailedOffer | undefined | null>(null);
+  const [nearbyOffersData, setNearbyOffersData] = useState<IDetailedOffer[]>([]);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-  console.log('offerData', offerData);
-
   useEffect(() => {
-    const newOfferData = offersData.find((offer) => offer.id === id);
+    if (id) {
+      const { newOfferData, newNearbyOffersData } = getCurrentData(id, offersData);
 
-    if (newOfferData) {
       setOfferData(newOfferData);
+      setNearbyOffersData(newNearbyOffersData);
     } else {
       navigate(AppRoute.NotFound);
     }
@@ -100,14 +100,18 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
                   </div>
                 </div>
 
-                <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(offersData)} additionalClass='offer__map' />
+                <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(nearbyOffersData)} additionalClass='offer__map' />
               </section>
 
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-                  <OffersList offerCardType={OfferCardType.Offer} offersData={offersData} numberOfOffers={NEAR_OFFERS_LIST_LENGTH} />
+                  <OffersList
+                    offerCardType={OfferCardType.Offer}
+                    offersData={nearbyOffersData}
+                    numberOfOffers={NEAR_OFFERS_LIST_LENGTH}
+                  />
                 </section>
               </div>
             </>
