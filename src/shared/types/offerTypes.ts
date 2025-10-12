@@ -9,12 +9,23 @@ export enum OfferHostStatus {
   Beginner = 'Beginner'
 }
 
+export enum OfferCity {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}
+
 export interface ISimpleOfferInfo {
   title: string;
   rating: number;
   price: number;
   placeType: OfferPlaceType;
   image: string;
+  city: OfferCity;
+  coordinates: [number, number];
   isPremium?: boolean;
 }
 
@@ -45,6 +56,12 @@ export interface IOfferReview {
   rating: number;
   description: string;
   dateTime: string;
+}
+
+export interface IOfferCity {
+  title: OfferCity;
+  lat: number;
+  lng: number;
 }
 
 export enum OfferCardType {

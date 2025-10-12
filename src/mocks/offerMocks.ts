@@ -1,4 +1,4 @@
-import { OfferPlaceType, OfferHostStatus, IDetailedOffer } from '../shared';
+import { OfferPlaceType, OfferHostStatus, IDetailedOffer, OfferCity } from '../shared';
 
 export const offerMocks: IDetailedOffer[] = [
   {
@@ -7,6 +7,8 @@ export const offerMocks: IDetailedOffer[] = [
       title: 'Beautiful & luxurious studio at great location',
       rating: 4.8,
       placeType: OfferPlaceType.Apartment,
+      city: OfferCity.Amsterdam,
+      coordinates: [52.3909553943508, 4.85309666406198],
       numberOfRooms: 3,
       numberOfGuests: 4,
       price: 120,
@@ -40,6 +42,8 @@ export const offerMocks: IDetailedOffer[] = [
       title: 'Modern apartment in city center',
       rating: 4.5,
       placeType: OfferPlaceType.Flat,
+      city: OfferCity.Amsterdam,
+      coordinates: [52.3609553943508, 4.85309666406198],
       numberOfRooms: 2,
       numberOfGuests: 3,
       price: 95,
@@ -80,6 +84,8 @@ export const offerMocks: IDetailedOffer[] = [
       title: 'Cozy house with garden',
       rating: 4.9,
       placeType: OfferPlaceType.House,
+      city: OfferCity.Amsterdam,
+      coordinates: [52.3909553943508, 4.929309666406198],
       numberOfRooms: 4,
       numberOfGuests: 6,
       price: 180,
@@ -127,6 +133,8 @@ export const offerMocks: IDetailedOffer[] = [
       title: 'Studio apartment near metro',
       rating: 4.2,
       placeType: OfferPlaceType.Flat,
+      city: OfferCity.Amsterdam,
+      coordinates: [52.3809553943508, 4.939309666406198],
       numberOfRooms: 1,
       numberOfGuests: 2,
       price: 75,
