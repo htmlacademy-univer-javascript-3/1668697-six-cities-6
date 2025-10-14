@@ -1,32 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { AppRoute, IDetailedOffer, OfferCardType } from '../../../shared';
+import { AppRoute, getOffersPoints, IDetailedOffer, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
 import {
+  Header,
   OfferGallery,
   OfferHost,
   OfferInfo,
   OfferReviewForm,
   OfferReviewsList,
-  OffersList
+  OffersList,
+  OffersMap
 } from '../../../widgets';
 
 import { OfferPageProps } from '../model/types';
 
+import { cityMocks } from '../../../mocks/cityMocks';
+
 import './OfferPage.css';
+import { getCurrentData } from '../model/helpers';
 
 export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
   const [offerData, setOfferData] = useState<IDetailedOffer | undefined | null>(null);
+  const [nearbyOffersData, setNearbyOffersData] = useState<IDetailedOffer[]>([]);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const newOfferData = offersData.find((offer) => offer.id === id);
+    if (id) {
+      const { newOfferData, newNearbyOffersData } = getCurrentData(id, offersData);
 
-    if (newOfferData) {
       setOfferData(newOfferData);
+      setNearbyOffersData(newNearbyOffersData);
     } else {
       navigate(AppRoute.NotFound);
     }
@@ -38,34 +45,7 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to={AppRoute.Main}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="page__main page__main--offer">
         {
@@ -94,14 +74,18 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
                   </div>
                 </div>
 
-                <section className="offer__map map"></section>
+                <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(nearbyOffersData)} additionalClass='offer__map' />
               </section>
 
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-                  <OffersList offerCardType={OfferCardType.Offer} offersData={offersData} numberOfOffers={NEAR_OFFERS_LIST_LENGTH} />
+                  <OffersList
+                    offerCardType={OfferCardType.Offer}
+                    offersData={nearbyOffersData}
+                    numberOfOffers={NEAR_OFFERS_LIST_LENGTH}
+                  />
                 </section>
               </div>
             </>

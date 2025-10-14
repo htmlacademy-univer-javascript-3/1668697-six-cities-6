@@ -24,3 +24,8 @@
 .offer-empty__back:hover {
   opacity: 0.6;
 }
+
+.offer__map {
+  width: 1144px;
+  justify-self: center;
+}

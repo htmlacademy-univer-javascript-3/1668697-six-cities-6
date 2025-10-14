@@ -1,3 +1,4 @@
+export * from './header';
 export * from './offer-gallery';
 export * from './offer-info';
 export * from './offer-host';
