@@ -3,18 +3,19 @@ import React, { useState } from 'react';
 import { OfferCard } from '../../../entities';
 import {
   DEFAULT_OFFERS_LIST_LENGTH,
-  OFFER_CARD_CLASSNAMES
+  OFFER_CARD_CLASSNAMES,
 } from '../../../shared';
+import { useAppSelector } from '../../../shared';
 
 import { OffersListProps } from '../model/types';
 
 export const OffersList: React.FC<OffersListProps> = ({
-  offersData,
   offerCardType,
   numberOfOffers = DEFAULT_OFFERS_LIST_LENGTH
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [, setActiveCardId] = useState<string | undefined>();
+
+  const offersData = useAppSelector((state) => state.offers);
 
   const handleActiveCardIdChange = (newActiveCardId: string | undefined) => {
     setActiveCardId(newActiveCardId);

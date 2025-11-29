@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { AppRoute, getOffersPoints, IDetailedOffer, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
+import { useAppSelector } from '../../../shared';
 import {
   Header,
   OfferGallery,
@@ -13,20 +14,20 @@ import {
   OffersList,
   OffersMap
 } from '../../../widgets';
-
-import { OfferPageProps } from '../model/types';
-
 import { cityMocks } from '../../../mocks/cityMocks';
 
-import './OfferPage.css';
 import { getCurrentData } from '../model/helpers';
 
-export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
+import './OfferPage.css';
+
+export const OfferPage: React.FC = () => {
   const [offerData, setOfferData] = useState<IDetailedOffer | undefined | null>(null);
   const [nearbyOffersData, setNearbyOffersData] = useState<IDetailedOffer[]>([]);
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const offersData = useAppSelector((state) => state.offers);
 
   useEffect(() => {
     if (id) {
@@ -83,7 +84,6 @@ export const OfferPage: React.FC<OfferPageProps> = ({ offersData }) => {
 
                   <OffersList
                     offerCardType={OfferCardType.Offer}
-                    offersData={nearbyOffersData}
                     numberOfOffers={NEAR_OFFERS_LIST_LENGTH}
                   />
                 </section>

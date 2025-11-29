@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import App from './app/App';
 
-import { offerMocks } from './mocks';
 import { store } from './store';
 
 const root = ReactDOM.createRoot(
@@ -14,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App offersData={offerMocks} />
+      <App />
     </React.StrictMode>
   </Provider>
 );

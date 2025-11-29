@@ -3,9 +3,7 @@ import React from 'react';
 import { OfferCardType } from '../../../shared';
 import { OffersList, Header } from '../../../widgets';
 
-import { FavoritesPageProps } from '../model/types';
-
-export const FavoritesPage: React.FC<FavoritesPageProps> = ({ offersData }) => (
+export const FavoritesPage: React.FC = () => (
   <div className="page">
     <Header />
 
@@ -24,7 +22,7 @@ export const FavoritesPage: React.FC<FavoritesPageProps> = ({ offersData }) => (
                 </div>
               </div>
 
-              <OffersList offerCardType={OfferCardType.Favorites} offersData={offersData} />
+              <OffersList offerCardType={OfferCardType.Favorites} />
             </li>
 
           </ul>

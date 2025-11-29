@@ -6,7 +6,7 @@ import { offerMocks } from '../mocks';
 import { changeCity, setOffers } from './action';
 
 const stateType: InitialStateType = {
-  city: OfferCity.Amsterdam,
+  city: OfferCity.Paris,
   offers: offerMocks
 };
 
