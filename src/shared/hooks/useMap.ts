@@ -4,7 +4,7 @@ import { Map, TileLayer } from 'leaflet';
 
 import { MAP_ATTRIBUTION, MAP_URL, MAP_ZOOM } from '../constants';
 import { useAppSelector } from '../hooks';
-import { cityMocks } from '../../mocks/cityMocks';
+import { cityMocks } from '../../mocks';
 
 export const useMap = (mapRef: React.RefObject<HTMLElement>) => {
   const [map, setMap] = useState<Map | null>(null);

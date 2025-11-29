@@ -59,6 +59,7 @@ export interface IOfferReview {
 }
 
 export interface IOfferCity {
+  id: number;
   title: OfferCity;
   lat: number;
   lng: number;
