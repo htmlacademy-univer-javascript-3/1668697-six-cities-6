@@ -3,8 +3,6 @@ import React from 'react';
 import { OfferCardType, getOffersPoints, useAppSelector } from '../../../shared';
 import { OffersList, OffersMap, Header } from '../../../widgets';
 
-import { cityMocks } from '../../../mocks/cityMocks';
-
 export const MainPage: React.FC = () => {
   const city = useAppSelector((state) => state.city);
   const offersData = useAppSelector((state) => state.offers);
@@ -90,7 +88,7 @@ export const MainPage: React.FC = () => {
             </section>
 
             <div className="cities__right-section">
-              <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(offersData)} additionalClass='cities__map map_full' />
+              <OffersMap points={getOffersPoints(offersData)} additionalClass='cities__map map_full' />
             </div>
           </div>
         </div>

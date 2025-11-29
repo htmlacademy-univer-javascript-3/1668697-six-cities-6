@@ -14,7 +14,6 @@ import {
   OffersList,
   OffersMap
 } from '../../../widgets';
-import { cityMocks } from '../../../mocks/cityMocks';
 
 import { getCurrentData } from '../model/helpers';
 
@@ -75,7 +74,7 @@ export const OfferPage: React.FC = () => {
                   </div>
                 </div>
 
-                <OffersMap city={cityMocks.Amsterdam} points={getOffersPoints(nearbyOffersData)} additionalClass='offer__map' />
+                <OffersMap points={getOffersPoints(nearbyOffersData)} additionalClass='offer__map' />
               </section>
 
               <div className="container">
