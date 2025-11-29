@@ -7,3 +7,4 @@ export * from './offer-review-form';
 export * from './offer-reviews-list';
 export * from './offers-list';
 export * from './offers-map';
+export * from './offers-sort';
