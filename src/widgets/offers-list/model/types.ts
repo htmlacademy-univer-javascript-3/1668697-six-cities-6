@@ -1,7 +1,6 @@
-import { IDetailedOffer, OfferCardType } from '../../../shared';
+import { OfferCardType } from '../../../shared';
 
 export interface OffersListProps {
-  offersData: IDetailedOffer[];
   offerCardType: OfferCardType;
   numberOfOffers?: number;
 }

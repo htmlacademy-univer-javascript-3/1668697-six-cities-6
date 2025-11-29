@@ -3,29 +3,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
 
-import { AppRoute, PrivateRoute, AuthorizationStatus, IDetailedOffer } from '../shared';
-import { TOTAL_NUMBER_OF_OFFERS } from '../shared';
+import { AppRoute, PrivateRoute, AuthorizationStatus } from '../shared';
 
-interface AppProps {
-  offersData: IDetailedOffer[];
-}
-
-const App: React.FC<AppProps> = ({ offersData }) => (
+const App: React.FC = () => (
   <BrowserRouter>
     <Routes>
       <Route
         path={AppRoute.Main}
         element={
-          <MainPage offersData={offersData} offersCount={TOTAL_NUMBER_OF_OFFERS} />
+          <MainPage />
         }
       />
       <Route path={AppRoute.Login} element={<LoginPage />} />
-      <Route path={AppRoute.Offer} element={<OfferPage offersData={offersData} />} />
+      <Route path={AppRoute.Offer} element={<OfferPage />} />
       <Route
         path={AppRoute.Favorites}
         element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <FavoritesPage offersData={offersData} />
+            <FavoritesPage />
           </PrivateRoute>
         }
       />

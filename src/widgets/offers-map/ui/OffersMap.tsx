@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import classNames from 'classnames';
 
 import { layerGroup, Marker } from 'leaflet';
 
@@ -8,12 +9,11 @@ import { MapProps } from '../model/types';
 
 import 'leaflet/dist/leaflet.css';
 import './OffersMap.css';
-import classNames from 'classnames';
 
-export const OffersMap: React.FC<MapProps> = ({ city, points, additionalClass }) => {
+export const OffersMap: React.FC<MapProps> = ({ points, additionalClass }) => {
   const mapRef = useRef<HTMLElement>(null);
 
-  const map = useMap(city, mapRef);
+  const map = useMap(mapRef);
 
   useEffect(() => {
     if (map) {
