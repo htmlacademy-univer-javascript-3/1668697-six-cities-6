@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { layerGroup, Marker } from 'leaflet';
 
-import { MAP_ICON, useMap } from '../../../shared';
+import { MAP_ICONS, useMap } from '../../../shared';
 
 import { MapProps } from '../model/types';
 
@@ -25,8 +25,10 @@ export const OffersMap: React.FC<MapProps> = ({ points, additionalClass }) => {
           lng: point[1]
         });
 
+        const currentIconType = point[2];
+
         marker
-          .setIcon(MAP_ICON)
+          .setIcon(MAP_ICONS[currentIconType])
           .addTo(markerLayer);
       });
 

@@ -5,6 +5,7 @@ import { store } from '../../store';
 export interface InitialStateType {
   city: OfferCity;
   offers: IDetailedOffer[];
+  currentOfferId: string | undefined;
 }
 
 export type StateType = ReturnType<typeof store.getState>;
