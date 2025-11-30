@@ -1,14 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { OfferCity, InitialStateType } from '../shared';
+import { OfferCity, InitialStateType, SortType } from '../shared';
 import { offerMocks } from '../mocks';
 
-import { changeCity, setOffers, setCurrentOfferId } from './action';
+import { changeCity, setOffers, setCurrentOfferId, changeOffersSortType } from './action';
 
 const stateType: InitialStateType = {
   city: OfferCity.Paris,
   offers: offerMocks,
-  currentOfferId: undefined
+  currentOfferId: undefined,
+  offersSortType: SortType.Popular
 };
 
 export const reducer = createReducer(stateType, (builder) => {
@@ -21,5 +22,28 @@ export const reducer = createReducer(stateType, (builder) => {
     })
     .addCase(setCurrentOfferId, (state, { payload }) => {
       state.currentOfferId = payload;
+    })
+    .addCase(changeOffersSortType, (state, { payload }) => {
+      state.offersSortType = payload;
+
+      const offersToSort = [...offerMocks];
+
+      switch (payload) {
+        case SortType.Popular:
+          state.offers = offersToSort;
+          break;
+        case SortType.PriceLowToHigh:
+          state.offers = offersToSort.sort((a, b) => a.info.price - b.info.price);
+          break;
+        case SortType.PriceHightToLow:
+          state.offers = offersToSort.sort((a, b) => b.info.price - a.info.price);
+          break;
+        case SortType.TopRated:
+          state.offers = offersToSort.sort((a, b) => b.info.rating - a.info.rating);
+          break;
+        default:
+          state.offers = offersToSort;
+          break;
+      }
     });
 });
