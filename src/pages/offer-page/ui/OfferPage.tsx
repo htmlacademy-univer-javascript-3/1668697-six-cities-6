@@ -27,6 +27,7 @@ export const OfferPage: React.FC = () => {
   const navigate = useNavigate();
 
   const offersData = useAppSelector((state) => state.offers);
+  const currentOfferId = useAppSelector((state) => state.currentOfferId);
 
   useEffect(() => {
     if (id) {
@@ -74,7 +75,7 @@ export const OfferPage: React.FC = () => {
                   </div>
                 </div>
 
-                <OffersMap points={getOffersPoints(nearbyOffersData)} additionalClass='offer__map' />
+                <OffersMap points={getOffersPoints(nearbyOffersData, currentOfferId)} additionalClass='offer__map' />
               </section>
 
               <div className="container">

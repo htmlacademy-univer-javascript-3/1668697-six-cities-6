@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { OfferCard } from '../../../entities';
 import {
   DEFAULT_OFFERS_LIST_LENGTH,
   OFFER_CARD_CLASSNAMES,
 } from '../../../shared';
-import { useAppSelector } from '../../../shared';
+import { useAppSelector, useAppDispatch } from '../../../shared';
+import { setCurrentOfferId } from '../../../store/action';
 
 import { OffersListProps } from '../model/types';
 
@@ -13,12 +14,12 @@ export const OffersList: React.FC<OffersListProps> = ({
   offerCardType,
   numberOfOffers = DEFAULT_OFFERS_LIST_LENGTH
 }) => {
-  const [, setActiveCardId] = useState<string | undefined>();
-
   const offersData = useAppSelector((state) => state.offers);
 
+  const dispatch = useAppDispatch();
+
   const handleActiveCardIdChange = (newActiveCardId: string | undefined) => {
-    setActiveCardId(newActiveCardId);
+    dispatch(setCurrentOfferId(newActiveCardId));
   };
 
   return (
