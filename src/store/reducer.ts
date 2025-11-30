@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { OfferCity, InitialStateType, SortType } from '../shared';
+import { OfferCity, InitialStateType, OffersSortType } from '../shared';
 import { offerMocks } from '../mocks';
 
 import { changeCity, setOffers, setCurrentOfferId, changeOffersSortType } from './action';
@@ -9,7 +9,7 @@ const stateType: InitialStateType = {
   city: OfferCity.Paris,
   offers: offerMocks,
   currentOfferId: undefined,
-  offersSortType: SortType.Popular
+  offersSortType: OffersSortType.Popular
 };
 
 export const reducer = createReducer(stateType, (builder) => {
@@ -29,16 +29,16 @@ export const reducer = createReducer(stateType, (builder) => {
       const offersToSort = [...offerMocks];
 
       switch (payload) {
-        case SortType.Popular:
+        case OffersSortType.Popular:
           state.offers = offersToSort;
           break;
-        case SortType.PriceLowToHigh:
+        case OffersSortType.PriceLowToHigh:
           state.offers = offersToSort.sort((a, b) => a.info.price - b.info.price);
           break;
-        case SortType.PriceHightToLow:
+        case OffersSortType.PriceHightToLow:
           state.offers = offersToSort.sort((a, b) => b.info.price - a.info.price);
           break;
-        case SortType.TopRated:
+        case OffersSortType.TopRated:
           state.offers = offersToSort.sort((a, b) => b.info.rating - a.info.rating);
           break;
         default:

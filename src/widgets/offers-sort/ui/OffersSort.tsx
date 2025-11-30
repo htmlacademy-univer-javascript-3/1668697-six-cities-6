@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-import { SortType, useAppSelector } from '../../../shared';
+import { OffersSortType, useAppSelector } from '../../../shared';
 import { useAppDispatch } from '../../../shared';
 
 import { changeOffersSortType } from '../../../store/action';
@@ -19,13 +19,13 @@ export const OffersSort: React.FC = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const handleSortItemClick = (newSOffersSortType: SortType) => {
+  const handleSortItemClick = (newSOffersSortType: OffersSortType) => {
     dispatch(changeOffersSortType(newSOffersSortType));
 
     setIsOpen(false);
   };
 
-  const sortTypes = Object.values(SortType);
+  const sortTypes = Object.values(OffersSortType);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -45,7 +45,7 @@ export const OffersSort: React.FC = () => {
         {sortTypes.map((sortType) => (
           <li
             key={sortType}
-            className={classNames('places__option', {
+            className={classNames('places__option', styles.option, {
               [styles.option_active]: sortType === currentOffersSortType
             })}
             tabIndex={0}

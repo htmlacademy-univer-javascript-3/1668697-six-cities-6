@@ -2,6 +2,10 @@
   margin-right: 10px;
 }
 
+.option:hover {
+  background-color: #ccc;
+}
+
 .option_active {
   background-color: #7193b8;
 }

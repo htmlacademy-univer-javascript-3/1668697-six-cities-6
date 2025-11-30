@@ -71,7 +71,7 @@ export enum OfferCardType {
   Favorites = 'favorites'
 }
 
-export enum SortType {
+export enum OffersSortType {
   Popular = 'Popular',
   PriceLowToHigh = 'Price: low to high',
   PriceHightToLow = 'Price: high to low',
