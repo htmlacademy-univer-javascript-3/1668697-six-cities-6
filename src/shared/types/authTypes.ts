@@ -5,6 +5,6 @@ export enum AuthStatus {
 }
 
 export type AuthData = {
-  login: string;
+  email: string;
   password: string;
 };

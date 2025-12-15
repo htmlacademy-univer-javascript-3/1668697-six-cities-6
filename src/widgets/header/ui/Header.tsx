@@ -2,11 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppRoute, AuthStatus } from '../../../shared';
-import { useAppSelector } from '../../../shared';
+import { useAppSelector, useAppDispatch } from '../../../shared';
+
+import { authLogout } from '../../../store/async-action';
 
 export const Header: React.FC = () => {
   const authStatus = useAppSelector((state) => state.authStatus);
   const name = useAppSelector((state) => state.name);
+
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -18,7 +22,6 @@ export const Header: React.FC = () => {
             </Link>
           </div>
 
-          {/* TODO: use user data */}
           <nav className="header__nav">
             <ul className="header__nav-list">
               {authStatus === AuthStatus.Auth && (
@@ -34,13 +37,24 @@ export const Header: React.FC = () => {
 
               {authStatus === AuthStatus.Auth ? (
                 <li className="header__nav-item">
-                  <Link to={AppRoute.Main} className="header__nav-link">
+                  <Link
+                    to={AppRoute.Main}
+                    className="header__nav-link"
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      dispatch(authLogout());
+                    }}
+                  >
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>
               ) : (
                 <li className="header__nav-item">
-                  <Link to={AppRoute.Login} className="header__nav-link">
+                  <Link
+                    to={AppRoute.Login}
+                    className="header__nav-link"
+                  >
                     <span className="header__signout">Sign in</span>
                   </Link>
                 </li>

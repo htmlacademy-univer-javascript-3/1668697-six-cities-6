@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
+import { AppRoute } from '../shared';
 import { IOfferCity, ISimpleOfferInfo, OffersSortType, AuthStatus } from '../shared';
 
 export const setCity = createAction<IOfferCity>('city/set');
@@ -12,3 +13,5 @@ export const setCurrentOfferId = createAction<string>('offer/setId');
 export const setIsLoading = createAction<boolean>('loading/set');
 export const setAuthStatus = createAction<AuthStatus>('auth/set');
 export const setName = createAction<string>('name/set');
+
+export const redirectToRoute = createAction<AppRoute>('route/redirect');

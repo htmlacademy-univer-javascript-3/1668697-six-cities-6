@@ -8,7 +8,8 @@ import {
   setCurrentOfferId,
   changeOffersSortType,
   setIsLoading,
-  setAuthStatus
+  setAuthStatus,
+  setName
 } from './action';
 
 const initialState: InitialStateType = {
@@ -60,5 +61,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthStatus, (state, { payload }) => {
       state.authStatus = payload;
+    })
+    .addCase(setName, (state, { payload }) => {
+      state.name = payload;
     });
 });

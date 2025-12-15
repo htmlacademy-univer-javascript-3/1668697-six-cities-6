@@ -1,11 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
 import { Spinner } from '../widgets';
 
-import { AppRoute, PrivateRoute } from '../shared';
+import { AppRoute } from '../shared';
+import { PrivateRoute, HistoryRouter } from '../shared';
 import { useAppDispatch, useAppSelector } from '../shared';
+
+import { browserHistory } from '../browserHistory';
 
 import { fetchOffers, authCheck } from '../store/async-action';
 
@@ -23,7 +26,7 @@ const App: React.FC = () => {
   dispatch(authCheck());
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -44,7 +47,7 @@ const App: React.FC = () => {
 
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 

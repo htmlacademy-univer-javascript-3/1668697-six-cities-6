@@ -1,13 +1,19 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ApiRoutes, AuthStatus } from '../shared';
+import { ApiRoutes, AppRoute, AuthStatus, AuthData } from '../shared';
 import { AppDispatchType, StateType, ISimpleOfferInfo, IUser } from '../shared';
 
 import { dropToken, saveToken } from '../service/token';
 
-import { setOffers, setCity, setIsLoading, setName, setAuthStatus } from './action';
-
+import {
+  setOffers,
+  setCity,
+  setIsLoading,
+  setName,
+  setAuthStatus,
+  redirectToRoute
+} from './action';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType;
@@ -44,7 +50,7 @@ export const authCheck = createAsyncThunk<void, undefined, {
   },
 );
 
-export const authLogin = createAsyncThunk<void, AuthStatus, {
+export const authLogin = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatchType;
   state: StateType;
   extra: AxiosInstance;
@@ -57,10 +63,11 @@ export const authLogin = createAsyncThunk<void, AuthStatus, {
 
     dispatch(setName(data.name));
     dispatch(setAuthStatus(AuthStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
 
-export const authLogout = createAsyncThunk<void, AuthStatus, {
+export const authLogout = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType;
   state: StateType;
   extra: AxiosInstance;
@@ -70,7 +77,9 @@ export const authLogout = createAsyncThunk<void, AuthStatus, {
     await api.delete(ApiRoutes.Logout);
 
     dropToken();
+
     dispatch(setName(''));
     dispatch(setAuthStatus(AuthStatus.NoAuth));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
