@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../shared';
 
 export const Header: React.FC = () => {
   const authStatus = useAppSelector((state) => state.authStatus);
+  const name = useAppSelector((state) => state.name);
 
   return (
     <header className="header">
@@ -24,7 +25,8 @@ export const Header: React.FC = () => {
                 <li className="header__nav-item user">
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{name}</span>
+                    {/* TODO: Add favorite-count */}
                     <span className="header__favorite-count">3</span>
                   </a>
                 </li>
@@ -32,15 +34,15 @@ export const Header: React.FC = () => {
 
               {authStatus === AuthStatus.Auth ? (
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link to={AppRoute.Main} className="header__nav-link">
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               ) : (
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link to={AppRoute.Login} className="header__nav-link">
                     <span className="header__signout">Sign in</span>
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>

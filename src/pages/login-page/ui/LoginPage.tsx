@@ -4,7 +4,7 @@ import { Header } from '../../../widgets';
 
 export const LoginPage: React.FC = () => (
   <div className="page page--gray page--login">
-    <Header isLogin />
+    <Header />
 
     <main className="page__main page__main--login">
       <div className="page__login-container container">
