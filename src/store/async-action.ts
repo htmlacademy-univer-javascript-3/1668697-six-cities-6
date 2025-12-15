@@ -1,18 +1,21 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ApiRoutes, AppRoute, AuthStatus, AuthData } from '../shared';
+import { ApiRoutes, AppRoute, AuthStatus, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
 import { AppDispatchType, StateType, ISimpleOfferInfo, IUser } from '../shared';
 
 import { dropToken, saveToken } from '../service/token';
 
 import {
   setOffers,
-  setCity,
   setAreOffersLoading,
+  setCity,
+  setCurrentOffer,
+  setIsCurrentOfferLoading,
+  setCurrentOfferReviews,
   setName,
   setAuthStatus,
-  redirectToRoute
+  redirectToRoute,
 } from './action';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -20,7 +23,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
   state: StateType;
   extra: AxiosInstance;
 }>(
-  'data/fetchQuestions',
+  'offers/fetch',
   async (_arg, {dispatch, extra: api}) => {
     const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Offers);
 
@@ -81,5 +84,40 @@ export const authLogout = createAsyncThunk<void, undefined, {
     dispatch(setName(''));
     dispatch(setAuthStatus(AuthStatus.NoAuth));
     dispatch(redirectToRoute(AppRoute.Main));
+  },
+);
+
+export const fetchReviews = createAsyncThunk<void, { offerId: string }, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'reviews/fetch',
+  async ({offerId}, {dispatch, extra: api}) => {
+    const { data } = await api.get<IOfferReview[]>(`${ApiRoutes.Reviews}/${offerId}`);
+
+    dispatch(setCurrentOfferReviews(data));
+  },
+);
+
+export const fetchCurrentOffer = createAsyncThunk<void, { offerId: string }, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'offer/fetch',
+  async ({offerId}, {dispatch, extra: api}) => {
+    dispatch(setIsCurrentOfferLoading(true));
+
+    try {
+      const { data } = await api.get<IDetailedOfferInfo>(`${ApiRoutes.Offers}/${offerId}`);
+
+      dispatch(fetchReviews({offerId}));
+      dispatch(setCurrentOffer(data));
+    } catch {
+      dispatch(redirectToRoute(AppRoute.BadRoute));
+    }
+
+    dispatch(setIsCurrentOfferLoading(false));
   },
 );

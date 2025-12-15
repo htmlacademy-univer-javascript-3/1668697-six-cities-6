@@ -6,5 +6,6 @@ export const API_TIMEOUT = 5000;
 export enum ApiRoutes {
   Offers = 'offers',
   Login = 'login',
-  Logout = 'logout'
+  Logout = 'logout',
+  Reviews = 'comments'
 }

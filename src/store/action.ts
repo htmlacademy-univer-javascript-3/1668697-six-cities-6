@@ -2,9 +2,10 @@ import { createAction } from '@reduxjs/toolkit';
 
 import { AppRoute } from '../shared';
 import {
-  IOfferCity,
   ISimpleOfferInfo,
   IDetailedOfferInfo,
+  IOfferCity,
+  IOfferReview,
   OffersSortType,
   AuthStatus
 } from '../shared';
@@ -18,6 +19,8 @@ export const setOffersSortType = createAction<OffersSortType>('offers/setSort');
 export const setCurrentOffer = createAction<IDetailedOfferInfo>('offer/set');
 export const setIsCurrentOfferLoading = createAction<boolean>('offer/setLoading');
 export const setCurrentOfferId = createAction<string>('offer/setId');
+
+export const setCurrentOfferReviews = createAction<IOfferReview[]>('reviews/set');
 
 export const setAuthStatus = createAction<AuthStatus>('auth/set');
 export const setName = createAction<string>('name/set');

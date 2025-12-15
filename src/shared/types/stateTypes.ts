@@ -1,4 +1,10 @@
-import { ISimpleOfferInfo, IDetailedOfferInfo, IOfferCity, OffersSortType } from './offerTypes';
+import {
+  ISimpleOfferInfo,
+  IDetailedOfferInfo,
+  OffersSortType,
+  IOfferReview,
+  IOfferCity,
+} from './offerTypes';
 import { AuthStatus } from './authTypes';
 
 import { store } from '../../store';
@@ -13,6 +19,7 @@ export interface InitialStateType {
   currentOffer: IDetailedOfferInfo | null;
   isCurrentOfferLoading: boolean;
   currentOfferId: string;
+  currentOfferReviews: IOfferReview[];
 
   authStatus: AuthStatus;
   name: string;

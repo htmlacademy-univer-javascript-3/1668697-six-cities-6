@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-import { AppRoute, getOffersPoints, IDetailedOffer, ISimpleOfferInfo, OfferCardType } from '../../../shared';
+import { AppRoute, getOffersPoints, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
-import { useAppSelector } from '../../../shared';
+import { useAppSelector, useAppDispatch } from '../../../shared';
+
 import {
   Header,
   OfferGallery,
@@ -12,38 +13,37 @@ import {
   OfferReviewForm,
   OfferReviewsList,
   OffersList,
-  OffersMap
+  OffersMap,
+  Spinner
 } from '../../../widgets';
 
-import { getCurrentData } from '../model/helpers';
+import { fetchCurrentOffer } from '../../../store/async-action';
 
 import './OfferPage.css';
 
 // TODO: add detailedDataOffer
 export const OfferPage: React.FC = () => {
-  const [offerData, setOfferData] = useState<ISimpleOfferInfo | undefined | null>(null);
-  const [nearbyOffersData, setNearbyOffersData] = useState<ISimpleOfferInfo[]>([]);
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const navigate = useNavigate();
-
-  const offersData = useAppSelector((state) => state.offers);
-  const currentOfferId = useAppSelector((state) => state.currentOfferId);
 
   useEffect(() => {
     if (id) {
-      const { newOfferData, newNearbyOffersData } = getCurrentData(id, offersData);
-
-      setOfferData(newOfferData);
-      setNearbyOffersData(newNearbyOffersData);
-    } else {
-      navigate(AppRoute.NotFound);
+      dispatch(fetchCurrentOffer({ offerId: id }));
     }
-  }, [id, offersData, navigate]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     window.scrollTo(0,0);
   }, [id]);
+
+  const currentOfferData = useAppSelector((state) => state.currentOffer);
+  const currentOfferReviews = useAppSelector((state) => state.currentOfferReviews);
+  const isCurrentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
+
+  if (!currentOfferData || isCurrentOfferLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="page">
@@ -51,7 +51,7 @@ export const OfferPage: React.FC = () => {
 
       <main className="page__main page__main--offer">
         {
-          !offerData ? (
+          !currentOfferData ? (
             <div className="offer-empty">
               <div className="offer-empty__message">Nothing here yet...</div>
 
@@ -60,38 +60,39 @@ export const OfferPage: React.FC = () => {
           ) : (
             <>
               <section className="offer">
-                {/* TODO: */}
-                {/* <OfferGallery images={offerData.images} /> */}
+                <OfferGallery images={currentOfferData.images} />
 
                 <div className="offer__container container">
                   <div className="offer__wrapper">
-                    <OfferInfo offerData={offerData} />
-                    {/* TODO: */}
-                    {/* <OfferHost hostData={offerData.host} /> */}
+                    <OfferInfo offerData={currentOfferData} />
+                    <OfferHost hostData={currentOfferData.host} />
 
                     <section className="offer__reviews reviews">
-                      {/* TODO: */}
-                      {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2> */}
+                      <h2 className="reviews__title">
+                        Reviews &middot; <span className="reviews__amount">{currentOfferReviews.length}</span>
+                      </h2>
 
-                      {/* TODO: */}
-                      {/* <OfferReviewsList reviews={offerData.reviews} /> */}
+                      <OfferReviewsList reviews={currentOfferReviews} />
+
                       <OfferReviewForm />
                     </section>
                   </div>
                 </div>
 
-                <OffersMap points={getOffersPoints(nearbyOffersData, currentOfferId)} additionalClass='offer__map' />
+                {/* TODO: */}
+                {/* <OffersMap points={getOffersPoints(nearbyOffersData, currentOfferId)} additionalClass='offer__map' /> */}
               </section>
 
               <div className="container">
                 <section className="near-places places">
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-                  <OffersList
+                  {/* TODO: */}
+                  {/* <OffersList
                     offers={nearbyOffersData}
                     offerCardType={OfferCardType.Offer}
                     numberOfOffers={NEAR_OFFERS_LIST_LENGTH}
-                  />
+                  /> */}
                 </section>
               </div>
             </>

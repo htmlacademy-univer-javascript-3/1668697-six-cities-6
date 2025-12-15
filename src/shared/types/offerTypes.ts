@@ -17,29 +17,28 @@ export type IDetailedOfferInfo = Omit<ISimpleOfferInfo, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: IOfferHost;
+  host: IOfferUser;
   images: string[];
   maxAdults: number;
 }
-
 
 export interface IOfferCity {
   name: string;
   location: LocationType;
 }
 
-export interface IOfferHost {
+export interface IOfferUser {
   name: string;
-  avatar: string;
-  status: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
 
 export interface IOfferReview {
-  name: string;
-  avatar: string;
+  id: string;
+  date: string;
+  user: IOfferUser;
+  comment: string;
   rating: number;
-  description: string;
-  dateTime: string;
 }
 
 export enum OfferCardType {

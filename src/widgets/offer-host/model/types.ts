@@ -1,5 +1,5 @@
-import { IOfferHost } from '../../../shared';
+import { IOfferUser } from '../../../shared';
 
 export interface OfferHostProps {
-  hostData: IOfferHost;
+  hostData: IOfferUser;
 }
