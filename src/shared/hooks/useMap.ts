@@ -37,5 +37,17 @@ export const useMap = (mapRef: React.RefObject<HTMLElement>) => {
     }
   }, [mapRef, city]);
 
+  useEffect(() => {
+    if (map && city.location) {
+      map.setView(
+        {
+          lat: city.location.latitude,
+          lng: city.location.longitude
+        },
+        city.location.zoom
+      );
+    }
+  }, [map, city]);
+
   return map;
 };
