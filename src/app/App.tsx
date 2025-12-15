@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
 import { Spinner } from '../widgets';
 
-import { AppRoute, PrivateRoute, AuthorizationStatus } from '../shared';
+import { AppRoute, PrivateRoute } from '../shared';
 import { useAppDispatch, useAppSelector } from '../shared';
 
-import { fetchOffers } from '../store/async-action';
+import { fetchOffers, checkAuth } from '../store/async-action';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,8 @@ const App: React.FC = () => {
 
     return <Spinner />;
   }
+
+  dispatch(checkAuth());
 
   return (
     <BrowserRouter>
@@ -34,7 +36,7 @@ const App: React.FC = () => {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }

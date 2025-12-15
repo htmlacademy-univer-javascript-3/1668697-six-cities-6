@@ -1,5 +1,5 @@
 import { ISimpleOfferInfo, IOfferCity, OffersSortType } from './offerTypes';
-import { AuthorizationStatus } from './authTypes';
+import { AuthStatus } from './authTypes';
 
 import { store } from '../../store';
 
@@ -9,7 +9,8 @@ export interface InitialStateType {
   currentOfferId: string;
   offersSortType: OffersSortType;
   isLoading: boolean;
-  authorizationStatus: AuthorizationStatus;
+  authStatus: AuthStatus;
+  name: string;
 }
 
 export type StateType = ReturnType<typeof store.getState>;

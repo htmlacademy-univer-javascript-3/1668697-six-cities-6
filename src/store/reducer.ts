@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { InitialStateType, OffersSortType, AuthorizationStatus } from '../shared';
+import { InitialStateType, OffersSortType, AuthStatus } from '../shared';
 
 import {
   setCity,
@@ -17,7 +17,8 @@ const initialState: InitialStateType = {
   currentOfferId: '',
   offersSortType: OffersSortType.Popular,
   city: { name: '', location: { latitude: 0, longitude: 0, zoom: 0 } },
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authStatus: AuthStatus.Unknown,
+  name: ''
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -58,6 +59,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isLoading = payload;
     })
     .addCase(setAuthStatus, (state, { payload }) => {
-      state.authorizationStatus = payload;
+      state.authStatus = payload;
     });
 });

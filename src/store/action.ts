@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { IOfferCity, ISimpleOfferInfo, OffersSortType, AuthorizationStatus } from '../shared';
+import { IOfferCity, ISimpleOfferInfo, OffersSortType, AuthStatus } from '../shared';
 
 export const setCity = createAction<IOfferCity>('city/set');
 
@@ -10,4 +10,5 @@ export const changeOffersSortType = createAction<OffersSortType>('offers/changeS
 export const setCurrentOfferId = createAction<string>('offer/setId');
 
 export const setIsLoading = createAction<boolean>('loading/set');
-export const setAuthStatus = createAction<AuthorizationStatus>('auth/set');
+export const setAuthStatus = createAction<AuthStatus>('auth/set');
+export const setName = createAction<string>('name/set');

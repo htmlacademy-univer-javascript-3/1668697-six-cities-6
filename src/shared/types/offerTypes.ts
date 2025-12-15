@@ -17,6 +17,14 @@ export interface ISimpleOfferInfo {
   previewImage: string;
 }
 
+export interface IUser {
+  name: string;
+  avatarUrl: string;
+  isPro: false;
+  email: string;
+  token: string;
+}
+
 export interface IDetailedOfferInfo extends ISimpleOfferInfo {
   numberOfRooms: number;
   numberOfGuests: number;
