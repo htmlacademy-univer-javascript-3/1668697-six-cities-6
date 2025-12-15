@@ -4,7 +4,6 @@ export type LocationType = {
   zoom: number;
 }
 
-// TODO: use updated type in UI
 export interface ISimpleOfferInfo {
   id: string;
   title: string;

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
+import { Spinner } from '../widgets';
 
 import { AppRoute, PrivateRoute, AuthorizationStatus } from '../shared';
 import { useAppDispatch, useAppSelector } from '../shared';
@@ -16,8 +17,7 @@ const App: React.FC = () => {
   if (isLoading) {
     dispatch(fetchOffers());
 
-    // TODO: Add Loader component
-    return <div>Loading</div>;
+    return <Spinner />;
   }
 
   return (
