@@ -9,7 +9,7 @@ import { dropToken, saveToken } from '../service/token';
 import {
   setOffers,
   setCity,
-  setIsLoading,
+  setAreOffersLoading,
   setName,
   setAuthStatus,
   redirectToRoute
@@ -28,7 +28,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
 
     dispatch(setCity(city));
     dispatch(setOffers(data));
-    dispatch(setIsLoading(false));
+    dispatch(setAreOffersLoading(false));
   },
 );
 

@@ -15,9 +15,9 @@ import { fetchOffers, authCheck } from '../store/async-action';
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const areOffersLoading = useAppSelector((state) => state.areOffersLoading);
 
-  if (isLoading) {
+  if (areOffersLoading) {
     dispatch(fetchOffers());
 
     return <Spinner />;

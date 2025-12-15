@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { OffersSortType, useAppSelector } from '../../../shared';
 import { useAppDispatch } from '../../../shared';
 
-import { changeOffersSortType } from '../../../store/action';
+import { setOffersSortType } from '../../../store/action';
 
 import styles from './OffersSort.module.css';
 
@@ -20,7 +20,7 @@ export const OffersSort: React.FC = () => {
   };
 
   const handleSortItemClick = (newSOffersSortType: OffersSortType) => {
-    dispatch(changeOffersSortType(newSOffersSortType));
+    dispatch(setOffersSortType(newSOffersSortType));
 
     setIsOpen(false);
   };
