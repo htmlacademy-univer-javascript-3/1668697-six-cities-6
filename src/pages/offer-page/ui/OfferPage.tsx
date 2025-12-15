@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { AppRoute, getOffersPoints, IDetailedOffer, OfferCardType } from '../../../shared';
+import { AppRoute, getOffersPoints, IDetailedOffer, ISimpleOfferInfo, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
 import { useAppSelector } from '../../../shared';
 import {
@@ -19,9 +19,10 @@ import { getCurrentData } from '../model/helpers';
 
 import './OfferPage.css';
 
+// TODO: add detailedDataOffer
 export const OfferPage: React.FC = () => {
-  const [offerData, setOfferData] = useState<IDetailedOffer | undefined | null>(null);
-  const [nearbyOffersData, setNearbyOffersData] = useState<IDetailedOffer[]>([]);
+  const [offerData, setOfferData] = useState<ISimpleOfferInfo | undefined | null>(null);
+  const [nearbyOffersData, setNearbyOffersData] = useState<ISimpleOfferInfo[]>([]);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -59,17 +60,21 @@ export const OfferPage: React.FC = () => {
           ) : (
             <>
               <section className="offer">
-                <OfferGallery images={offerData.images} />
+                {/* TODO: */}
+                {/* <OfferGallery images={offerData.images} /> */}
 
                 <div className="offer__container container">
                   <div className="offer__wrapper">
-                    <OfferInfo offerData={offerData.info} />
-                    <OfferHost hostData={offerData.host} />
+                    <OfferInfo offerData={offerData} />
+                    {/* TODO: */}
+                    {/* <OfferHost hostData={offerData.host} /> */}
 
                     <section className="offer__reviews reviews">
-                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2>
+                      {/* TODO: */}
+                      {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2> */}
 
-                      <OfferReviewsList reviews={offerData.reviews} />
+                      {/* TODO: */}
+                      {/* <OfferReviewsList reviews={offerData.reviews} /> */}
                       <OfferReviewForm />
                     </section>
                   </div>
@@ -83,6 +88,7 @@ export const OfferPage: React.FC = () => {
                   <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
                   <OffersList
+                    offers={nearbyOffersData}
                     offerCardType={OfferCardType.Offer}
                     numberOfOffers={NEAR_OFFERS_LIST_LENGTH}
                   />
