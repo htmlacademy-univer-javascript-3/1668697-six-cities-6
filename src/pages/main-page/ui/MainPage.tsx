@@ -8,7 +8,8 @@ export const MainPage: React.FC = () => {
   const offersData = useAppSelector((state) => state.offers);
   const currentOfferId = useAppSelector((state) => state.currentOfferId);
 
-  const offersCount = offersData.length;
+  const currentOffers = offersData.filter((offer) => offer.city.name === city.name);
+  const offersCount = currentOffers.length;
 
   return (
     <div className="page page--gray page--main">
@@ -24,16 +25,22 @@ export const MainPage: React.FC = () => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
 
-              <b className="places__found">{offersCount} places to stay in {city}</b>
+              <b className="places__found">{offersCount} places to stay in {city.name}</b>
 
               <OffersSort />
 
-              <OffersList offerCardType={OfferCardType.Main} />
+              <OffersList
+                offers={currentOffers}
+                offerCardType={OfferCardType.Main}
+              />
 
             </section>
 
             <div className="cities__right-section">
-              <OffersMap points={getOffersPoints(offersData, currentOfferId)} additionalClass='cities__map map_full' />
+              <OffersMap
+                points={getOffersPoints(currentOffers, currentOfferId)}
+                additionalClass='cities__map map_full'
+              />
             </div>
           </div>
         </div>

@@ -1,24 +1,30 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { OfferCity, InitialStateType, OffersSortType } from '../shared';
-import { offerMocks } from '../mocks';
+import { InitialStateType, OffersSortType } from '../shared';
 
-import { changeCity, setOffers, setCurrentOfferId, changeOffersSortType } from './action';
+import {
+  setCity,
+  setOffers,
+  setCurrentOfferId,
+  changeOffersSortType,
+  setIsLoading
+} from './action';
 
-const stateType: InitialStateType = {
-  city: OfferCity.Paris,
-  offers: offerMocks,
-  currentOfferId: undefined,
-  offersSortType: OffersSortType.Popular
+const initialState: InitialStateType = {
+  offers: [],
+  isLoading: true,
+  currentOfferId: '',
+  offersSortType: OffersSortType.Popular,
+  city: { name: '', location: { latitude: 0, longitude: 0, zoom: 0 } },
 };
 
-export const reducer = createReducer(stateType, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, { payload }) => {
+    .addCase(setCity, (state, { payload }) => {
       state.city = payload;
     })
-    .addCase(setOffers, (state) => {
-      state.offers = offerMocks;
+    .addCase(setOffers, (state, { payload }) => {
+      state.offers = payload;
     })
     .addCase(setCurrentOfferId, (state, { payload }) => {
       state.currentOfferId = payload;
@@ -26,24 +32,27 @@ export const reducer = createReducer(stateType, (builder) => {
     .addCase(changeOffersSortType, (state, { payload }) => {
       state.offersSortType = payload;
 
-      const offersToSort = [...offerMocks];
+      const offersToSort = [...state.offers];
 
       switch (payload) {
         case OffersSortType.Popular:
           state.offers = offersToSort;
           break;
         case OffersSortType.PriceLowToHigh:
-          state.offers = offersToSort.sort((a, b) => a.info.price - b.info.price);
+          state.offers = offersToSort.sort((a, b) => a.price - b.price);
           break;
         case OffersSortType.PriceHightToLow:
-          state.offers = offersToSort.sort((a, b) => b.info.price - a.info.price);
+          state.offers = offersToSort.sort((a, b) => b.price - a.price);
           break;
         case OffersSortType.TopRated:
-          state.offers = offersToSort.sort((a, b) => b.info.rating - a.info.rating);
+          state.offers = offersToSort.sort((a, b) => b.rating - a.rating);
           break;
         default:
           state.offers = offersToSort;
           break;
       }
+    })
+    .addCase(setIsLoading, (state, { payload }) => {
+      state.isLoading = payload;
     });
 });

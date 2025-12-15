@@ -1,5 +1,5 @@
-import { IDetailedOfferInfo } from '../../../shared';
+import { ISimpleOfferInfo } from '../../../shared';
 
 export interface OfferInfoProps {
-  offerData: IDetailedOfferInfo;
+  offerData: ISimpleOfferInfo;
 }

@@ -1,11 +1,11 @@
-import { IDetailedOffer, MapIconType } from '../types';
+import { MapIconType, ISimpleOfferInfo } from '../types';
 
 export const getOffersPoints = (
-  offersData: IDetailedOffer[],
-  activeOfferId: string | undefined
+  offersData: ISimpleOfferInfo[],
+  activeOfferId: string
 ): [number, number, MapIconType][] => offersData.map((offer) => {
-  const currentOfferCoordinates = offer.info.coordinates;
+  const currentOfferPoint: [number, number] = [offer.location.latitude, offer.location.longitude];
   const currentOfferPointType = offer.id === activeOfferId ? MapIconType.Active : MapIconType.Default;
 
-  return [...currentOfferCoordinates, currentOfferPointType];
+  return [...currentOfferPoint, currentOfferPointType];
 });

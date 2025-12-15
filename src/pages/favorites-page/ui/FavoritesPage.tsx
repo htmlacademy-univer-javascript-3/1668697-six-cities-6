@@ -22,7 +22,7 @@ export const FavoritesPage: React.FC = () => (
                 </div>
               </div>
 
-              <OffersList offerCardType={OfferCardType.Favorites} />
+              <OffersList offers={[]} offerCardType={OfferCardType.Favorites} />
             </li>
 
           </ul>

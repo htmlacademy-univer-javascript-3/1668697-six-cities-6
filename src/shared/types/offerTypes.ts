@@ -1,32 +1,20 @@
-export enum OfferPlaceType {
-  Apartment = 'Apartment',
-  Flat = 'Flat',
-  House = 'House'
-}
-
-export enum OfferHostStatus {
-  Pro = 'Pro',
-  Beginner = 'Beginner'
-}
-
-export enum OfferCity {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
+export type LocationType = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 export interface ISimpleOfferInfo {
+  id: string;
   title: string;
-  rating: number;
+  type: string;
   price: number;
-  placeType: OfferPlaceType;
-  image: string;
-  city: OfferCity;
-  coordinates: [number, number];
-  isPremium?: boolean;
+  city: IOfferCity;
+  location: LocationType;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
 }
 
 export interface IDetailedOfferInfo extends ISimpleOfferInfo {
@@ -43,6 +31,16 @@ export interface IDetailedOffer {
   images: string[];
 }
 
+export interface IOfferCity {
+  name: string;
+  location: LocationType;
+}
+
+export enum OfferHostStatus {
+  Pro = 'Pro',
+  Beginner = 'Beginner'
+}
+
 export interface IOfferHost {
   name: string;
   avatar: string;
@@ -56,13 +54,6 @@ export interface IOfferReview {
   rating: number;
   description: string;
   dateTime: string;
-}
-
-export interface IOfferCity {
-  id: number;
-  title: OfferCity;
-  lat: number;
-  lng: number;
 }
 
 export enum OfferCardType {

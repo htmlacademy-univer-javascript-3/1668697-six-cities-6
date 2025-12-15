@@ -5,32 +5,31 @@ import {
   DEFAULT_OFFERS_LIST_LENGTH,
   OFFER_CARD_CLASSNAMES,
 } from '../../../shared';
-import { useAppSelector, useAppDispatch } from '../../../shared';
+import { useAppDispatch } from '../../../shared';
 import { setCurrentOfferId } from '../../../store/action';
 
 import { OffersListProps } from '../model/types';
 
 export const OffersList: React.FC<OffersListProps> = ({
+  offers,
   offerCardType,
-  numberOfOffers = DEFAULT_OFFERS_LIST_LENGTH
+  numberOfOffers = DEFAULT_OFFERS_LIST_LENGTH,
 }) => {
-  const offersData = useAppSelector((state) => state.offers);
-
   const dispatch = useAppDispatch();
 
-  const handleActiveCardIdChange = (newActiveCardId: string | undefined) => {
+  const handleActiveCardIdChange = (newActiveCardId: string) => {
     dispatch(setCurrentOfferId(newActiveCardId));
   };
 
   return (
     <div className={OFFER_CARD_CLASSNAMES[offerCardType].container}>
-      {offersData
+      {offers
         .slice(0, numberOfOffers)
         .map((offerData) => (
           <OfferCard
             key={offerData.id}
             id={offerData.id}
-            offerData={offerData.info}
+            offerData={offerData}
             offerCardType={offerCardType}
             handleActiveCardIdChange={handleActiveCardIdChange}
           />

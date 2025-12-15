@@ -1,12 +1,13 @@
-import { IDetailedOffer, OfferCity, OffersSortType } from './offerTypes';
+import { ISimpleOfferInfo, IOfferCity, OffersSortType } from './offerTypes';
 
 import { store } from '../../store';
 
 export interface InitialStateType {
-  city: OfferCity;
-  offers: IDetailedOffer[];
-  currentOfferId: string | undefined;
+  city: IOfferCity;
+  offers: ISimpleOfferInfo[];
+  currentOfferId: string;
   offersSortType: OffersSortType;
+  isLoading: boolean;
 }
 
 export type StateType = ReturnType<typeof store.getState>;
