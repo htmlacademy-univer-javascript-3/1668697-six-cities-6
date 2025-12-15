@@ -1,5 +1,6 @@
 export * from './cities-list';
 export * from './header';
+export * from './login-form';
 export * from './offer-gallery';
 export * from './offer-info';
 export * from './offer-host';

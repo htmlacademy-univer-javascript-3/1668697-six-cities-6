@@ -1,13 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { InitialStateType, OffersSortType } from '../shared';
+import { InitialStateType, OffersSortType, AuthStatus } from '../shared';
 
 import {
   setCity,
   setOffers,
   setCurrentOfferId,
   changeOffersSortType,
-  setIsLoading
+  setIsLoading,
+  setAuthStatus,
+  setName
 } from './action';
 
 const initialState: InitialStateType = {
@@ -16,6 +18,8 @@ const initialState: InitialStateType = {
   currentOfferId: '',
   offersSortType: OffersSortType.Popular,
   city: { name: '', location: { latitude: 0, longitude: 0, zoom: 0 } },
+  authStatus: AuthStatus.Unknown,
+  name: ''
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -54,5 +58,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setIsLoading, (state, { payload }) => {
       state.isLoading = payload;
+    })
+    .addCase(setAuthStatus, (state, { payload }) => {
+      state.authStatus = payload;
+    })
+    .addCase(setName, (state, { payload }) => {
+      state.name = payload;
     });
 });
