@@ -32,7 +32,7 @@ export const OffersSort: React.FC = () => {
       <span className={classNames('places__sorting-caption', styles['caption'])}>Sort by</span>
 
       <span className="places__sorting-type" tabIndex={0} onClick={handleIsOpenChange}>
-        <span>Popular</span>
+        <span>{currentOffersSortType}</span>
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
