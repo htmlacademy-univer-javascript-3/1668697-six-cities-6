@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { OffersSortType, useAppSelector } from '../../../shared';
 import { useAppDispatch } from '../../../shared';
 
-import { changeOffersSortType } from '../../../store/action';
+import { setOffersSortType } from '../../../store/action';
 
 import styles from './OffersSort.module.css';
 
@@ -20,7 +20,7 @@ export const OffersSort: React.FC = () => {
   };
 
   const handleSortItemClick = (newSOffersSortType: OffersSortType) => {
-    dispatch(changeOffersSortType(newSOffersSortType));
+    dispatch(setOffersSortType(newSOffersSortType));
 
     setIsOpen(false);
   };
@@ -32,7 +32,7 @@ export const OffersSort: React.FC = () => {
       <span className={classNames('places__sorting-caption', styles['caption'])}>Sort by</span>
 
       <span className="places__sorting-type" tabIndex={0} onClick={handleIsOpenChange}>
-        <span>Popular</span>
+        <span>{currentOffersSortType}</span>
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>

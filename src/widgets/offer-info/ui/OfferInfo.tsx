@@ -1,11 +1,21 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { getRatingPercent } from '../../../shared';
 
 import { OfferInfoProps } from '../model/types';
 
 export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
-  const { type, price, rating, title, isPremium } = offerData;
+  const {
+    type,
+    price,
+    rating,
+    title,
+    isPremium,
+    bedrooms,
+    maxAdults,
+    goods
+  } = offerData;
 
   return (
     <>
@@ -36,16 +46,15 @@ export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
         <span className="offer__rating-value rating__value">{rating}</span>
       </div>
 
-      {/* TODO: add bedrooms & adults */}
       <ul className="offer__features">
         <li className="offer__feature offer__feature--entire">
           {type}
         </li>
         <li className="offer__feature offer__feature--bedrooms">
-          0 Bedrooms
+          {bedrooms} Bedrooms
         </li>
         <li className="offer__feature offer__feature--adults">
-          Max 0 adults
+          Max {maxAdults} adults
         </li>
       </ul>
 
@@ -57,15 +66,14 @@ export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
       <div className="offer__inside">
         <h2 className="offer__inside-title">What&apos;s inside</h2>
 
-        {/* TODO: Add features */}
-        {/* <ul className="offer__inside-list">
+        <ul className="offer__inside-list">
 
-          {features.map((feature) => (
+          {goods.map((good) => (
             <li key={uuidv4()} className="offer__inside-item">
-              {feature}
+              {good}
             </li>
           ))}
-        </ul> */}
+        </ul>
       </div>
     </>
   );

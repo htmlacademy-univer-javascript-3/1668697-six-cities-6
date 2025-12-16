@@ -1,12 +1,15 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { OfferReview } from '../../../entities';
 
 import { OfferReviewsListProps } from '../model/types';
+import { REVIEWS_LIST_LENGTH } from '../model/constants';
 
 export const OfferReviewsList: React.FC<OfferReviewsListProps> = ({ reviews }) => (
   <ul className="reviews__list">
-    {reviews.map((reviewItem) => <OfferReview key={uuidv4()} reviewData={reviewItem} />)}
+    {reviews
+      .slice(0, REVIEWS_LIST_LENGTH)
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .map((reviewItem) => <OfferReview key={reviewItem.id} reviewData={reviewItem} />)}
   </ul>
 );

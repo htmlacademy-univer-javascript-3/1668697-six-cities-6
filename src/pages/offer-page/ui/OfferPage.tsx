@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { AppRoute, getOffersPoints, IDetailedOffer, ISimpleOfferInfo, OfferCardType } from '../../../shared';
+import { AuthStatus, getOffersPoints, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
-import { useAppSelector } from '../../../shared';
+import { useAppSelector, useAppDispatch } from '../../../shared';
+
 import {
   Header,
   OfferGallery,
@@ -12,91 +13,81 @@ import {
   OfferReviewForm,
   OfferReviewsList,
   OffersList,
-  OffersMap
+  OffersMap,
+  Spinner
 } from '../../../widgets';
 
-import { getCurrentData } from '../model/helpers';
+import { fetchCurrentOffer } from '../../../store/async-action';
 
 import './OfferPage.css';
 
-// TODO: add detailedDataOffer
 export const OfferPage: React.FC = () => {
-  const [offerData, setOfferData] = useState<ISimpleOfferInfo | undefined | null>(null);
-  const [nearbyOffersData, setNearbyOffersData] = useState<ISimpleOfferInfo[]>([]);
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
-  const navigate = useNavigate();
-
-  const offersData = useAppSelector((state) => state.offers);
-  const currentOfferId = useAppSelector((state) => state.currentOfferId);
 
   useEffect(() => {
     if (id) {
-      const { newOfferData, newNearbyOffersData } = getCurrentData(id, offersData);
-
-      setOfferData(newOfferData);
-      setNearbyOffersData(newNearbyOffersData);
-    } else {
-      navigate(AppRoute.NotFound);
+      dispatch(fetchCurrentOffer({ offerId: id }));
     }
-  }, [id, offersData, navigate]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     window.scrollTo(0,0);
   }, [id]);
+
+  const authStatus = useAppSelector((state) => state.authStatus);
+
+  const isCurrentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
+
+  const currentOfferData = useAppSelector((state) => state.currentOffer);
+  const currentOfferReviews = useAppSelector((state) => state.currentOfferReviews);
+  const currentOfferNearby = useAppSelector((state) => state.currentOfferNearby);
+
+  const nearbyOffersData = currentOfferNearby.slice(0, NEAR_OFFERS_LIST_LENGTH);
+
+  if (!currentOfferData || isCurrentOfferLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="page">
       <Header />
 
       <main className="page__main page__main--offer">
-        {
-          !offerData ? (
-            <div className="offer-empty">
-              <div className="offer-empty__message">Nothing here yet...</div>
+        <section className="offer">
+          <OfferGallery images={currentOfferData.images} />
 
-              <Link to={AppRoute.Main} className="offer-empty__back" >Back To Home</Link>
-            </div>
-          ) : (
-            <>
-              <section className="offer">
-                {/* TODO: */}
-                {/* <OfferGallery images={offerData.images} /> */}
+          <div className="offer__container container">
+            <div className="offer__wrapper">
+              <OfferInfo offerData={currentOfferData} />
+              <OfferHost hostData={currentOfferData.host} />
 
-                <div className="offer__container container">
-                  <div className="offer__wrapper">
-                    <OfferInfo offerData={offerData} />
-                    {/* TODO: */}
-                    {/* <OfferHost hostData={offerData.host} /> */}
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">
+                  Reviews &middot; <span className="reviews__amount">{currentOfferReviews.length}</span>
+                </h2>
 
-                    <section className="offer__reviews reviews">
-                      {/* TODO: */}
-                      {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerData.reviews.length}</span></h2> */}
+                <OfferReviewsList reviews={currentOfferReviews} />
 
-                      {/* TODO: */}
-                      {/* <OfferReviewsList reviews={offerData.reviews} /> */}
-                      <OfferReviewForm />
-                    </section>
-                  </div>
-                </div>
-
-                <OffersMap points={getOffersPoints(nearbyOffersData, currentOfferId)} additionalClass='offer__map' />
+                {authStatus === AuthStatus.Auth && <OfferReviewForm offerId={id} />}
               </section>
+            </div>
+          </div>
 
-              <div className="container">
-                <section className="near-places places">
-                  <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <OffersMap points={getOffersPoints(nearbyOffersData, id)} additionalClass='offer__map' />
+        </section>
 
-                  <OffersList
-                    offers={nearbyOffersData}
-                    offerCardType={OfferCardType.Offer}
-                    numberOfOffers={NEAR_OFFERS_LIST_LENGTH}
-                  />
-                </section>
-              </div>
-            </>
-          )
-        }
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+
+            <OffersList
+              offers={nearbyOffersData}
+              offerCardType={OfferCardType.Offer}
+            />
+          </section>
+        </div>
       </main>
     </div>
   );

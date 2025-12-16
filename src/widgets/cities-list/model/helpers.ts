@@ -13,5 +13,5 @@ export const getCitiesData = (offersData: ISimpleOfferInfo[]) => {
     }
   }
 
-  return citiesData;
+  return citiesData.sort((a, b) => b.name.localeCompare(a.name));
 };

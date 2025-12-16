@@ -6,18 +6,29 @@ import {
   setCity,
   setOffers,
   setCurrentOfferId,
-  changeOffersSortType,
-  setIsLoading,
+  setOffersSortType,
+  setAreOffersLoading,
   setAuthStatus,
-  setName
+  setName,
+  setCurrentOffer,
+  setIsCurrentOfferLoading,
+  setCurrentOfferReviews,
+  setCurrentOfferNearbyOffers
 } from './action';
 
 const initialState: InitialStateType = {
-  offers: [],
-  isLoading: true,
-  currentOfferId: '',
-  offersSortType: OffersSortType.Popular,
   city: { name: '', location: { latitude: 0, longitude: 0, zoom: 0 } },
+
+  offers: [],
+  areOffersLoading: true,
+  offersSortType: OffersSortType.Popular,
+
+  currentOffer: null,
+  isCurrentOfferLoading: false,
+  currentOfferId: '',
+  currentOfferReviews: [],
+  currentOfferNearby: [],
+
   authStatus: AuthStatus.Unknown,
   name: ''
 };
@@ -33,7 +44,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setCurrentOfferId, (state, { payload }) => {
       state.currentOfferId = payload;
     })
-    .addCase(changeOffersSortType, (state, { payload }) => {
+    .addCase(setOffersSortType, (state, { payload }) => {
       state.offersSortType = payload;
 
       const offersToSort = [...state.offers];
@@ -56,13 +67,25 @@ export const reducer = createReducer(initialState, (builder) => {
           break;
       }
     })
-    .addCase(setIsLoading, (state, { payload }) => {
-      state.isLoading = payload;
+    .addCase(setAreOffersLoading, (state, { payload }) => {
+      state.areOffersLoading = payload;
     })
     .addCase(setAuthStatus, (state, { payload }) => {
       state.authStatus = payload;
     })
     .addCase(setName, (state, { payload }) => {
       state.name = payload;
+    })
+    .addCase(setIsCurrentOfferLoading, (state, { payload }) => {
+      state.isCurrentOfferLoading = payload;
+    })
+    .addCase(setCurrentOffer, (state, { payload }) => {
+      state.currentOffer = payload;
+    })
+    .addCase(setCurrentOfferReviews, (state, { payload }) => {
+      state.currentOfferReviews = payload;
+    })
+    .addCase(setCurrentOfferNearbyOffers, (state, { payload }) => {
+      state.currentOfferNearby = payload;
     });
 });

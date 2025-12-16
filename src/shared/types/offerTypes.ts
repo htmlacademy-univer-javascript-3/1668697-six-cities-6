@@ -1,8 +1,4 @@
-export type LocationType = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
+import { LocationType } from './mapTypes';
 
 export interface ISimpleOfferInfo {
   id: string;
@@ -11,32 +7,19 @@ export interface ISimpleOfferInfo {
   price: number;
   city: IOfferCity;
   location: LocationType;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   isPremium: boolean;
   rating: number;
   previewImage: string;
 }
 
-export interface IUser {
-  name: string;
-  avatarUrl: string;
-  isPro: false;
-  email: string;
-  token: string;
-}
-
-export interface IDetailedOfferInfo extends ISimpleOfferInfo {
-  numberOfRooms: number;
-  numberOfGuests: number;
-  features: string[];
-}
-
-export interface IDetailedOffer {
-  id: string;
-  info: IDetailedOfferInfo;
-  host: IOfferHost;
-  reviews: IOfferReview[];
+export type IDetailedOfferInfo = Omit<ISimpleOfferInfo, 'previewImage'> & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: IOfferUser;
   images: string[];
+  maxAdults: number;
 }
 
 export interface IOfferCity {
@@ -44,24 +27,18 @@ export interface IOfferCity {
   location: LocationType;
 }
 
-export enum OfferHostStatus {
-  Pro = 'Pro',
-  Beginner = 'Beginner'
-}
-
-export interface IOfferHost {
+export interface IOfferUser {
   name: string;
-  avatar: string;
-  status: OfferHostStatus;
-  description: string[];
+  avatarUrl: string;
+  isPro: boolean;
 }
 
 export interface IOfferReview {
-  name: string;
-  avatar: string;
+  id: string;
+  date: string;
+  user: IOfferUser;
+  comment: string;
   rating: number;
-  description: string;
-  dateTime: string;
 }
 
 export enum OfferCardType {
