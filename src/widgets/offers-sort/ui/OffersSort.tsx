@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import classNames from 'classnames';
 
 import { OffersSortType, useAppSelector } from '../../../shared';
@@ -8,22 +8,28 @@ import { setOffersSortType } from '../../../store/action';
 
 import styles from './OffersSort.module.css';
 
-export const OffersSort: React.FC = () => {
+export const OffersSortComponent: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const dispatch = useAppDispatch();
 
   const currentOffersSortType = useAppSelector((state) => state.offersSortType);
 
-  const handleIsOpenChange = () => {
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-  };
+  const handleIsOpenChange = useCallback(
+    () => {
+      setIsOpen((prevIsOpen) => !prevIsOpen);
+    },
+    []
+  );
 
-  const handleSortItemClick = (newSOffersSortType: OffersSortType) => {
-    dispatch(setOffersSortType(newSOffersSortType));
+  const handleSortItemClick = useCallback(
+    (newSOffersSortType: OffersSortType) => {
+      dispatch(setOffersSortType(newSOffersSortType));
 
-    setIsOpen(false);
-  };
+      setIsOpen(false);
+    },
+    [dispatch]
+  );
 
   const sortTypes = Object.values(OffersSortType);
 
@@ -58,3 +64,5 @@ export const OffersSort: React.FC = () => {
     </form>
   );
 };
+
+export const OffersSort = memo(OffersSortComponent);

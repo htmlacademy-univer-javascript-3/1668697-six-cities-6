@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppRoute, AuthStatus } from '../../../shared';
@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../../shared';
 
 import { authLogout } from '../../../store/async-action';
 
-export const Header: React.FC = () => {
+export const HeaderComponent: React.FC = () => {
   const authStatus = useAppSelector((state) => state.authStatus);
   const name = useAppSelector((state) => state.name);
 
@@ -66,3 +66,5 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+
+export const Header = memo(HeaderComponent);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, memo } from 'react';
 import classNames from 'classnames';
 
 import { IOfferCity } from '../../../shared';
@@ -7,7 +7,7 @@ import { setCity } from '../../../store/action';
 
 import { getCitiesData } from '../model/helpers';
 
-export const CitiesList: React.FC = () => {
+export const CitiesListComponent: React.FC = () => {
   const currentCity = useAppSelector((state) => state.city);
 
   const offersData = useAppSelector((state) => state.offers);
@@ -15,9 +15,12 @@ export const CitiesList: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleCityChange = (city: IOfferCity) => {
-    dispatch(setCity(city));
-  };
+  const handleCityChange = useCallback(
+    (city: IOfferCity) => {
+      dispatch(setCity(city));
+    },
+    [dispatch]
+  );
 
   return (
     <div className="tabs">
@@ -44,3 +47,5 @@ export const CitiesList: React.FC = () => {
     </div>
   );
 };
+
+export const CitiesList = memo(CitiesListComponent);

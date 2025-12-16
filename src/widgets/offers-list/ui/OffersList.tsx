@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { OfferCard } from '../../../entities';
 import {
@@ -15,9 +15,12 @@ export const OffersList: React.FC<OffersListProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const handleActiveCardIdChange = (newActiveCardId: string) => {
-    dispatch(setCurrentOfferId(newActiveCardId));
-  };
+  const handleActiveCardIdChange = useCallback(
+    (newActiveCardId: string) => {
+      dispatch(setCurrentOfferId(newActiveCardId));
+    },
+    [dispatch]
+  );
 
   return (
     <div className={OFFER_CARD_CLASSNAMES[offerCardType].container}>

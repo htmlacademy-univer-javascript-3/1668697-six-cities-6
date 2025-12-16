@@ -30,7 +30,6 @@ export const LoginForm: React.FC = () => {
     }
   };
 
-
   return (
     <form className="login__form form" onSubmit={handleSubmit}>
       <div className="login__input-wrapper form__input-wrapper">

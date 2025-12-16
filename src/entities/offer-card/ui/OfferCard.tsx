@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { OFFER_CARD_CLASSNAMES } from '../../../shared';
@@ -7,7 +7,7 @@ import { getRatingPercent } from '../../../shared';
 import { getOfferRouteWithId } from '../model/helpers';
 import { OfferCardProps } from '../model/types';
 
-export const OfferCard: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, handleActiveCardIdChange }) => {
+export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, handleActiveCardIdChange }) => {
   const { title, rating, price, type, isPremium, previewImage } = offerData;
 
   return (
@@ -61,3 +61,6 @@ export const OfferCard: React.FC<OfferCardProps> = ({ id, offerData, offerCardTy
     </article>
   );
 };
+
+export const OfferCard = memo(OfferCardComponent);
+
