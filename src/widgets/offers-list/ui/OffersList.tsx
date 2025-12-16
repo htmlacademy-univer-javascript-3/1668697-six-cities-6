@@ -2,7 +2,6 @@ import React from 'react';
 
 import { OfferCard } from '../../../entities';
 import {
-  DEFAULT_OFFERS_LIST_LENGTH,
   OFFER_CARD_CLASSNAMES,
 } from '../../../shared';
 import { useAppDispatch } from '../../../shared';
@@ -13,7 +12,6 @@ import { OffersListProps } from '../model/types';
 export const OffersList: React.FC<OffersListProps> = ({
   offers,
   offerCardType,
-  numberOfOffers = DEFAULT_OFFERS_LIST_LENGTH,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -24,7 +22,6 @@ export const OffersList: React.FC<OffersListProps> = ({
   return (
     <div className={OFFER_CARD_CLASSNAMES[offerCardType].container}>
       {offers
-        .slice(0, numberOfOffers)
         .map((offerData) => (
           <OfferCard
             key={offerData.id}

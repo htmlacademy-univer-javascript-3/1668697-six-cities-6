@@ -13,6 +13,7 @@ import {
   setCurrentOffer,
   setIsCurrentOfferLoading,
   setCurrentOfferReviews,
+  setCurrentOfferNearbyOffers,
   setName,
   setAuthStatus,
   redirectToRoute,
@@ -100,6 +101,19 @@ export const fetchReviews = createAsyncThunk<void, { offerId: string }, {
   },
 );
 
+export const fetchNearby = createAsyncThunk<void, { offerId: string }, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'nearby/fetch',
+  async ({offerId}, {dispatch, extra: api}) => {
+    const { data } = await api.get<ISimpleOfferInfo[]>(`${ApiRoutes.Offers}/${offerId}/${ApiRoutes.Nearby}`);
+
+    dispatch(setCurrentOfferNearbyOffers(data));
+  },
+);
+
 export const fetchCurrentOffer = createAsyncThunk<void, { offerId: string }, {
   dispatch: AppDispatchType;
   state: StateType;
@@ -113,6 +127,7 @@ export const fetchCurrentOffer = createAsyncThunk<void, { offerId: string }, {
       const { data } = await api.get<IDetailedOfferInfo>(`${ApiRoutes.Offers}/${offerId}`);
 
       dispatch(fetchReviews({offerId}));
+      dispatch(fetchNearby({offerId}));
       dispatch(setCurrentOffer(data));
     } catch {
       dispatch(redirectToRoute(AppRoute.BadRoute));

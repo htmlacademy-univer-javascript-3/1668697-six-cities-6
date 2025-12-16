@@ -20,6 +20,7 @@ export interface InitialStateType {
   isCurrentOfferLoading: boolean;
   currentOfferId: string;
   currentOfferReviews: IOfferReview[];
+  currentOfferNearby: ISimpleOfferInfo[];
 
   authStatus: AuthStatus;
   name: string;

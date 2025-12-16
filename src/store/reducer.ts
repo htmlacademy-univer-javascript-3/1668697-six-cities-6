@@ -12,7 +12,8 @@ import {
   setName,
   setCurrentOffer,
   setIsCurrentOfferLoading,
-  setCurrentOfferReviews
+  setCurrentOfferReviews,
+  setCurrentOfferNearbyOffers
 } from './action';
 
 const initialState: InitialStateType = {
@@ -26,6 +27,7 @@ const initialState: InitialStateType = {
   isCurrentOfferLoading: false,
   currentOfferId: '',
   currentOfferReviews: [],
+  currentOfferNearby: [],
 
   authStatus: AuthStatus.Unknown,
   name: ''
@@ -82,5 +84,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOfferReviews, (state, { payload }) => {
       state.currentOfferReviews = payload;
+    })
+    .addCase(setCurrentOfferNearbyOffers, (state, { payload }) => {
+      state.currentOfferNearby = payload;
     });
 });

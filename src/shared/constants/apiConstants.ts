@@ -7,5 +7,6 @@ export enum ApiRoutes {
   Offers = 'offers',
   Login = 'login',
   Logout = 'logout',
-  Reviews = 'comments'
+  Reviews = 'comments',
+  Nearby = 'nearby'
 }

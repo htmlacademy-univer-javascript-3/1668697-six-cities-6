@@ -19,8 +19,8 @@ export const setOffersSortType = createAction<OffersSortType>('offers/setSort');
 export const setCurrentOffer = createAction<IDetailedOfferInfo>('offer/set');
 export const setIsCurrentOfferLoading = createAction<boolean>('offer/setLoading');
 export const setCurrentOfferId = createAction<string>('offer/setId');
-
-export const setCurrentOfferReviews = createAction<IOfferReview[]>('reviews/set');
+export const setCurrentOfferReviews = createAction<IOfferReview[]>('nearby/set');
+export const setCurrentOfferNearbyOffers = createAction<ISimpleOfferInfo[]>('reviews/fetch');
 
 export const setAuthStatus = createAction<AuthStatus>('auth/set');
 export const setName = createAction<string>('name/set');
