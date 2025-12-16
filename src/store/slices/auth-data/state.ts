@@ -1,6 +1,6 @@
 import { AuthStatus } from '../../../shared';
 
-interface IAuthData {
+export interface IAuthData {
   authStatus: AuthStatus;
   name: string;
 }
