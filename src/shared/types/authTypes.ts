@@ -16,3 +16,9 @@ export interface IUser {
   email: string;
   token: string;
 }
+
+export interface IReview {
+  offerId: string;
+  comment: string;
+  rating: number;
+}

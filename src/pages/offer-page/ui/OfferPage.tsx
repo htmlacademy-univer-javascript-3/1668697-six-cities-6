@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getOffersPoints, OfferCardType } from '../../../shared';
+import { AuthStatus, getOffersPoints, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
 import { useAppSelector, useAppDispatch } from '../../../shared';
 
@@ -36,6 +36,8 @@ export const OfferPage: React.FC = () => {
     window.scrollTo(0,0);
   }, [id]);
 
+  const authStatus = useAppSelector((state) => state.authStatus);
+
   const isCurrentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
 
   const currentOfferData = useAppSelector((state) => state.currentOffer);
@@ -68,7 +70,7 @@ export const OfferPage: React.FC = () => {
 
                 <OfferReviewsList reviews={currentOfferReviews} />
 
-                <OfferReviewForm />
+                {authStatus === AuthStatus.Auth && <OfferReviewForm offerId={id} />}
               </section>
             </div>
           </div>

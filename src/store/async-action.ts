@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ApiRoutes, AppRoute, AuthStatus, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
-import { AppDispatchType, StateType, ISimpleOfferInfo, IUser } from '../shared';
+import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview } from '../shared';
 
 import { dropToken, saveToken } from '../service/token';
 
@@ -134,5 +134,18 @@ export const fetchCurrentOffer = createAsyncThunk<void, { offerId: string }, {
     }
 
     dispatch(setIsCurrentOfferLoading(false));
+  },
+);
+
+export const postReview = createAsyncThunk<void, IReview, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'review/post',
+  async ({comment, rating, offerId}, {dispatch, extra: api}) => {
+    await api.post(`${ApiRoutes.Reviews}/${offerId}`, {comment, rating});
+
+    dispatch(fetchReviews({offerId}));
   },
 );
