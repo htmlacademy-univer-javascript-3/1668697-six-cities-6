@@ -2,7 +2,7 @@ import React from 'react';
 
 import { OfferHostProps } from '../model/types';
 
-export const OfferHost: React.FC<OfferHostProps> = ({ hostData }) => {
+export const OfferHost: React.FC<OfferHostProps> = ({ hostData, description }) => {
   const { name, avatarUrl, isPro } = hostData;
 
   return (
@@ -25,14 +25,11 @@ export const OfferHost: React.FC<OfferHostProps> = ({ hostData }) => {
           )}
         </div>
 
-        {/* TODO: */}
-        {/* <div className="offer__description">
-          { description.map((descriptionItem) => (
-            <p key={uuidv4()} className="offer__text">
-              {descriptionItem}
-            </p>
-          )) }
-        </div> */}
+        <div className="offer__description">
+          <p className="offer__text">
+            {description}
+          </p>
+        </div>
       </div>
     )
   );

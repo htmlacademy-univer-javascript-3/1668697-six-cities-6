@@ -6,10 +6,12 @@ import { AuthStatus } from '../../../types';
 
 import { useAppSelector } from '../../../hooks';
 
+import { getAuthStatus } from '../../../../store/slices';
+
 import { PrivateRouteProps } from '../model/types';
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   return (
     authStatus === AuthStatus.Auth

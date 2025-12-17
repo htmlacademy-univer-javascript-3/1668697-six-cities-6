@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppRoute, AuthStatus } from '../../../shared';
 import { useAppSelector, useAppDispatch } from '../../../shared';
 
 import { authLogout } from '../../../store/async-action';
+import { getAuthStatus, getName } from '../../../store/slices';
 
-export const Header: React.FC = () => {
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const name = useAppSelector((state) => state.name);
+export const HeaderComponent: React.FC = () => {
+  const authStatus = useAppSelector(getAuthStatus);
+  const name = useAppSelector(getName);
 
   const dispatch = useAppDispatch();
 
@@ -66,3 +67,5 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+
+export const Header = memo(HeaderComponent);

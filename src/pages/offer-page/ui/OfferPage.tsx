@@ -5,6 +5,8 @@ import { AuthStatus, getOffersPoints, OfferCardType } from '../../../shared';
 import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
 import { useAppSelector, useAppDispatch } from '../../../shared';
 
+import { getAuthStatus, getCurrentOffer, getCurrentOfferNearby, getCurrentOfferReviews, getIsCurrentOfferLoading } from '../../../store/slices';
+
 import {
   Header,
   OfferGallery,
@@ -36,13 +38,13 @@ export const OfferPage: React.FC = () => {
     window.scrollTo(0,0);
   }, [id]);
 
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
-  const isCurrentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
+  const isCurrentOfferLoading = useAppSelector(getIsCurrentOfferLoading);
 
-  const currentOfferData = useAppSelector((state) => state.currentOffer);
-  const currentOfferReviews = useAppSelector((state) => state.currentOfferReviews);
-  const currentOfferNearby = useAppSelector((state) => state.currentOfferNearby);
+  const currentOfferData = useAppSelector(getCurrentOffer);
+  const currentOfferReviews = useAppSelector(getCurrentOfferReviews);
+  const currentOfferNearby = useAppSelector(getCurrentOfferNearby);
 
   const nearbyOffersData = currentOfferNearby.slice(0, NEAR_OFFERS_LIST_LENGTH);
 
@@ -61,7 +63,7 @@ export const OfferPage: React.FC = () => {
           <div className="offer__container container">
             <div className="offer__wrapper">
               <OfferInfo offerData={currentOfferData} />
-              <OfferHost hostData={currentOfferData.host} />
+              <OfferHost hostData={currentOfferData.host} description={currentOfferData.description} />
 
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">

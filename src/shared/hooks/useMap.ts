@@ -4,16 +4,17 @@ import { Map, TileLayer } from 'leaflet';
 
 import { MAP_ATTRIBUTION, MAP_URL } from '../constants';
 import { useAppSelector } from '../hooks';
+import { getCity } from '../../store/slices';
 
 export const useMap = (mapRef: React.RefObject<HTMLElement>) => {
   const [map, setMap] = useState<Map | null>(null);
 
   const isRenderedRef = useRef<boolean>(false);
 
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector(getCity);
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
+    if (mapRef.current !== null && !isRenderedRef.current && city?.location) {
       const instance = new Map(mapRef.current, {
         center: {
           lat: city.location.latitude,

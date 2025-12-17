@@ -3,9 +3,10 @@ import React from 'react';
 import { Header, LoginForm } from '../../../widgets';
 import { useAppSelector } from '../../../shared';
 
-export const LoginPage: React.FC = () => {
-  const city = useAppSelector((state) => state.city);
+import { getCity } from '../../../store/slices';
 
+export const LoginPage: React.FC = () => {
+  const city = useAppSelector(getCity);
 
   return (
     <div className="page page--gray page--login">

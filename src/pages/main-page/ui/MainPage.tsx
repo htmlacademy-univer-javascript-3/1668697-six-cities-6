@@ -3,10 +3,12 @@ import React from 'react';
 import { OfferCardType, getOffersPoints, useAppSelector } from '../../../shared';
 import { OffersList, OffersMap, Header, CitiesList , OffersSort } from '../../../widgets';
 
+import { getCity, getCurrentOfferId, getOffers } from '../../../store/slices';
+
 export const MainPage: React.FC = () => {
-  const city = useAppSelector((state) => state.city);
-  const offersData = useAppSelector((state) => state.offers);
-  const currentOfferId = useAppSelector((state) => state.currentOfferId);
+  const city = useAppSelector(getCity);
+  const offersData = useAppSelector(getOffers);
+  const currentOfferId = useAppSelector(getCurrentOfferId);
 
   const currentOffers = offersData.filter((offer) => offer.city.name === city.name);
   const offersCount = currentOffers.length;
