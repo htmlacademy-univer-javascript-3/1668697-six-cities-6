@@ -13,10 +13,17 @@ export const authData = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(authCheck.fulfilled, (state) => {
-        state.authStatus = AuthStatus.Auth;
+      .addCase(authCheck.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.name = action.payload.name;
+          state.authStatus = AuthStatus.Auth;
+        } else {
+          state.name = '';
+          state.authStatus = AuthStatus.NoAuth;
+        }
       })
       .addCase(authCheck.rejected, (state) => {
+        state.name = '';
         state.authStatus = AuthStatus.NoAuth;
       })
       .addCase(authLogin.fulfilled, (state, action) => {
@@ -24,9 +31,11 @@ export const authData = createSlice({
         state.authStatus = AuthStatus.Auth;
       })
       .addCase(authLogin.rejected, (state) => {
+        state.name = '';
         state.authStatus = AuthStatus.NoAuth;
       })
       .addCase(authLogout.fulfilled, (state) => {
+        state.name = '';
         state.authStatus = AuthStatus.NoAuth;
       });
   },
