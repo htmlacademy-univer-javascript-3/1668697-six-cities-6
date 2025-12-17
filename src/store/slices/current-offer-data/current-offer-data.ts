@@ -32,6 +32,7 @@ export const currentOfferData = createSlice({
       })
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.currentOfferReviews = action.payload;
+        state.isCurrentOfferLoading = false;
       })
       .addCase(fetchReviews.rejected, (state) => {
         state.isCurrentOfferLoading = false;
@@ -42,6 +43,7 @@ export const currentOfferData = createSlice({
       })
       .addCase(fetchNearby.fulfilled, (state, action) => {
         state.currentOfferNearby = action.payload;
+        state.isCurrentOfferLoading = false;
       })
       .addCase(fetchNearby.rejected, (state) => {
         state.isCurrentOfferLoading = false;
