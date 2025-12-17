@@ -3,21 +3,21 @@ import classNames from 'classnames';
 
 import { IOfferCity } from '../../../shared';
 import { useAppDispatch, useAppSelector } from '../../../shared';
-import { setCity } from '../../../store/action';
+import { getCity, getOffers } from '../../../store/slices';
 
 import { getCitiesData } from '../model/helpers';
 
 export const CitiesListComponent: React.FC = () => {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
 
-  const offersData = useAppSelector((state) => state.offers);
+  const offersData = useAppSelector(getOffers);
   const citiesData = getCitiesData(offersData);
 
   const dispatch = useAppDispatch();
 
   const handleCityChange = useCallback(
     (city: IOfferCity) => {
-      dispatch(setCity(city));
+      dispatch(setCity(city)); // TODO:
     },
     [dispatch]
   );
@@ -26,19 +26,19 @@ export const CitiesListComponent: React.FC = () => {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {citiesData.map((cityData) => (
+          {citiesData.map((citiesItemData) => (
             <li
-              key={cityData.name}
+              key={citiesItemData.name}
               className="locations__item"
-              onClick={() => handleCityChange(cityData)}
+              onClick={() => handleCityChange(citiesItemData)}
             >
               <a
                 className={classNames('locations__item-link tabs__item', {
-                  ['tabs__item--active']: cityData.name === currentCity.name
+                  ['tabs__item--active']: citiesItemData.name === currentCity.name
                 })}
                 href="#"
               >
-                <span>{cityData.name}</span>
+                <span>{citiesItemData.name}</span>
               </a>
             </li>
           ))}

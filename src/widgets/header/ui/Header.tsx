@@ -5,10 +5,11 @@ import { AppRoute, AuthStatus } from '../../../shared';
 import { useAppSelector, useAppDispatch } from '../../../shared';
 
 import { authLogout } from '../../../store/async-action';
+import { getAuthStatus, getName } from '../../../store/slices';
 
 export const HeaderComponent: React.FC = () => {
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const name = useAppSelector((state) => state.name);
+  const authStatus = useAppSelector(getAuthStatus);
+  const name = useAppSelector(getName);
 
   const dispatch = useAppDispatch();
 
