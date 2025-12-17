@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { IOfferCity } from '../../../shared';
 import { useAppDispatch, useAppSelector } from '../../../shared';
-import { getCity, getOffers } from '../../../store/slices';
+import { getCity, getOffers, setCity } from '../../../store/slices';
 
 import { getCitiesData } from '../model/helpers';
 
@@ -17,7 +17,7 @@ export const CitiesListComponent: React.FC = () => {
 
   const handleCityChange = useCallback(
     (city: IOfferCity) => {
-      dispatch(setCity(city)); // TODO:
+      dispatch(setCity(city));
     },
     [dispatch]
   );

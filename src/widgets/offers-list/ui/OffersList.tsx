@@ -5,6 +5,7 @@ import {
   OFFER_CARD_CLASSNAMES,
 } from '../../../shared';
 import { useAppDispatch } from '../../../shared';
+import { setCurrentOfferId } from '../../../store/slices';
 
 import { OffersListProps } from '../model/types';
 
@@ -16,7 +17,7 @@ export const OffersList: React.FC<OffersListProps> = ({
 
   const handleActiveCardIdChange = useCallback(
     (newActiveCardId: string) => {
-      dispatch(setCurrentOfferId(newActiveCardId)); // TODO:
+      dispatch(setCurrentOfferId(newActiveCardId));
     },
     [dispatch]
   );

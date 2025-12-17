@@ -25,3 +25,5 @@ export const cityData = createSlice({
   },
 });
 
+export const { setCity } = cityData.actions;
+

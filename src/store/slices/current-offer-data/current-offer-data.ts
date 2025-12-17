@@ -48,3 +48,5 @@ export const currentOfferData = createSlice({
       });
   },
 });
+
+export const { setCurrentOfferId } = currentOfferData.actions;

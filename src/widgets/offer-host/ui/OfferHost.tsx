@@ -24,15 +24,6 @@ export const OfferHost: React.FC<OfferHostProps> = ({ hostData }) => {
             </span>
           )}
         </div>
-
-        {/* TODO: */}
-        {/* <div className="offer__description">
-          { description.map((descriptionItem) => (
-            <p key={uuidv4()} className="offer__text">
-              {descriptionItem}
-            </p>
-          )) }
-        </div> */}
       </div>
     )
   );

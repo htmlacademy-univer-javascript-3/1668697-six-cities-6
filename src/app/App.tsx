@@ -8,14 +8,15 @@ import { AppRoute } from '../shared';
 import { PrivateRoute, HistoryRouter } from '../shared';
 import { useAppDispatch, useAppSelector } from '../shared';
 
-import { browserHistory } from '../browserHistory';
-
 import { fetchOffers, authCheck } from '../store/async-action';
+import { getAreOffersLoading } from '../store/slices';
+
+import { browserHistory } from '../browserHistory';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const areOffersLoading = useAppSelector((state) => state.areOffersLoading);
+  const areOffersLoading = useAppSelector(getAreOffersLoading);
 
   if (areOffersLoading) {
     dispatch(fetchOffers());

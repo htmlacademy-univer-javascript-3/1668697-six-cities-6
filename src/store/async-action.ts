@@ -8,8 +8,6 @@ import { dropToken, saveToken } from '../service/token';
 
 import { redirectToRoute } from './action';
 
-// TODO: apply NameSpace?
-
 export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
   dispatch: AppDispatchType;
   state: StateType;
