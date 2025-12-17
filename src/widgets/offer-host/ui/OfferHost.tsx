@@ -2,7 +2,7 @@ import React from 'react';
 
 import { OfferHostProps } from '../model/types';
 
-export const OfferHost: React.FC<OfferHostProps> = ({ hostData }) => {
+export const OfferHost: React.FC<OfferHostProps> = ({ hostData, description }) => {
   const { name, avatarUrl, isPro } = hostData;
 
   return (
@@ -23,6 +23,12 @@ export const OfferHost: React.FC<OfferHostProps> = ({ hostData }) => {
             Pro
             </span>
           )}
+        </div>
+
+        <div className="offer__description">
+          <p className="offer__text">
+            {description}
+          </p>
         </div>
       </div>
     )

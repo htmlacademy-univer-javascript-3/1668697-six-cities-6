@@ -63,7 +63,7 @@ export const OfferPage: React.FC = () => {
           <div className="offer__container container">
             <div className="offer__wrapper">
               <OfferInfo offerData={currentOfferData} />
-              <OfferHost hostData={currentOfferData.host} />
+              <OfferHost hostData={currentOfferData.host} description={currentOfferData.description} />
 
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
