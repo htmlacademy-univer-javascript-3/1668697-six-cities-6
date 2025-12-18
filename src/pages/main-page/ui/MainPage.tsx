@@ -16,7 +16,7 @@ export const MainPage: React.FC = () => {
   const offersCount = currentOffers.length;
 
   if (offersData.length === 0) {
-    return <MainEmptyPage />;
+    return <MainEmptyPage city={city} />;
   }
 
   return (
