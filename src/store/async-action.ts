@@ -8,19 +8,6 @@ import { dropToken, saveToken } from '../service/token';
 
 import { redirectToRoute } from './action';
 
-export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'offers/fetch',
-  async (_arg, {extra: api}) => {
-    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Offers);
-
-    return data;
-  },
-);
-
 export const authCheck = createAsyncThunk<IUser | null, undefined, {
   dispatch: AppDispatchType;
   state: StateType;
@@ -70,6 +57,19 @@ export const authLogout = createAsyncThunk<void, undefined, {
   },
 );
 
+export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'offers/fetch',
+  async (_arg, {extra: api}) => {
+    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Offers);
+
+    return data;
+  },
+);
+
 export const fetchReviews = createAsyncThunk<IOfferReview[], { offerId: string }, {
   dispatch: AppDispatchType;
   state: StateType;
@@ -115,6 +115,19 @@ export const fetchCurrentOffer = createAsyncThunk<IDetailedOfferInfo, { offerId:
 
       return rejectWithValue(null);
     }
+  },
+);
+
+export const fetchFavorites = createAsyncThunk<ISimpleOfferInfo[], undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'favorites/fetch',
+  async (_arg, {extra: api}) => {
+    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Favorites);
+
+    return data;
   },
 );
 

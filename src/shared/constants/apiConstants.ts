@@ -8,5 +8,6 @@ export enum ApiRoutes {
   Login = 'login',
   Logout = 'logout',
   Reviews = 'comments',
-  Nearby = 'nearby'
+  Nearby = 'nearby',
+  Favorites = 'favorite'
 }
