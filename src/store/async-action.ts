@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ApiRoutes, AppRoute, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
-import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview } from '../shared';
+import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview, IFavoriteUpdate } from '../shared';
 
 import { dropToken, saveToken } from '../service/token';
 
@@ -126,6 +126,21 @@ export const fetchFavorites = createAsyncThunk<ISimpleOfferInfo[], undefined, {
   'favorites/fetch',
   async (_arg, {extra: api}) => {
     const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Favorites);
+
+    return data;
+  },
+);
+
+export const changeFavoriteStatus = createAsyncThunk<IDetailedOfferInfo, IFavoriteUpdate, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'favorites/changeStatus',
+  async ({offerId, status}, {dispatch, extra: api}) => {
+    const { data } = await api.post<IDetailedOfferInfo>(`${ApiRoutes.Favorites}/${offerId}/${status}`);
+
+    dispatch(fetchFavorites());
 
     return data;
   },

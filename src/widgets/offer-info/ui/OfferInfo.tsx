@@ -1,7 +1,11 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { getRatingPercent } from '../../../shared';
+import { getRatingPercent, AppRoute, AuthStatus, useAppDispatch, useAppSelector } from '../../../shared';
+
+import { changeFavoriteStatus } from '../../../store/async-action';
+import { redirectToRoute } from '../../../store/action';
+import { getAuthStatus } from '../../../store/slices';
 
 import { OfferInfoProps } from '../model/types';
 
@@ -14,8 +18,23 @@ export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
     isPremium,
     bedrooms,
     maxAdults,
-    goods
+    goods,
+    id,
+    isFavorite
   } = offerData;
+
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(getAuthStatus);
+
+  const handleBookmarkClick = () => {
+    if (authStatus !== AuthStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.Login));
+      return;
+    }
+
+    const status = isFavorite ? 0 : 1;
+    dispatch(changeFavoriteStatus({ offerId: id, status }));
+  };
 
   return (
     <>
@@ -30,11 +49,15 @@ export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
           {title}
         </h1>
 
-        <button className="offer__bookmark-button button" type="button">
+        <button
+          className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`}
+          type="button"
+          onClick={handleBookmarkClick}
+        >
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">To bookmarks</span>
+          <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
         </button>
       </div>
 
