@@ -8,55 +8,6 @@ import { dropToken, saveToken } from '../service/token';
 
 import { redirectToRoute } from './action';
 
-export const authCheck = createAsyncThunk<IUser | null, undefined, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'auth/check',
-  async (_arg, {extra: api}) => {
-    try {
-      const { data } = await api.get<IUser>(ApiRoutes.Login);
-
-      return data;
-    } catch {
-      return null;
-    }
-  },
-);
-
-export const authLogin = createAsyncThunk<IUser, AuthData, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'auth/login',
-  async (payload, {dispatch, extra: api}) => {
-    const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
-
-    saveToken(data.token);
-
-    dispatch(redirectToRoute(AppRoute.Main));
-
-    return data;
-  },
-);
-
-export const authLogout = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'auth/logout',
-  async (_arg, {dispatch, extra: api}) => {
-    await api.delete(ApiRoutes.Logout);
-
-    dropToken();
-
-    dispatch(redirectToRoute(AppRoute.Main));
-  },
-);
-
 export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
   dispatch: AppDispatchType;
   state: StateType;
@@ -158,5 +109,57 @@ export const postReview = createAsyncThunk<{ offerId: string }, IReview, {
     dispatch(fetchReviews({offerId}));
 
     return { offerId };
+  },
+);
+
+export const authCheck = createAsyncThunk<IUser | null, undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'auth/check',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const { data } = await api.get<IUser>(ApiRoutes.Login);
+
+      dispatch(fetchFavorites());
+
+      return data;
+    } catch {
+      return null;
+    }
+  },
+);
+
+export const authLogin = createAsyncThunk<IUser, AuthData, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'auth/login',
+  async (payload, {dispatch, extra: api}) => {
+    const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
+
+    saveToken(data.token);
+
+    dispatch(fetchFavorites());
+    dispatch(redirectToRoute(AppRoute.Main));
+
+    return data;
+  },
+);
+
+export const authLogout = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'auth/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete(ApiRoutes.Logout);
+
+    dropToken();
+
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { NameSpace } from '../../../shared';
 
-import { fetchFavorites } from '../../async-action';
+import { fetchFavorites, authLogout } from '../../async-action';
 
 import { initialState } from './state';
 
@@ -20,6 +20,10 @@ export const favoritesData = createSlice({
         state.areFavoritesLoading = false;
       })
       .addCase(fetchFavorites.rejected, (state) => {
+        state.areFavoritesLoading = false;
+      })
+      .addCase(authLogout.fulfilled, (state) => {
+        state.favorites = [];
         state.areFavoritesLoading = false;
       });
   },
