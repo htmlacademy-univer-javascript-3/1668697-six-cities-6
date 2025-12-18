@@ -5,11 +5,13 @@ import { AppRoute, AuthStatus } from '../../../shared';
 import { useAppSelector, useAppDispatch } from '../../../shared';
 
 import { authLogout } from '../../../store/async-action';
-import { getAuthStatus, getName } from '../../../store/slices';
+import { getAuthStatus, getName, getFavorites } from '../../../store/slices';
 
 export const HeaderComponent: React.FC = () => {
   const authStatus = useAppSelector(getAuthStatus);
   const name = useAppSelector(getName);
+
+  const favorites = useAppSelector(getFavorites);
 
   const dispatch = useAppDispatch();
 
@@ -27,12 +29,11 @@ export const HeaderComponent: React.FC = () => {
             <ul className="header__nav-list">
               {authStatus === AuthStatus.Auth && (
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
                     <span className="header__user-name user__name">{name}</span>
-                    {/* TODO: Add favorite-count */}
-                    <span className="header__favorite-count">3</span>
-                  </a>
+                    <span className="header__favorite-count">{favorites.length}</span>
+                  </Link>
                 </li>
               )}
 
