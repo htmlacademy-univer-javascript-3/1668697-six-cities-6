@@ -1,5 +1,7 @@
 export const getRatingPercent = (ratingNumber: number) => {
-  const ratingPercentValue = ratingNumber / 5 * 100;
+  const roundedRatingNumber = Math.round(ratingNumber);
+
+  const ratingPercentValue = roundedRatingNumber / 5 * 100;
 
   return `${ratingPercentValue}%`;
 };
