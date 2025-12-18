@@ -1,12 +1,22 @@
 import React from 'react';
 
 import { Header, LoginForm } from '../../../widgets';
-import { useAppSelector } from '../../../shared';
+import { AppRoute, AuthStatus } from '../../../shared';
+import { useAppDispatch, useAppSelector } from '../../../shared';
 
-import { getCity } from '../../../store/slices';
+import { getCity, getAuthStatus } from '../../../store/slices';
+import { redirectToRoute } from '../../../store/action';
 
 export const LoginPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const city = useAppSelector(getCity);
+  const authStatus = useAppSelector(getAuthStatus);
+
+  if (authStatus === AuthStatus.Auth) {
+    dispatch(redirectToRoute(AppRoute.Main));
+    return;
+  }
 
   return (
     <div className="page page--gray page--login">
