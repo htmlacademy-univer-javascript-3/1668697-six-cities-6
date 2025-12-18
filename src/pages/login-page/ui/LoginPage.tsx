@@ -1,12 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Header, LoginForm } from '../../../widgets';
-import { useAppSelector } from '../../../shared';
+import { AppRoute, AuthStatus, ISimpleOfferInfo } from '../../../shared';
+import { useAppDispatch, useAppSelector, getCitiesData } from '../../../shared';
 
-import { getCity } from '../../../store/slices';
+import { getAuthStatus, getOffers, setCity } from '../../../store/slices';
+import { redirectToRoute } from '../../../store/action';
+
+const getRandomCity = (offers: ISimpleOfferInfo[]) => {
+  const cities = getCitiesData(offers);
+
+  return cities[Math.floor(Math.random() * cities.length)];
+};
 
 export const LoginPage: React.FC = () => {
-  const city = useAppSelector(getCity);
+  const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector(getAuthStatus);
+  const offers = useAppSelector(getOffers);
+
+  const randomCity = getRandomCity(offers);
+
+  if (authStatus === AuthStatus.Auth) {
+    dispatch(redirectToRoute(AppRoute.Main));
+    return;
+  }
+
+  const handleCityButtonClick = () => {
+    dispatch(setCity(randomCity));
+  };
 
   return (
     <div className="page page--gray page--login">
@@ -22,9 +45,9 @@ export const LoginPage: React.FC = () => {
 
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>{city.name}</span>
-              </a>
+              <Link to={AppRoute.Main} className="locations__item-link" onClick={handleCityButtonClick}>
+                <span>{randomCity.name}</span>
+              </Link>
             </div>
           </section>
         </div>

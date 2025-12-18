@@ -52,6 +52,11 @@ export const OfferPage: React.FC = () => {
     return <Spinner />;
   }
 
+  const mapOffers = [
+    currentOfferData,
+    ...nearbyOffersData,
+  ];
+
   return (
     <div className="page">
       <Header />
@@ -77,7 +82,7 @@ export const OfferPage: React.FC = () => {
             </div>
           </div>
 
-          <OffersMap points={getOffersPoints(nearbyOffersData, id)} additionalClass='offer__map' />
+          <OffersMap points={getOffersPoints(mapOffers, id)} additionalClass='offer__map' />
         </section>
 
         <div className="container">

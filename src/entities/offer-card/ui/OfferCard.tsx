@@ -1,14 +1,35 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
-import { OFFER_CARD_CLASSNAMES } from '../../../shared';
-import { getRatingPercent } from '../../../shared';
+import { OFFER_CARD_CLASSNAMES, AppRoute, AuthStatus } from '../../../shared';
+import { getRatingPercent, useAppDispatch, useAppSelector } from '../../../shared';
+
+import { changeFavoriteStatus } from '../../../store/async-action';
+import { redirectToRoute } from '../../../store/action';
+import { getAuthStatus } from '../../../store/slices';
 
 import { getOfferRouteWithId } from '../model/helpers';
 import { OfferCardProps } from '../model/types';
 
 export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, handleActiveCardIdChange }) => {
-  const { title, rating, price, type, isPremium, previewImage } = offerData;
+  const { title, rating, price, type, isPremium, previewImage, isFavorite } = offerData;
+
+  const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector(getAuthStatus);
+
+  const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (authStatus !== AuthStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.Login));
+      return;
+    }
+
+    const status = isFavorite ? 0 : 1;
+    dispatch(changeFavoriteStatus({ offerId: id, status }));
+  };
 
   return (
     <article
@@ -35,7 +56,13 @@ export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, of
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={classNames('place-card__bookmark-button button', {
+              ['place-card__bookmark-button--active']: isFavorite
+            })}
+            type="button"
+            onClick={handleBookmarkClick}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

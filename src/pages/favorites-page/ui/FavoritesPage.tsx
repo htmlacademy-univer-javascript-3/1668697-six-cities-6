@@ -1,39 +1,91 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
-import { OfferCardType } from '../../../shared';
-import { OffersList, Header } from '../../../widgets';
+import { OfferCardType, IOfferCity, ISimpleOfferInfo, AppRoute, useAppDispatch, useAppSelector } from '../../../shared';
 
-export const FavoritesPage: React.FC = () => (
-  <div className="page">
-    <Header />
+import { getFavorites, getAreFavoritesLoading, setCity } from '../../../store/slices';
 
-    <main className="page__main page__main--favorites">
-      <div className="page__favorites-container container">
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
+import { OffersList, Header, Spinner } from '../../../widgets';
 
-          <ul className="favorites__list">
-            <li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Amsterdam</span>
-                  </a>
-                </div>
-              </div>
+import { FavoritesEmptyPage } from '../../favorites-empty-page';
 
-              <OffersList offers={[]} offerCardType={OfferCardType.Favorites} />
-            </li>
+export const FavoritesPage: React.FC = () => {
+  const favorites = useAppSelector(getFavorites);
+  const areFavoritesLoading = useAppSelector(getAreFavoritesLoading);
 
-          </ul>
-        </section>
-      </div>
-    </main>
+  const dispatch = useAppDispatch();
 
-    <footer className="footer container">
-      <a className="footer__logo-link" href="main.html">
-        <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-      </a>
-    </footer>
-  </div>
-);
+  const favoritesByCity = useMemo(() => {
+    const grouped: Record<string, { city: IOfferCity; offers: ISimpleOfferInfo[] }> = {};
+
+    favorites.forEach((offer) => {
+      const cityName = offer.city.name;
+
+      if (!grouped[cityName]) {
+        grouped[cityName] = {
+          city: offer.city,
+          offers: [],
+        };
+      }
+
+      grouped[cityName].offers.push(offer);
+    });
+
+    return Object.values(grouped).sort((a, b) => a.city.name.localeCompare(b.city.name));
+  }, [favorites]);
+
+  const handleCityClick = useCallback(
+    (city: IOfferCity) => {
+      dispatch(setCity(city));
+    },
+    [dispatch]
+  );
+
+  if (areFavoritesLoading) {
+    return <Spinner />;
+  }
+
+  if (favorites.length === 0) {
+    return <FavoritesEmptyPage />;
+  }
+
+  return (
+    <div className="page">
+      <Header />
+
+      <main className="page__main page__main--favorites">
+        <div className="page__favorites-container container">
+          <section className="favorites">
+            <h1 className="favorites__title">Saved listing</h1>
+
+            <ul className="favorites__list">
+              {favoritesByCity.map(({ city, offers }) => (
+                <li key={city.name} className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <Link
+                        className="locations__item-link"
+                        to={AppRoute.Main}
+                        onClick={() => handleCityClick(city)}
+                      >
+                        <span>{city.name}</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <OffersList offers={offers} offerCardType={OfferCardType.Favorites} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </main>
+
+      <footer className="footer container">
+        <a className="footer__logo-link" href="main.html">
+          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
+        </a>
+      </footer>
+    </div>
+  );
+};

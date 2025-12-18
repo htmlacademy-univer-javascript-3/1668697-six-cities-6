@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { NameSpace } from '../../../shared';
 
-import { fetchCurrentOffer, fetchReviews, fetchNearby } from '../../async-action';
+import { fetchCurrentOffer, fetchReviews, fetchNearby, changeFavoriteStatus } from '../../async-action';
 
 import { initialState } from './state';
 
@@ -47,6 +47,19 @@ export const currentOfferData = createSlice({
       })
       .addCase(fetchNearby.rejected, (state) => {
         state.isCurrentOfferLoading = false;
+      })
+
+      .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+        const updatedOffer = action.payload;
+
+        if (state.currentOffer && state.currentOffer.id === updatedOffer.id) {
+          state.currentOffer.isFavorite = updatedOffer.isFavorite;
+        }
+
+        const nearbyIndex = state.currentOfferNearby.findIndex((offer) => offer.id === updatedOffer.id);
+        if (nearbyIndex >= 0) {
+          state.currentOfferNearby[nearbyIndex].isFavorite = updatedOffer.isFavorite;
+        }
       });
   },
 });

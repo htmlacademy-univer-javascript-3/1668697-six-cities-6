@@ -2,10 +2,8 @@ import React, { useCallback, memo } from 'react';
 import classNames from 'classnames';
 
 import { IOfferCity } from '../../../shared';
-import { useAppDispatch, useAppSelector } from '../../../shared';
+import { useAppDispatch, useAppSelector, getCitiesData } from '../../../shared';
 import { getCity, getOffers, setCity } from '../../../store/slices';
-
-import { getCitiesData } from '../model/helpers';
 
 export const CitiesListComponent: React.FC = () => {
   const currentCity = useAppSelector(getCity);

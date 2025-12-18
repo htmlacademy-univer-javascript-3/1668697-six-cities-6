@@ -13,6 +13,7 @@ import { getAreOffersLoading } from '../store/slices';
 
 import { browserHistory } from '../browserHistory';
 
+// TODO: change <a></a> tags to Link tags
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 

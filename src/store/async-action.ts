@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ApiRoutes, AppRoute, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
-import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview } from '../shared';
+import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview, IFavoriteUpdate } from '../shared';
 
 import { dropToken, saveToken } from '../service/token';
 
@@ -18,55 +18,6 @@ export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
     const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Offers);
 
     return data;
-  },
-);
-
-export const authCheck = createAsyncThunk<IUser | null, undefined, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'auth/check',
-  async (_arg, {extra: api}) => {
-    try {
-      const { data } = await api.get<IUser>(ApiRoutes.Login);
-
-      return data;
-    } catch {
-      return null;
-    }
-  },
-);
-
-export const authLogin = createAsyncThunk<IUser, AuthData, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'auth/login',
-  async (payload, {dispatch, extra: api}) => {
-    const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
-
-    saveToken(data.token);
-
-    dispatch(redirectToRoute(AppRoute.Main));
-
-    return data;
-  },
-);
-
-export const authLogout = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatchType;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'auth/logout',
-  async (_arg, {dispatch, extra: api}) => {
-    await api.delete(ApiRoutes.Logout);
-
-    dropToken();
-
-    dispatch(redirectToRoute(AppRoute.Main));
   },
 );
 
@@ -118,6 +69,34 @@ export const fetchCurrentOffer = createAsyncThunk<IDetailedOfferInfo, { offerId:
   },
 );
 
+export const fetchFavorites = createAsyncThunk<ISimpleOfferInfo[], undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'favorites/fetch',
+  async (_arg, {extra: api}) => {
+    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Favorites);
+
+    return data;
+  },
+);
+
+export const changeFavoriteStatus = createAsyncThunk<IDetailedOfferInfo, IFavoriteUpdate, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'favorites/changeStatus',
+  async ({offerId, status}, {dispatch, extra: api}) => {
+    const { data } = await api.post<IDetailedOfferInfo>(`${ApiRoutes.Favorites}/${offerId}/${status}`);
+
+    dispatch(fetchFavorites());
+
+    return data;
+  },
+);
+
 export const postReview = createAsyncThunk<{ offerId: string }, IReview, {
   dispatch: AppDispatchType;
   state: StateType;
@@ -130,5 +109,57 @@ export const postReview = createAsyncThunk<{ offerId: string }, IReview, {
     dispatch(fetchReviews({offerId}));
 
     return { offerId };
+  },
+);
+
+export const authCheck = createAsyncThunk<IUser | null, undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'auth/check',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const { data } = await api.get<IUser>(ApiRoutes.Login);
+
+      dispatch(fetchFavorites());
+
+      return data;
+    } catch {
+      return null;
+    }
+  },
+);
+
+export const authLogin = createAsyncThunk<IUser, AuthData, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'auth/login',
+  async (payload, {dispatch, extra: api}) => {
+    const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
+
+    saveToken(data.token);
+
+    dispatch(fetchFavorites());
+    dispatch(redirectToRoute(AppRoute.Main));
+
+    return data;
+  },
+);
+
+export const authLogout = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatchType;
+  state: StateType;
+  extra: AxiosInstance;
+}>(
+  'auth/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete(ApiRoutes.Logout);
+
+    dropToken();
+
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );

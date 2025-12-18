@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { MainEmptyPage } from '../../main-empty-page';
+
 import { OfferCardType, getOffersPoints, useAppSelector } from '../../../shared';
 import { OffersList, OffersMap, Header, CitiesList , OffersSort } from '../../../widgets';
 
@@ -12,6 +14,10 @@ export const MainPage: React.FC = () => {
 
   const currentOffers = offersData.filter((offer) => offer.city.name === city.name);
   const offersCount = currentOffers.length;
+
+  if (offersData.length === 0) {
+    return <MainEmptyPage city={city} />;
+  }
 
   return (
     <div className="page page--gray page--main">
