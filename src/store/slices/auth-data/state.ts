@@ -2,10 +2,10 @@ import { AuthStatus } from '../../../shared';
 
 export interface IAuthData {
   authStatus: AuthStatus;
-  name: string;
+  email: string;
 }
 
 export const initialState: IAuthData = {
   authStatus: AuthStatus.Unknown,
-  name: '',
+  email: '',
 };

@@ -15,27 +15,27 @@ export const authData = createSlice({
     builder
       .addCase(authCheck.fulfilled, (state, action) => {
         if (action.payload) {
-          state.name = action.payload.name;
+          state.email = action.payload.email;
           state.authStatus = AuthStatus.Auth;
         } else {
-          state.name = '';
+          state.email = '';
           state.authStatus = AuthStatus.NoAuth;
         }
       })
       .addCase(authCheck.rejected, (state) => {
-        state.name = '';
+        state.email = '';
         state.authStatus = AuthStatus.NoAuth;
       })
       .addCase(authLogin.fulfilled, (state, action) => {
-        state.name = action.payload.name;
+        state.email = action.payload.email;
         state.authStatus = AuthStatus.Auth;
       })
       .addCase(authLogin.rejected, (state) => {
-        state.name = '';
+        state.email = '';
         state.authStatus = AuthStatus.NoAuth;
       })
       .addCase(authLogout.fulfilled, (state) => {
-        state.name = '';
+        state.email = '';
         state.authStatus = AuthStatus.NoAuth;
       });
   },

@@ -5,11 +5,11 @@ import { AppRoute, AuthStatus } from '../../../shared';
 import { useAppSelector, useAppDispatch } from '../../../shared';
 
 import { authLogout } from '../../../store/async-action';
-import { getAuthStatus, getName, getFavorites } from '../../../store/slices';
+import { getAuthStatus, getEmail, getFavorites } from '../../../store/slices';
 
 export const HeaderComponent: React.FC = () => {
   const authStatus = useAppSelector(getAuthStatus);
-  const name = useAppSelector(getName);
+  const email = useAppSelector(getEmail);
 
   const favorites = useAppSelector(getFavorites);
 
@@ -31,7 +31,7 @@ export const HeaderComponent: React.FC = () => {
                 <li className="header__nav-item user">
                   <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
-                    <span className="header__user-name user__name">{name}</span>
+                    <span className="header__user-name user__name">{email}</span>
                     <span className="header__favorite-count">{favorites.length}</span>
                   </Link>
                 </li>
