@@ -77,7 +77,7 @@ export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
           {bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
         </li>
         <li className="offer__feature offer__feature--adults">
-          Max {maxAdults} {bedrooms === 1 ? 'adult' : 'adults'}
+          Max {maxAdults} {maxAdults === 1 ? 'adult' : 'adults'}
         </li>
       </ul>
 
