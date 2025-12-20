@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
-import { Spinner } from '../widgets';
+import { Spinner, ErrorModal } from '../widgets';
 
 import { AppRoute } from '../shared';
 import { PrivateRoute, HistoryRouter } from '../shared';
@@ -29,6 +29,8 @@ const App: React.FC = () => {
 
   return (
     <HistoryRouter history={browserHistory}>
+      <ErrorModal />
+
       <Routes>
         <Route
           path={AppRoute.Main}

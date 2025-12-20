@@ -1,4 +1,5 @@
 export * from './cities-list';
+export * from './error-modal';
 export * from './header';
 export * from './login-form';
 export * from './offer-gallery';
