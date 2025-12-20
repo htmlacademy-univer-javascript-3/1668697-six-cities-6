@@ -7,7 +7,6 @@ import { RATING_VALUES, COMMENT_OPTIONS } from '../model/constants';
 import { validateValues } from '../model/helpers';
 import { OfferReviewFormProps } from '../model/types';
 
-// TODO: handle errors & add error messages
 export const OfferReviewForm: React.FC<OfferReviewFormProps> = ({ offerId }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useAppDispatch } from '../../../shared';
 import { authLogin } from '../../../store/async-action';
 
-// TODO: add validation errors visualization
 export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

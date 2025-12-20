@@ -3,10 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ApiRoutes, AppRoute, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
 import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview, IFavoriteUpdate } from '../shared';
+import { formatError } from '../shared';
 
 import { dropToken, saveToken } from '../service/token';
 
 import { redirectToRoute } from './action';
+import { setError } from './slices/error-data';
+
 
 export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
   dispatch: AppDispatchType;
@@ -103,12 +106,20 @@ export const postReview = createAsyncThunk<{ offerId: string }, IReview, {
   extra: AxiosInstance;
 }>(
   'review/post',
-  async ({comment, rating, offerId}, {dispatch, extra: api}) => {
-    await api.post(`${ApiRoutes.Reviews}/${offerId}`, {comment, rating});
+  async ({comment, rating, offerId}, {dispatch, extra: api, rejectWithValue}) => {
+    try {
+      await api.post(`${ApiRoutes.Reviews}/${offerId}`, {comment, rating});
 
-    dispatch(fetchReviews({offerId}));
+      dispatch(fetchReviews({offerId}));
 
-    return { offerId };
+      return { offerId };
+    } catch (error) {
+      const errorMessage = formatError(error);
+
+      dispatch(setError(errorMessage));
+
+      return rejectWithValue(null);
+    }
   },
 );
 
@@ -137,15 +148,23 @@ export const authLogin = createAsyncThunk<IUser, AuthData, {
   extra: AxiosInstance;
 }>(
   'auth/login',
-  async (payload, {dispatch, extra: api}) => {
-    const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
+  async (payload, {dispatch, extra: api, rejectWithValue}) => {
+    try {
+      const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
 
-    saveToken(data.token);
+      saveToken(data.token);
 
-    dispatch(fetchFavorites());
-    dispatch(redirectToRoute(AppRoute.Main));
+      dispatch(fetchFavorites());
+      dispatch(redirectToRoute(AppRoute.Main));
 
-    return data;
+      return data;
+    } catch (error) {
+      const errorMessage = formatError(error);
+
+      dispatch(setError(errorMessage));
+
+      return rejectWithValue(null);
+    }
   },
 );
 
