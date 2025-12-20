@@ -8,10 +8,9 @@ export const formatError = (error: unknown): string => {
       if (errorData.message) {
         if (errorData.details && errorData.details.length > 0) {
           const detailsMessages = errorData.details
-            .map((detail) => `${detail.property}: ${detail.messages.join(', ')}`)
-            .join(';');
+            .map((detail) => `- ${detail.messages.join(', ')}`).join('\n');
 
-          return `${errorData.message}. ${detailsMessages}`;
+          return `${errorData.message}.\n${detailsMessages}`;
         }
 
         return errorData.message;
