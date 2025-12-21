@@ -12,8 +12,7 @@ import { getAuthStatus } from '../../../../store/slices';
 import { getOfferRouteWithId } from '../model/helpers';
 import { OfferCardProps } from '../model/types';
 
-// TODO: use on format for props
-export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, handleActiveCardIdChange }) => {
+export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, onActiveCardIdChange }) => {
   const { title, rating, price, type, isPremium, previewImage, isFavorite } = offerData;
 
   const dispatch = useAppDispatch();
@@ -35,8 +34,8 @@ export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, of
   return (
     <article
       className={OFFER_CARD_CLASSNAMES[offerCardType].item}
-      onMouseOver={() => handleActiveCardIdChange(id)}
-      onMouseLeave={() => handleActiveCardIdChange('')}
+      onMouseOver={() => onActiveCardIdChange(id)}
+      onMouseLeave={() => onActiveCardIdChange('')}
     >
       { isPremium && (
         <div className="place-card__mark">

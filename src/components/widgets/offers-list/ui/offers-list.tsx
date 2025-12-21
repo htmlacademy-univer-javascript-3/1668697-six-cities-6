@@ -41,7 +41,7 @@ export const OffersList: React.FC<OffersListProps> = ({
             id={offerData.id}
             offerData={offerData}
             offerCardType={offerCardType}
-            handleActiveCardIdChange={handleActiveCardIdChange}
+            onActiveCardIdChange={handleActiveCardIdChange}
           />
         ))}
     </div>
