@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../shared';
 import { getError } from '../../../store/slices';
 import { clearError } from '../../../store/slices/error-data';
 
-import './ErrorModal.css';
+import './error-modal.css';
 
 export const ErrorModal: React.FC = () => {
   const dispatch = useAppDispatch();

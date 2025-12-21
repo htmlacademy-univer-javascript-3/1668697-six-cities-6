@@ -1,2 +1,2 @@
-export * from './ui/ErrorModal';
+export * from './ui/error-modal';
 

@@ -1,4 +1,4 @@
-import { LocationType } from './mapTypes';
+import { LocationType } from './map-types';
 
 export interface ISimpleOfferInfo {
   id: string;

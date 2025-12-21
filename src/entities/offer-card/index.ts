@@ -1,1 +1,1 @@
-export * from './ui/OfferCard';
+export * from './ui/offer-card';

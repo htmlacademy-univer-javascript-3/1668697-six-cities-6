@@ -1,1 +1,1 @@
-export * from './ui/CitiesList';
+export * from './ui/cities-list';

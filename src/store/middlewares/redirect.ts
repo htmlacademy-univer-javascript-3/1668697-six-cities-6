@@ -3,7 +3,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 import { rootReducer } from '../root-reducer';
 
-import { browserHistory } from '../../browserHistory';
+import { browserHistory } from '../../browser-history';
 
 type RootReducer = ReturnType<typeof rootReducer>;
 

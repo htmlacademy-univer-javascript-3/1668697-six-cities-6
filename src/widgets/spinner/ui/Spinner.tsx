@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Spinner.css';
+import './spinner.css';
 
 export const Spinner: React.FC = () => (
   <div className="wrapper">

@@ -1,1 +1,1 @@
-export * from './ui/HistoryRouter';
+export * from './ui/history-router';

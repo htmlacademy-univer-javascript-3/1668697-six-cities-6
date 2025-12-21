@@ -8,7 +8,7 @@ import { MAP_ICONS, useMap } from '../../../shared';
 import { MapProps } from '../model/types';
 
 import 'leaflet/dist/leaflet.css';
-import './OffersMap.css';
+import './offers-map.css';
 
 export const OffersMap: React.FC<MapProps> = ({ points, additionalClass }) => {
   const mapRef = useRef<HTMLElement>(null);

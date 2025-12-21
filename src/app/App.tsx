@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../shared';
 import { fetchOffers, authCheck } from '../store/async-action';
 import { getAreOffersLoading } from '../store/slices';
 
-import { browserHistory } from '../browserHistory';
+import { browserHistory } from '../browser-history';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();

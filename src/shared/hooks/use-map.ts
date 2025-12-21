@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Map, TileLayer } from 'leaflet';
 
 import { MAP_ATTRIBUTION, MAP_URL } from '../constants';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '.';
 import { getCity } from '../../store/slices';
 
 export const useMap = (mapRef: React.RefObject<HTMLElement>) => {

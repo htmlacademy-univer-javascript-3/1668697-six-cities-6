@@ -21,7 +21,7 @@ import {
 
 import { fetchCurrentOffer } from '../../../store/async-action';
 
-import './OfferPage.css';
+import './offer-page.css';
 
 export const OfferPage: React.FC = () => {
   const dispatch = useAppDispatch();

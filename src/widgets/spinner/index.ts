@@ -1,1 +1,1 @@
-export * from './ui/Spinner';
+export * from './ui/spinner';

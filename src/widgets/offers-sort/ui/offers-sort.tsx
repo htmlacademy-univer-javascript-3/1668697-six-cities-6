@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../shared';
 
 import { getOffersSortType, offersData } from '../../../store/slices';
 
-import styles from './OffersSort.module.css';
+import './offers-sort.css';
 
 export const OffersSortComponent: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ export const OffersSortComponent: React.FC = () => {
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className={classNames('places__sorting-caption', styles['caption'])}>Sort by</span>
+      <span className={classNames('places__sorting-caption', 'caption')}>Sort by</span>
 
       <span className="places__sorting-type" tabIndex={0} onClick={handleIsOpenChange}>
         <span>{currentOffersSortType}</span>
@@ -51,8 +51,8 @@ export const OffersSortComponent: React.FC = () => {
         {sortTypes.map((sortType) => (
           <li
             key={sortType}
-            className={classNames('places__option', styles.option, {
-              [styles.option_active]: sortType === currentOffersSortType
+            className={classNames('places__option', 'option', {
+              ['option_active']: sortType === currentOffersSortType
             })}
             tabIndex={0}
             onClick={() => handleSortItemClick(sortType)}

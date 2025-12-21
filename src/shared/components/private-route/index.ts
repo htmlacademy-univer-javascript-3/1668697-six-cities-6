@@ -1,1 +1,1 @@
-export * from './ui/PrivateRoute';
+export * from './ui/private-route';

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../shared';
 import { Header } from '../../../widgets';
 
-import './NotFoundPage.css';
+import './not-found-page.css';
 
 export const NotFoundPage: React.FC = () => (
   <div className="page page--not-found">

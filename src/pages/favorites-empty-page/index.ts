@@ -1,1 +1,1 @@
-export * from './ui/FavoritesEmptyPage';
+export * from './ui/favorites-empty-page';
