@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Header } from '../../../widgets';
+import { AppRoute } from '../../../shared';
 
 export const FavoritesEmptyPage: React.FC = () => (
   <div className="page page--favorites-empty">
@@ -19,9 +21,9 @@ export const FavoritesEmptyPage: React.FC = () => (
     </main>
 
     <footer className="footer">
-      <a className="footer__logo-link" href="main.html">
+      <Link to={AppRoute.Main} className="footer__logo-link">
         <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-      </a>
+      </Link>
     </footer>
   </div>
 );

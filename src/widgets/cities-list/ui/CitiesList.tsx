@@ -34,7 +34,6 @@ export const CitiesListComponent: React.FC = () => {
                 className={classNames('locations__item-link tabs__item', {
                   ['tabs__item--active']: citiesItemData.name === currentCity.name
                 })}
-                href="#"
               >
                 <span>{citiesItemData.name}</span>
               </a>
