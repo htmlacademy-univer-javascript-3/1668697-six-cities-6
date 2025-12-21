@@ -5,7 +5,7 @@ import { OfferCardType, IOfferCity, ISimpleOfferInfo, AppRoute, useAppDispatch, 
 
 import { getFavorites, getAreFavoritesLoading, setCity } from '../../../store/slices';
 
-import { OffersList, Header, Spinner } from '../../../widgets';
+import { OffersList, Header, Spinner } from '../../../components';
 
 import { FavoritesEmptyPage } from '../../favorites-empty-page';
 

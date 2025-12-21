@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppRoute } from '../../../shared';
-import { Header } from '../../../widgets';
+import { Header } from '../../../components';
 
 import './not-found-page.css';
 

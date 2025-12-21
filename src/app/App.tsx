@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
-import { Spinner, ErrorModal } from '../widgets';
+import { Spinner, ErrorModal } from '../components';
+import { PrivateRoute, HistoryRouter } from '../components';
 
 import { AppRoute } from '../shared';
-import { PrivateRoute, HistoryRouter } from '../shared';
 import { useAppDispatch, useAppSelector } from '../shared';
 
 import { fetchOffers, authCheck } from '../store/async-action';

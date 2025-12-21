@@ -17,7 +17,7 @@ import {
   OffersList,
   OffersMap,
   Spinner
-} from '../../../widgets';
+} from '../../../components';
 
 import { fetchCurrentOffer } from '../../../store/async-action';
 

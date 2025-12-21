@@ -3,7 +3,7 @@ import React from 'react';
 import { MainEmptyPage } from '../../main-empty-page';
 
 import { OfferCardType, getOffersPoints, useAppSelector } from '../../../shared';
-import { OffersList, OffersMap, Header, CitiesList , OffersSort } from '../../../widgets';
+import { OffersList, OffersMap, Header, CitiesList , OffersSort } from '../../../components';
 
 import { getCity, getCurrentOfferId, getOffers } from '../../../store/slices';
 

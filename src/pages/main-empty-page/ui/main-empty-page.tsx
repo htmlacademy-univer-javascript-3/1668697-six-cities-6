@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CitiesList, Header } from '../../../widgets';
+import { CitiesList, Header } from '../../../components';
 
 import { MainEmptyPageProps } from '../model/types';
 
