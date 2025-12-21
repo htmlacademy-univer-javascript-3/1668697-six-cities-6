@@ -42,8 +42,8 @@ export const HeaderComponent: React.FC = () => {
                   <Link
                     to={AppRoute.Main}
                     className="header__nav-link"
-                    onClick={(e) => {
-                      e.preventDefault();
+                    onClick={(evt) => {
+                      evt.preventDefault();
 
                       dispatch(authLogout());
                     }}

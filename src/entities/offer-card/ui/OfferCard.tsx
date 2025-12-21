@@ -19,8 +19,8 @@ export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, of
 
   const authStatus = useAppSelector(getAuthStatus);
 
-  const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleBookmarkClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
 
     if (authStatus !== AuthStatus.Auth) {
       dispatch(redirectToRoute(AppRoute.Login));

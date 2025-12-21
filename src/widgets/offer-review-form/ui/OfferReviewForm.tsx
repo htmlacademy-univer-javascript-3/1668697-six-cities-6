@@ -19,20 +19,20 @@ export const OfferReviewForm: React.FC<OfferReviewFormProps> = ({ offerId }) => 
     setCanFormPost(areValuesValid);
   }, [rating, comment]);
 
-  const handleCommentValueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
+  const handleCommentValueChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(evt.target.value);
   };
 
-  const handleRatingValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
+  const handleRatingValueChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(evt.target.value);
 
     setRating(value);
   };
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
 
     if (offerId) {
       setIsFormPosting(true);

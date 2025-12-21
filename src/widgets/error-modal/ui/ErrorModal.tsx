@@ -19,8 +19,8 @@ export const ErrorModal: React.FC = () => {
     dispatch(clearError());
   };
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
+  const handleOverlayClick = (evt: React.MouseEvent<HTMLDivElement>) => {
+    if (evt.target === evt.currentTarget) {
       handleClose();
     }
   };
