@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ApiRoutes, AppRoute, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
+import { ApiRoute, AppRoute, AuthData, IOfferReview, IDetailedOfferInfo } from '../shared';
 import { AppDispatchType, StateType, ISimpleOfferInfo, IUser, IReview, IFavoriteUpdate } from '../shared';
 import { formatError } from '../shared';
 
@@ -18,7 +18,7 @@ export const fetchOffers = createAsyncThunk<ISimpleOfferInfo[], undefined, {
 }>(
   'offers/fetch',
   async (_arg, {extra: api}) => {
-    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Offers);
+    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoute.Offers);
 
     return data;
   },
@@ -31,7 +31,7 @@ export const fetchReviews = createAsyncThunk<IOfferReview[], { offerId: string }
 }>(
   'reviews/fetch',
   async ({offerId}, {extra: api}) => {
-    const { data } = await api.get<IOfferReview[]>(`${ApiRoutes.Reviews}/${offerId}`);
+    const { data } = await api.get<IOfferReview[]>(`${ApiRoute.Reviews}/${offerId}`);
 
     return data;
   },
@@ -44,7 +44,7 @@ export const fetchNearby = createAsyncThunk<ISimpleOfferInfo[], { offerId: strin
 }>(
   'nearby/fetch',
   async ({offerId}, {extra: api}) => {
-    const { data } = await api.get<ISimpleOfferInfo[]>(`${ApiRoutes.Offers}/${offerId}/${ApiRoutes.Nearby}`);
+    const { data } = await api.get<ISimpleOfferInfo[]>(`${ApiRoute.Offers}/${offerId}/${ApiRoute.Nearby}`);
 
     return data;
   },
@@ -58,7 +58,7 @@ export const fetchCurrentOffer = createAsyncThunk<IDetailedOfferInfo, { offerId:
   'offer/fetch',
   async ({offerId}, {dispatch, extra: api, rejectWithValue}) => {
     try {
-      const { data } = await api.get<IDetailedOfferInfo>(`${ApiRoutes.Offers}/${offerId}`);
+      const { data } = await api.get<IDetailedOfferInfo>(`${ApiRoute.Offers}/${offerId}`);
 
       dispatch(fetchReviews({offerId}));
       dispatch(fetchNearby({offerId}));
@@ -79,7 +79,7 @@ export const fetchFavorites = createAsyncThunk<ISimpleOfferInfo[], undefined, {
 }>(
   'favorites/fetch',
   async (_arg, {extra: api}) => {
-    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoutes.Favorites);
+    const { data } = await api.get<ISimpleOfferInfo[]>(ApiRoute.Favorites);
 
     return data;
   },
@@ -92,7 +92,7 @@ export const changeFavoriteStatus = createAsyncThunk<IDetailedOfferInfo, IFavori
 }>(
   'favorites/changeStatus',
   async ({offerId, status}, {dispatch, extra: api}) => {
-    const { data } = await api.post<IDetailedOfferInfo>(`${ApiRoutes.Favorites}/${offerId}/${status}`);
+    const { data } = await api.post<IDetailedOfferInfo>(`${ApiRoute.Favorites}/${offerId}/${status}`);
 
     dispatch(fetchFavorites());
 
@@ -108,7 +108,7 @@ export const postReview = createAsyncThunk<{ offerId: string }, IReview, {
   'review/post',
   async ({comment, rating, offerId}, {dispatch, extra: api, rejectWithValue}) => {
     try {
-      await api.post(`${ApiRoutes.Reviews}/${offerId}`, {comment, rating});
+      await api.post(`${ApiRoute.Reviews}/${offerId}`, {comment, rating});
 
       dispatch(fetchReviews({offerId}));
 
@@ -131,7 +131,7 @@ export const authCheck = createAsyncThunk<IUser | null, undefined, {
   'auth/check',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<IUser>(ApiRoutes.Login);
+      const { data } = await api.get<IUser>(ApiRoute.Login);
 
       dispatch(fetchFavorites());
 
@@ -150,7 +150,7 @@ export const authLogin = createAsyncThunk<IUser, AuthData, {
   'auth/login',
   async (payload, {dispatch, extra: api, rejectWithValue}) => {
     try {
-      const { data } = await api.post<IUser>(ApiRoutes.Login, payload);
+      const { data } = await api.post<IUser>(ApiRoute.Login, payload);
 
       saveToken(data.token);
 
@@ -175,7 +175,7 @@ export const authLogout = createAsyncThunk<void, undefined, {
 }>(
   'auth/logout',
   async (_arg, {dispatch, extra: api}) => {
-    await api.delete(ApiRoutes.Logout);
+    await api.delete(ApiRoute.Logout);
 
     dropToken();
 
