@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../../../shared';
+
 import { postReview } from '../../../../store/async-action';
 
 import { RATING_VALUES, COMMENT_OPTIONS } from '../model/constants';
@@ -16,6 +17,7 @@ export const OfferReviewForm: React.FC<OfferReviewFormProps> = ({ offerId }) => 
 
   useEffect(() => {
     const areValuesValid = validateValues(rating, comment);
+
     setCanFormPost(areValuesValid);
   }, [rating, comment]);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Header, LoginForm } from '../../../components';
+
 import { AppRoute, AuthStatus, ISimpleOfferInfo } from '../../../shared';
 import { useAppDispatch, useAppSelector, getCitiesData } from '../../../shared';
 

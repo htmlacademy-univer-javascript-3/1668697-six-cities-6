@@ -1,8 +1,8 @@
-import React, { useState, useCallback, memo } from 'react';
 import classNames from 'classnames';
+import React, { useState, useCallback, memo } from 'react';
 
-import { OffersSortType, useAppSelector } from '../../../../shared';
-import { useAppDispatch } from '../../../../shared';
+import { OffersSortType } from '../../../../shared';
+import { useAppDispatch, useAppSelector } from '../../../../shared';
 
 import { getOffersSortType, offersData } from '../../../../store/slices';
 

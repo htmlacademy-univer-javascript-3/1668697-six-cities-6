@@ -1,11 +1,11 @@
 import React, { useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
+import { OffersList, Header, Spinner } from '../../../components';
+
 import { OfferCardType, IOfferCity, ISimpleOfferInfo, AppRoute, useAppDispatch, useAppSelector } from '../../../shared';
 
 import { getFavorites, getAreFavoritesLoading, setCity } from '../../../store/slices';
-
-import { OffersList, Header, Spinner } from '../../../components';
 
 import { FavoritesEmptyPage } from '../../favorites-empty-page';
 

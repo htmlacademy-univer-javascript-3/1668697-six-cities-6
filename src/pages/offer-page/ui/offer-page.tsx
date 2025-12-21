@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { AuthStatus, getOffersPoints, OfferCardType } from '../../../shared';
-import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
-import { useAppSelector, useAppDispatch } from '../../../shared';
-
-import { getAuthStatus, getCurrentOffer, getCurrentOfferNearby, getCurrentOfferReviews, getIsCurrentOfferLoading } from '../../../store/slices';
-
 import {
   Header,
   OfferGallery,
@@ -19,6 +13,17 @@ import {
   Spinner
 } from '../../../components';
 
+import { AuthStatus, getOffersPoints, OfferCardType } from '../../../shared';
+import { NEAR_OFFERS_LIST_LENGTH } from '../../../shared';
+import { useAppSelector, useAppDispatch } from '../../../shared';
+
+import {
+  getAuthStatus,
+  getCurrentOffer,
+  getCurrentOfferNearby,
+  getCurrentOfferReviews,
+  getIsCurrentOfferLoading
+} from '../../../store/slices';
 import { fetchCurrentOffer } from '../../../store/async-action';
 
 import './offer-page.css';

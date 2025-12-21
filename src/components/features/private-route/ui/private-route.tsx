@@ -1,10 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { AppRoute } from '../../../../shared/constants';
-import { AuthStatus } from '../../../../shared/types';
-
-import { useAppSelector } from '../../../../shared/hooks';
+import { AppRoute } from '../../../../shared';
+import { AuthStatus } from '../../../../shared';
+import { useAppSelector } from '../../../../shared';
 
 import { getAuthStatus } from '../../../../store/slices';
 

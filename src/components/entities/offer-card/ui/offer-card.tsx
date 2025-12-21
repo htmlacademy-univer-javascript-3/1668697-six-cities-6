@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 
 import { OFFER_CARD_CLASSNAMES, AppRoute, AuthStatus } from '../../../../shared';
 import { getRatingPercent, useAppDispatch, useAppSelector } from '../../../../shared';
@@ -12,6 +12,7 @@ import { getAuthStatus } from '../../../../store/slices';
 import { getOfferRouteWithId } from '../model/helpers';
 import { OfferCardProps } from '../model/types';
 
+// TODO: use on format for props
 export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, offerCardType, handleActiveCardIdChange }) => {
   const { title, rating, price, type, isPremium, previewImage, isFavorite } = offerData;
 

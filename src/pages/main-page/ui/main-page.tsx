@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { MainEmptyPage } from '../../main-empty-page';
-
-import { OfferCardType, getOffersPoints, useAppSelector } from '../../../shared';
 import { OffersList, OffersMap, Header, CitiesList , OffersSort } from '../../../components';
 
+import { OfferCardType, getOffersPoints, useAppSelector } from '../../../shared';
+
 import { getCity, getCurrentOfferId, getOffers } from '../../../store/slices';
+
+import { MainEmptyPage } from '../../main-empty-page';
 
 export const MainPage: React.FC = () => {
   const city = useAppSelector(getCity);

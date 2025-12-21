@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { AppRoute } from '../../../shared';
 import { Header } from '../../../components';
+
+import { AppRoute } from '../../../shared';
 
 import './not-found-page.css';
 

@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { OfferCard } from '../../../entities';
+
 import {
   OFFER_CARD_CLASSNAMES,
 } from '../../../../shared';

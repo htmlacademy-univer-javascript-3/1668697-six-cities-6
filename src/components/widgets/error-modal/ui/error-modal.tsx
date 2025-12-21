@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../shared';
-import { getError } from '../../../../store/slices';
-import { clearError } from '../../../../store/slices/error-data';
+
+import { getError, clearError } from '../../../../store/slices';
 
 import './error-modal.css';
 

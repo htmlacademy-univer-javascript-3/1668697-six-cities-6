@@ -1,8 +1,9 @@
-import React, { useCallback, memo } from 'react';
 import classNames from 'classnames';
+import React, { useCallback, memo } from 'react';
 
 import { IOfferCity } from '../../../../shared';
 import { useAppDispatch, useAppSelector, getCitiesData } from '../../../../shared';
+
 import { getCity, getOffers, setCity } from '../../../../store/slices';
 
 export const CitiesListComponent: React.FC = () => {

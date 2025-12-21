@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Header } from '../../../components';
+
 import { AppRoute } from '../../../shared';
 
 export const FavoritesEmptyPage: React.FC = () => (
