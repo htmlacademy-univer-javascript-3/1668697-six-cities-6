@@ -1,4 +1,4 @@
-import { IOfferCity } from '../../../shared';
+import { IOfferCity } from '../../../shared/types/offer-types';
 
 interface ICityData {
   city: IOfferCity;

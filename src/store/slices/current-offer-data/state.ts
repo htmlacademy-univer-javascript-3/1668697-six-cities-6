@@ -1,4 +1,4 @@
-import { IDetailedOfferInfo, IOfferReview, ISimpleOfferInfo } from '../../../shared';
+import { IDetailedOfferInfo, IOfferReview, ISimpleOfferInfo } from '../../../shared/types/offer-types';
 
 interface ICurrentOfferData {
   currentOffer: IDetailedOfferInfo | null;

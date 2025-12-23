@@ -5,5 +5,3 @@ export interface IErrorData {
 export const initialState: IErrorData = {
   error: null,
 };
-
-

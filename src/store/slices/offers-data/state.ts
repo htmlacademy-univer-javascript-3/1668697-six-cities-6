@@ -1,4 +1,4 @@
-import { ISimpleOfferInfo, OffersSortType } from '../../../shared';
+import { ISimpleOfferInfo, OffersSortType } from '../../../shared/types/offer-types';
 
 interface IOffersData {
   offers: ISimpleOfferInfo[];
