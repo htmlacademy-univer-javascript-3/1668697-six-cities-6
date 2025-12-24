@@ -55,7 +55,7 @@ describe('AuthData slice', () => {
       email: '',
     };
 
-    const result = authData.reducer(initialState, authCheck.fulfilled);
+    const result = authData.reducer(initialState, authCheck.fulfilled(null, '', undefined));
 
     expect(result).toEqual(expectedState);
   });
@@ -80,7 +80,7 @@ describe('AuthData slice', () => {
 
     const result = authData.reducer(
       initialState,
-      authCheck.fulfilled(mockUser, '', undefined)
+      authLogin.fulfilled(mockUser, '', { email: '', password: '' })
     );
 
     expect(result).toEqual(expectedState);
