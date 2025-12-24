@@ -8,7 +8,7 @@ import { createAPI } from '../service/api';
 import { ApiRoute, StateType } from '../shared';
 import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites } from './async-action';
 import { redirectToRoute } from './action';
 
 describe('Async actions', () => {
@@ -165,6 +165,39 @@ describe('Async actions', () => {
         fetchCurrentOffer.pending.type,
         redirectToRoute.type,
         fetchCurrentOffer.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchFavorites action', () => {
+    it('should dispatch "fetchFavorites.pending" and "fetchFavorites.fulfilled" & return favorites data, when server response 200', async () => {
+      const mockFavorites = [getMockSimpleOffer(), getMockSimpleOffer()];
+      mockAxiosAdapter.onGet(ApiRoute.Favorites).reply(200, mockFavorites);
+
+      await store.dispatch(fetchFavorites());
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchFavoritesFulfilled = emittedActions.at(1) as ReturnType<typeof fetchFavorites.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        fetchFavorites.pending.type,
+        fetchFavorites.fulfilled.type,
+      ]);
+
+      expect(fetchFavoritesFulfilled.payload)
+        .toEqual(mockFavorites);
+    });
+
+    it('should dispatch "fetchFavorites.pending" and "fetchFavorites.rejected", when server response 401', async () => {
+      mockAxiosAdapter.onGet(ApiRoute.Favorites).reply(401);
+
+      await store.dispatch(fetchFavorites());
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        fetchFavorites.pending.type,
+        fetchFavorites.rejected.type,
       ]);
     });
   });
