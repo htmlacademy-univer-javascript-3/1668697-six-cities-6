@@ -212,6 +212,7 @@ describe('Async actions', () => {
     it('should dispatch "changeFavoriteStatus.pending", "fetchFavorites.pending", "changeFavoriteStatus.fulfilled" & return offer data, when server response 201', async () => {
       const mockDetailedOffer = getMockDetailedOffer();
       mockAxiosAdapter.onPost(`${ApiRoute.Favorites}/${offerId}/${status}`).reply(201, mockDetailedOffer);
+      mockAxiosAdapter.onGet(ApiRoute.Favorites).reply(200, []);
 
       await store.dispatch(changeFavoriteStatus({ offerId, status }));
       const emittedActions = store.getActions();
@@ -252,6 +253,7 @@ describe('Async actions', () => {
 
     it('should dispatch "postReview.pending", "fetchReviews.pending", "postReview.fulfilled" & return offerId, when server response 201', async () => {
       mockAxiosAdapter.onPost(`${ApiRoute.Reviews}/${offerId}`, { comment: reviewData.comment, rating: reviewData.rating }).reply(201);
+      mockAxiosAdapter.onGet(`${ApiRoute.Reviews}/${offerId}`).reply(200, []);
 
       await store.dispatch(postReview(reviewData));
       const emittedActions = store.getActions();
