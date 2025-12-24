@@ -6,9 +6,10 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../service/api';
 
 import { ApiRoute, StateType } from '../shared';
-import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview } from '../mocks';
+import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer } from './async-action';
+import { redirectToRoute } from './action';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -124,6 +125,46 @@ describe('Async actions', () => {
       expect(extractedActionsTypes).toEqual([
         fetchNearby.pending.type,
         fetchNearby.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchCurrentOffer action', () => {
+    it('should dispatch "fetchCurrentOffer.pending" and "fetchCurrentOffer.fulfilled" & return offer data, when server response 200', async () => {
+      const offerId = 'test-offer-id';
+      const mockDetailedOffer = getMockDetailedOffer();
+      mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}`).reply(200, mockDetailedOffer);
+      mockAxiosAdapter.onGet(`${ApiRoute.Reviews}/${offerId}`).reply(200, []);
+      mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}/${ApiRoute.Nearby}`).reply(200, []);
+
+      await store.dispatch(fetchCurrentOffer({ offerId }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchCurrentOfferFulfilled = emittedActions.find(
+        (action) => action.type === fetchCurrentOffer.fulfilled.type
+      ) as ReturnType<typeof fetchCurrentOffer.fulfilled>;
+
+      expect(extractedActionsTypes[0]).toBe(fetchCurrentOffer.pending.type);
+      expect(extractedActionsTypes).toContain(fetchReviews.pending.type);
+      expect(extractedActionsTypes).toContain(fetchNearby.pending.type);
+      expect(extractedActionsTypes).toContain(fetchCurrentOffer.fulfilled.type);
+
+      expect(fetchCurrentOfferFulfilled.payload)
+        .toEqual(mockDetailedOffer);
+    });
+
+    it('should dispatch "fetchCurrentOffer.pending", "redirectToRoute", "fetchCurrentOffer.rejected", when server response 404', async () => {
+      const offerId = 'test-offer-id';
+      mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}`).reply(404);
+
+      await store.dispatch(fetchCurrentOffer({ offerId }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        fetchCurrentOffer.pending.type,
+        redirectToRoute.type,
+        fetchCurrentOffer.rejected.type,
       ]);
     });
   });
