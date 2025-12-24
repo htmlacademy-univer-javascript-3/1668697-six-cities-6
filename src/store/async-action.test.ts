@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import { vi } from 'vitest';
 
 import { createAPI } from '../service/api';
 import * as tokenStorage from '../service/token';
@@ -9,7 +10,7 @@ import * as tokenStorage from '../service/token';
 import { ApiRoute, StateType } from '../shared';
 import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer, getMockUser } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview, authCheck, authLogin } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview, authCheck, authLogin, authLogout } from './async-action';
 import { redirectToRoute } from './action';
 import { setError } from './slices/error-data';
 
@@ -365,6 +366,31 @@ describe('Async actions', () => {
         setError.type,
         authLogin.rejected.type,
       ]);
+    });
+  });
+
+  describe('authLogout action', () => {
+    it('should dispatch "authLogout.pending", "redirectToRoute", "authLogout.fulfilled" when server response 204', async () => {
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+
+      await store.dispatch(authLogout());
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        authLogout.pending.type,
+        redirectToRoute.type,
+        authLogout.fulfilled.type,
+      ]);
+    });
+
+    it('should one call "dropToken" with "authLogout"', async () => {
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+      const mockDropToken = vi.spyOn(tokenStorage, 'dropToken');
+
+      await store.dispatch(authLogout());
+
+      expect(mockDropToken).toBeCalledTimes(1);
     });
   });
 });
