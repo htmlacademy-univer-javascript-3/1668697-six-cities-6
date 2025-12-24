@@ -6,9 +6,9 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../service/api';
 
 import { ApiRoute, StateType } from '../shared';
-import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer } from '../mocks';
+import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer, getMockUser } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview, authCheck } from './async-action';
 import { redirectToRoute } from './action';
 import { setError } from './slices/error-data';
 
@@ -278,6 +278,47 @@ describe('Async actions', () => {
         setError.type,
         postReview.rejected.type,
       ]);
+    });
+  });
+
+  describe('authCheck action', () => {
+    it('should dispatch "authCheck.pending", "fetchFavorites.pending", "authCheck.fulfilled" with thunk "authCheck"', async () => {
+      const mockUser = getMockUser();
+      mockAxiosAdapter.onGet(ApiRoute.Login).reply(200, mockUser);
+      mockAxiosAdapter.onGet(ApiRoute.Favorites).reply(200, []);
+
+      await store.dispatch(authCheck());
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const authCheckFulfilled = emittedActions.find(
+        (action) => action.type === authCheck.fulfilled.type
+      ) as ReturnType<typeof authCheck.fulfilled>;
+
+      expect(extractedActionsTypes[0]).toBe(authCheck.pending.type);
+      expect(extractedActionsTypes).toContain(fetchFavorites.pending.type);
+      expect(extractedActionsTypes).toContain(authCheck.fulfilled.type);
+
+      expect(authCheckFulfilled.payload)
+        .toEqual(mockUser);
+    });
+
+    it('should dispatch "authCheck.pending" and "authCheck.fulfilled" with null payload when server response 400', async () => {
+      mockAxiosAdapter.onGet(ApiRoute.Login).reply(400);
+
+      await store.dispatch(authCheck());
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const authCheckFulfilled = emittedActions.find(
+        (action) => action.type === authCheck.fulfilled.type
+      ) as ReturnType<typeof authCheck.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        authCheck.pending.type,
+        authCheck.fulfilled.type,
+      ]);
+
+      expect(authCheckFulfilled.payload)
+        .toBeNull();
     });
   });
 });
