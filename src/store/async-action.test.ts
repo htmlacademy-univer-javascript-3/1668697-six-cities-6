@@ -8,8 +8,9 @@ import { createAPI } from '../service/api';
 import { ApiRoute, StateType } from '../shared';
 import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview } from './async-action';
 import { redirectToRoute } from './action';
+import { setError } from './slices/error-data';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -235,6 +236,47 @@ describe('Async actions', () => {
       expect(extractedActionsTypes).toEqual([
         changeFavoriteStatus.pending.type,
         changeFavoriteStatus.rejected.type,
+      ]);
+    });
+  });
+
+  describe('postReview action', () => {
+    const offerId = 'test-offer-id';
+    const reviewData = {
+      offerId,
+      comment: 'test comment',
+      rating: 5,
+    };
+
+    it('should dispatch "postReview.pending", "fetchReviews.pending", "postReview.fulfilled" & return offerId, when server response 201', async () => {
+      mockAxiosAdapter.onPost(`${ApiRoute.Reviews}/${offerId}`, { comment: reviewData.comment, rating: reviewData.rating }).reply(201);
+
+      await store.dispatch(postReview(reviewData));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const postReviewFulfilled = emittedActions.find(
+        (action) => action.type === postReview.fulfilled.type
+      ) as ReturnType<typeof postReview.fulfilled>;
+
+      expect(extractedActionsTypes[0]).toBe(postReview.pending.type);
+      expect(extractedActionsTypes).toContain(fetchReviews.pending.type);
+      expect(extractedActionsTypes).toContain(postReview.fulfilled.type);
+
+      expect(postReviewFulfilled.payload)
+        .toEqual({ offerId });
+    });
+
+    it.each([400, 401, 404])('should dispatch "postReview.pending", "setError", "postReview.rejected", when server response %i', async (statusCode) => {
+      mockAxiosAdapter.onPost(`${ApiRoute.Reviews}/${offerId}`, { comment: reviewData.comment, rating: reviewData.rating }).reply(statusCode);
+
+      await store.dispatch(postReview(reviewData));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        postReview.pending.type,
+        setError.type,
+        postReview.rejected.type,
       ]);
     });
   });
