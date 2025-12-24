@@ -2,17 +2,35 @@ import { Action } from 'redux';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { vi } from 'vitest';
 
 import { createAPI } from '../service/api';
 import * as tokenStorage from '../service/token';
 
-import { ApiRoute, StateType } from '../shared';
-import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer, getMockUser } from '../mocks';
-
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview, authCheck, authLogin, authLogout } from './async-action';
-import { redirectToRoute } from './action';
 import { setError } from './slices/error-data';
+
+import { ApiRoute, StateType } from '../shared';
+import {
+  AppThunkDispatch,
+  extractActionsTypes,
+  getMockSimpleOffer,
+  getMockReview,
+  getMockDetailedOffer,
+  getMockUser
+} from '../mocks';
+
+import { redirectToRoute } from './action';
+import {
+  fetchOffers,
+  fetchReviews,
+  fetchNearby,
+  fetchCurrentOffer,
+  fetchFavorites,
+  changeFavoriteStatus,
+  postReview,
+  authCheck,
+  authLogin,
+  authLogout
+} from './async-action';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -22,7 +40,7 @@ describe('Async actions', () => {
   let store: ReturnType<typeof mockStoreCreator>;
 
   beforeEach(() => {
-    store = mockStoreCreator({}); // TODO: add data?
+    store = mockStoreCreator({});
   });
 
   afterEach(() => {
