@@ -12,7 +12,7 @@ export type AuthData = {
 export interface IUser {
   name: string;
   avatarUrl: string;
-  isPro: false;
+  isPro: boolean;
   email: string;
   token: string;
 }

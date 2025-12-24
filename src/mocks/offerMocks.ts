@@ -2,7 +2,7 @@ import faker from 'faker';
 
 import { ISimpleOfferInfo, IDetailedOfferInfo } from '../shared/types/offer-types';
 import { getMockCity } from './cityMocks';
-import { getMockUser } from './userMocks';
+import { getMockOfferUser } from './userMocks';
 
 export const getMockSimpleOffer = (): ISimpleOfferInfo => ({
   id: faker.datatype.uuid(),
@@ -31,7 +31,7 @@ export const getMockDetailedOffer = (): IDetailedOfferInfo => {
     goods: Array.from({ length: faker.datatype.number({ min: 1, max: 10 }) }, () =>
       faker.random.arrayElement(['Wi-Fi', 'Heating', 'Kitchen', 'Washing machine', 'TV', 'Cable TV', 'Air conditioning'])
     ),
-    host: getMockUser(),
+    host: getMockOfferUser(),
     images: Array.from({ length: faker.datatype.number({ min: 1, max: 10 }) }, () =>
       faker.image.imageUrl()
     ),
