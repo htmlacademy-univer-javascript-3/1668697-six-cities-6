@@ -4,11 +4,12 @@ import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 
 import { createAPI } from '../service/api';
+import * as tokenStorage from '../service/token';
 
 import { ApiRoute, StateType } from '../shared';
 import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer, getMockUser } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview, authCheck } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus, postReview, authCheck, authLogin } from './async-action';
 import { redirectToRoute } from './action';
 import { setError } from './slices/error-data';
 
@@ -319,6 +320,37 @@ describe('Async actions', () => {
 
       expect(authCheckFulfilled.payload)
         .toBeNull();
+    });
+  });
+
+  describe('authLogin action', () => {
+    const fakeAuthData = { email: 'test@test.ru', password: 'test1' };
+
+    it('should dispatch "authLogin.pending", "fetchFavorites.pending", "redirectToRoute", "authLogin.fulfilled" when server response 200', async () => {
+      const mockUser = getMockUser();
+      mockAxiosAdapter.onPost(ApiRoute.Login, fakeAuthData).reply(200, mockUser);
+      mockAxiosAdapter.onGet(ApiRoute.Favorites).reply(200, []);
+
+      await store.dispatch(authLogin(fakeAuthData));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes[0]).toBe(authLogin.pending.type);
+      expect(extractedActionsTypes).toContain(fetchFavorites.pending.type);
+      expect(extractedActionsTypes).toContain(redirectToRoute.type);
+      expect(extractedActionsTypes).toContain(authLogin.fulfilled.type);
+    });
+
+    it('should call "saveToken" once with the received token', async () => {
+      const mockUser = getMockUser();
+      mockAxiosAdapter.onPost(ApiRoute.Login, fakeAuthData).reply(200, mockUser);
+      mockAxiosAdapter.onGet(ApiRoute.Favorites).reply(200, []);
+      const mockSaveToken = vi.spyOn(tokenStorage, 'saveToken');
+
+      await store.dispatch(authLogin(fakeAuthData));
+
+      expect(mockSaveToken).toBeCalledTimes(1);
+      expect(mockSaveToken).toBeCalledWith(mockUser.token);
     });
   });
 });
