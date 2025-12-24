@@ -8,7 +8,7 @@ import { createAPI } from '../service/api';
 import { ApiRoute, StateType } from '../shared';
 import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview } from '../mocks';
 
-import { fetchOffers, fetchReviews } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby } from './async-action';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -89,6 +89,41 @@ describe('Async actions', () => {
       expect(extractedActionsTypes).toEqual([
         fetchReviews.pending.type,
         fetchReviews.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchNearby action', () => {
+    it('should dispatch "fetchNearby.pending" and "fetchNearby.fulfilled" & return nearby offers data, when server response 200', async () => {
+      const offerId = 'test-offer-id';
+      const mockNearbyOffers = [getMockSimpleOffer(), getMockSimpleOffer()];
+      mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}/${ApiRoute.Nearby}`).reply(200, mockNearbyOffers);
+
+      await store.dispatch(fetchNearby({ offerId }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchNearbyFulfilled = emittedActions.at(1) as ReturnType<typeof fetchNearby.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        fetchNearby.pending.type,
+        fetchNearby.fulfilled.type,
+      ]);
+
+      expect(fetchNearbyFulfilled.payload)
+        .toEqual(mockNearbyOffers);
+    });
+
+    it('should dispatch "fetchNearby.pending" and "fetchNearby.rejected", when server response 404', async () => {
+      const offerId = 'test-offer-id';
+      mockAxiosAdapter.onGet(`${ApiRoute.Offers}/${offerId}/${ApiRoute.Nearby}`).reply(404);
+
+      await store.dispatch(fetchNearby({ offerId }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        fetchNearby.pending.type,
+        fetchNearby.rejected.type,
       ]);
     });
   });
