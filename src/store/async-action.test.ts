@@ -8,7 +8,7 @@ import { createAPI } from '../service/api';
 import { ApiRoute, StateType } from '../shared';
 import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview, getMockDetailedOffer } from '../mocks';
 
-import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites } from './async-action';
+import { fetchOffers, fetchReviews, fetchNearby, fetchCurrentOffer, fetchFavorites, changeFavoriteStatus } from './async-action';
 import { redirectToRoute } from './action';
 
 describe('Async actions', () => {
@@ -198,6 +198,43 @@ describe('Async actions', () => {
       expect(extractedActionsTypes).toEqual([
         fetchFavorites.pending.type,
         fetchFavorites.rejected.type,
+      ]);
+    });
+  });
+
+  describe('changeFavoriteStatus action', () => {
+    const offerId = 'test-offer-id';
+    const status = 1;
+
+    it('should dispatch "changeFavoriteStatus.pending", "fetchFavorites.pending", "changeFavoriteStatus.fulfilled" & return offer data, when server response 201', async () => {
+      const mockDetailedOffer = getMockDetailedOffer();
+      mockAxiosAdapter.onPost(`${ApiRoute.Favorites}/${offerId}/${status}`).reply(201, mockDetailedOffer);
+
+      await store.dispatch(changeFavoriteStatus({ offerId, status }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const changeFavoriteStatusFulfilled = emittedActions.find(
+        (action) => action.type === changeFavoriteStatus.fulfilled.type
+      ) as ReturnType<typeof changeFavoriteStatus.fulfilled>;
+
+      expect(extractedActionsTypes[0]).toBe(changeFavoriteStatus.pending.type);
+      expect(extractedActionsTypes).toContain(fetchFavorites.pending.type);
+      expect(extractedActionsTypes).toContain(changeFavoriteStatus.fulfilled.type);
+
+      expect(changeFavoriteStatusFulfilled.payload)
+        .toEqual(mockDetailedOffer);
+    });
+
+    it.each([400, 401, 404, 409])('should dispatch "changeFavoriteStatus.pending" and "changeFavoriteStatus.rejected", when server response %i', async (statusCode) => {
+      mockAxiosAdapter.onPost(`${ApiRoute.Favorites}/${offerId}/${status}`).reply(statusCode);
+
+      await store.dispatch(changeFavoriteStatus({ offerId, status }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        changeFavoriteStatus.pending.type,
+        changeFavoriteStatus.rejected.type,
       ]);
     });
   });
