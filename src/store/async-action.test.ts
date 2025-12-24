@@ -352,6 +352,20 @@ describe('Async actions', () => {
       expect(mockSaveToken).toBeCalledTimes(1);
       expect(mockSaveToken).toBeCalledWith(mockUser.token);
     });
+
+    it('should dispatch "authLogin.pending", "setError", "authLogin.rejected" when server response 400', async () => {
+      mockAxiosAdapter.onPost(ApiRoute.Login, fakeAuthData).reply(400);
+
+      await store.dispatch(authLogin(fakeAuthData));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        authLogin.pending.type,
+        setError.type,
+        authLogin.rejected.type,
+      ]);
+    });
   });
 });
 
