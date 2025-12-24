@@ -6,9 +6,9 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../service/api';
 
 import { ApiRoute, StateType } from '../shared';
-import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer } from '../mocks';
+import { AppThunkDispatch, extractActionsTypes, getMockSimpleOffer, getMockReview } from '../mocks';
 
-import { fetchOffers } from './async-action';
+import { fetchOffers, fetchReviews } from './async-action';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -54,6 +54,41 @@ describe('Async actions', () => {
       expect(extractedActionsTypes).toEqual([
         fetchOffers.pending.type,
         fetchOffers.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchReviews action', () => {
+    it('should dispatch "fetchReviews.pending" and "fetchReviews.fulfilled" & return reviews data, when server response 200', async () => {
+      const offerId = 'test-offer-id';
+      const mockReviews = [getMockReview(), getMockReview()];
+      mockAxiosAdapter.onGet(`${ApiRoute.Reviews}/${offerId}`).reply(200, mockReviews);
+
+      await store.dispatch(fetchReviews({ offerId }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const fetchReviewsFulfilled = emittedActions.at(1) as ReturnType<typeof fetchReviews.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        fetchReviews.pending.type,
+        fetchReviews.fulfilled.type,
+      ]);
+
+      expect(fetchReviewsFulfilled.payload)
+        .toEqual(mockReviews);
+    });
+
+    it('should dispatch "fetchReviews.pending" and "fetchReviews.rejected", when server response 404', async () => {
+      const offerId = 'test-offer-id';
+      mockAxiosAdapter.onGet(`${ApiRoute.Reviews}/${offerId}`).reply(404);
+
+      await store.dispatch(fetchReviews({ offerId }));
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        fetchReviews.pending.type,
+        fetchReviews.rejected.type,
       ]);
     });
   });
