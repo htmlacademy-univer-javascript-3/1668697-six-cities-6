@@ -40,6 +40,6 @@ export const OffersMap: React.FC<MapProps> = ({ points, additionalClass }) => {
 
 
   return (
-    <section className= {classNames('map', additionalClass)} ref={mapRef} />
+    <section className= {classNames('map', additionalClass)} ref={mapRef} data-testid="map" />
   );
 };
