@@ -12,10 +12,10 @@ export const OfferReview: React.FC<OfferReviewProps> = ({ reviewData }) => {
     <li className="reviews__item" data-testid="review-item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" data-testid="review-avatar" />
+          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
         </div>
 
-        <span className="reviews__user-name" data-testid="review-user-name">
+        <span className="reviews__user-name">
           {user.name}
         </span>
       </div>
@@ -23,16 +23,16 @@ export const OfferReview: React.FC<OfferReviewProps> = ({ reviewData }) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: getRatingPercent(rating) }} data-testid="review-rating"></span>
+            <span style={{ width: getRatingPercent(rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
 
-        <p className="reviews__text" data-testid="review-comment">
+        <p className="reviews__text">
           {comment}
         </p>
 
-        <time className="reviews__time" dateTime={date} data-testid="review-date">{getFormattedDate(date)}</time>
+        <time className="reviews__time" dateTime={date}>{getFormattedDate(date)}</time>
       </div>
     </li>
   );

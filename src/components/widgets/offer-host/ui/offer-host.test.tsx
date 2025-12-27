@@ -1,32 +1,28 @@
 import { render, screen } from '@testing-library/react';
-import { OfferHost } from './offer-host';
+
 import { getMockOfferUser } from '../../../../mocks';
+
+import { OfferHost } from './offer-host';
 
 describe('Component: OfferHost', () => {
   it('should render correctly', () => {
     const mockHost = getMockOfferUser();
     const mockDescription = 'This is a test description';
-    const hostTestId = 'host';
-    const hostTitleTestId = 'host-title';
-    const hostAvatarTestId = 'host-avatar';
-    const hostNameTestId = 'host-name';
-    const hostDescriptionTestId = 'host-description';
+    const expectedTitle = 'Meet the host';
+    const expectedName = mockHost.name;
+    const expectedDescription = mockDescription;
+    const expectedAvatarAltText = 'Host avatar';
 
     render(<OfferHost hostData={mockHost} description={mockDescription} />);
-    const host = screen.getByTestId(hostTestId);
-    const hostTitle = screen.getByTestId(hostTitleTestId);
-    const hostAvatar = screen.getByTestId(hostAvatarTestId);
-    const hostName = screen.getByTestId(hostNameTestId);
-    const hostDescription = screen.getByTestId(hostDescriptionTestId);
+    const hostTitle = screen.getByText(expectedTitle);
+    const hostName = screen.getByText(expectedName);
+    const hostDescription = screen.getByText(expectedDescription);
+    const hostAvatar = screen.getByAltText(expectedAvatarAltText);
 
-    expect(host).toBeInTheDocument();
     expect(hostTitle).toBeInTheDocument();
-    expect(hostTitle).toHaveTextContent('Meet the host');
-    expect(hostAvatar).toBeInTheDocument();
     expect(hostName).toBeInTheDocument();
-    expect(hostName).toHaveTextContent(mockHost.name);
     expect(hostDescription).toBeInTheDocument();
-    expect(hostDescription).toHaveTextContent(mockDescription);
+    expect(hostAvatar).toBeInTheDocument();
   });
 
   it('should render Pro status when host is pro', () => {
@@ -54,4 +50,3 @@ describe('Component: OfferHost', () => {
     expect(hostProStatus).not.toBeInTheDocument();
   });
 });
-

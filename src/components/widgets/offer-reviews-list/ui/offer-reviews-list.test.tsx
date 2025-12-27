@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { OfferReviewsList } from './offer-reviews-list';
+
 import { getMockReview } from '../../../../mocks';
+
+import { OfferReviewsList } from './offer-reviews-list';
 
 describe('Component: OfferReviewsList', () => {
   it('should render correctly', () => {
-    const mockReview1 = getMockReview();
-    const mockReview2 = getMockReview();
-    const mockReviews = [mockReview1, mockReview2];
+    const mockReviews = [getMockReview(), getMockReview()];
     const reviewsListTestId = 'reviews-list';
     const reviewItemTestId = 'review-item';
 
@@ -29,4 +29,3 @@ describe('Component: OfferReviewsList', () => {
     expect(reviewItems.length).toBe(expectedCount);
   });
 });
-
