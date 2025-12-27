@@ -2,15 +2,13 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { MainPage, LoginPage, FavoritesPage, OfferPage, NotFoundPage } from '../pages';
-import { Spinner, ErrorModal, PrivateRoute, HistoryRouter } from '../components';
+import { Spinner, ErrorModal, PrivateRoute } from '../components';
 
 import { AppRoute } from '../shared';
 import { useAppDispatch, useAppSelector } from '../shared';
 
 import { fetchOffers, authCheck } from '../store/async-action';
 import { getAreOffersLoading } from '../store/slices';
-
-import { browserHistory } from '../browser-history';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +24,7 @@ const App: React.FC = () => {
   dispatch(authCheck());
 
   return (
-    <HistoryRouter history={browserHistory}>
+    <>
       <ErrorModal />
 
       <Routes>
@@ -49,7 +47,7 @@ const App: React.FC = () => {
 
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
-    </HistoryRouter>
+    </>
   );
 };
 
