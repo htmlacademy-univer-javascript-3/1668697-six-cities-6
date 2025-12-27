@@ -1,4 +1,4 @@
-import { AuthStatus } from '../../../shared';
+import { AuthStatus } from '../../../shared/types/auth-types';
 
 export interface IAuthData {
   authStatus: AuthStatus;

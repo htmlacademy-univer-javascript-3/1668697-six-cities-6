@@ -4,7 +4,7 @@ import { OffersSortType } from '../../../shared';
 import { NameSpace } from '../../../shared';
 
 import { initialState } from './state';
-import { fetchOffers, changeFavoriteStatus } from '../../async-action';
+import { fetchOffers, changeFavoriteStatus, authLogout, fetchFavorites } from '../../async-action';
 
 export const offersData = createSlice({
   name: NameSpace.OffersData,
@@ -33,6 +33,17 @@ export const offersData = createSlice({
         if (offerIndex >= 0) {
           state.offers[offerIndex].isFavorite = updatedOffer.isFavorite;
         }
+      })
+      .addCase(authLogout.fulfilled, (state) => {
+        state.offers.forEach((offer) => {
+          offer.isFavorite = false;
+        });
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        const favoriteIds = new Set(action.payload.map((favorite) => favorite.id));
+        state.offers.forEach((offer) => {
+          offer.isFavorite = favoriteIds.has(offer.id);
+        });
       });
   },
 });

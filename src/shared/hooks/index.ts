@@ -1,2 +1,2 @@
-export * from './useMap';
-export * from './useStore';
+export * from './use-map';
+export * from './use-store';

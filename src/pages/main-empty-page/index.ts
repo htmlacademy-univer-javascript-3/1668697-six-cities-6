@@ -1,1 +1,1 @@
-export * from './ui/MainEmptyPage';
+export * from './ui/main-empty-page';

@@ -1,1 +1,1 @@
-export * from './ui/NotFoundPage';
+export * from './ui/not-found-page';

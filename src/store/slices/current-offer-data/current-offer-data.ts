@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { NameSpace } from '../../../shared';
 
-import { fetchCurrentOffer, fetchReviews, fetchNearby, changeFavoriteStatus } from '../../async-action';
+import { fetchCurrentOffer, fetchReviews, fetchNearby, changeFavoriteStatus, authLogout, fetchFavorites } from '../../async-action';
 
 import { initialState } from './state';
 
@@ -60,6 +60,25 @@ export const currentOfferData = createSlice({
         if (nearbyIndex >= 0) {
           state.currentOfferNearby[nearbyIndex].isFavorite = updatedOffer.isFavorite;
         }
+      })
+      .addCase(authLogout.fulfilled, (state) => {
+        if (state.currentOffer) {
+          state.currentOffer.isFavorite = false;
+        }
+        state.currentOfferNearby.forEach((offer) => {
+          offer.isFavorite = false;
+        });
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        const favoriteIds = new Set(action.payload.map((favorite) => favorite.id));
+
+        if (state.currentOffer) {
+          state.currentOffer.isFavorite = favoriteIds.has(state.currentOffer.id);
+        }
+
+        state.currentOfferNearby.forEach((offer) => {
+          offer.isFavorite = favoriteIds.has(offer.id);
+        });
       });
   },
 });
