@@ -33,7 +33,7 @@ export const OffersList: React.FC<OffersListProps> = ({
   );
 
   return (
-    <div className={OFFER_CARD_CLASSNAMES[offerCardType].container}>
+    <div className={OFFER_CARD_CLASSNAMES[offerCardType].container} data-testid="offers-list-container">
       {sortedOffers
         .map((offerData) => (
           <OfferCard
