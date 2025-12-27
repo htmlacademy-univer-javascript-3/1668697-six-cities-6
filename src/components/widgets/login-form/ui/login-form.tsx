@@ -42,6 +42,7 @@ export const LoginForm: React.FC = () => {
           name="email"
           placeholder="Email"
           required
+          data-testid="email-input"
         />
       </div>
 
@@ -55,6 +56,7 @@ export const LoginForm: React.FC = () => {
           name="password"
           placeholder="Password"
           required
+          data-testid="password-input"
         />
       </div>
 
