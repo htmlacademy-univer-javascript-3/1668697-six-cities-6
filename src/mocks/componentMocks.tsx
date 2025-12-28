@@ -10,7 +10,7 @@ import { createAPI } from '../service/api';
 import { HistoryRouter } from '../components';
 import { StateType } from '../shared';
 
-import { AppThunkDispatch } from './asyncMocks';
+import { AppThunkDispatch } from './stateMocks';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();
