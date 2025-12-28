@@ -77,7 +77,7 @@ export const OfferPage: React.FC = () => {
 
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews &middot; <span className="reviews__amount">{currentOfferReviews.length}</span>
+                  Reviews &middot; <span className="reviews__amount" data-testid="reviews-amount">{currentOfferReviews.length}</span>
                 </h2>
 
                 <OfferReviewsList reviews={currentOfferReviews} />
