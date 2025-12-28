@@ -36,6 +36,7 @@ export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, of
       className={OFFER_CARD_CLASSNAMES[offerCardType].item}
       onMouseOver={() => onActiveCardIdChange(id)}
       onMouseLeave={() => onActiveCardIdChange('')}
+      data-testid="offer-card"
     >
       { isPremium && (
         <div className="place-card__mark">

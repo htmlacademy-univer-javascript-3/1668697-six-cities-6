@@ -37,16 +37,18 @@ export const OffersSortComponent: React.FC = () => {
     <form className="places__sorting" action="#" method="get">
       <span className={classNames('places__sorting-caption', 'caption')}>Sort by</span>
 
-      <span className="places__sorting-type" tabIndex={0} onClick={handleIsOpenChange}>
+      <span className="places__sorting-type" tabIndex={0} onClick={handleIsOpenChange} data-testid="places__sorting-type">
         <span>{currentOffersSortType}</span>
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
 
-      <ul className={classNames('places__options places__options--custom', {
-        ['places__options--opened']: isOpen
-      })}
+      <ul
+        className={classNames('places__options places__options--custom', {
+          ['places__options--opened']: isOpen
+        })}
+        data-testid="places__options"
       >
         {sortTypes.map((sortType) => (
           <li

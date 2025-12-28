@@ -26,8 +26,8 @@ export const ErrorModal: React.FC = () => {
   };
 
   return (
-    <div className="error-modal-overlay" onClick={handleOverlayClick}>
-      <div className="error-modal">
+    <div className="error-modal-overlay" onClick={handleOverlayClick} data-testid="error-modal-overlay">
+      <div className="error-modal" data-testid="error-modal">
         <h2 className="error-modal__title">Error</h2>
 
         <div className="error-modal__content">
