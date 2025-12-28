@@ -3,18 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { Header, LoginForm } from '../../../components';
 
-import { AppRoute, AuthStatus, ISimpleOfferInfo } from '../../../shared';
-import { useAppDispatch, useAppSelector, getCitiesData } from '../../../shared';
+import { AppRoute, AuthStatus } from '../../../shared';
+import { useAppDispatch, useAppSelector } from '../../../shared';
 
 import { getAuthStatus, getOffers, setCity } from '../../../store/slices';
 import { redirectToRoute } from '../../../store/action';
 
-// TODO: move to helpers
-const getRandomCity = (offers: ISimpleOfferInfo[]) => {
-  const cities = getCitiesData(offers);
-
-  return cities[Math.floor(Math.random() * cities.length)];
-};
+import { getRandomCity } from '../model/helpers';
 
 export const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
