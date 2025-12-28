@@ -1,7 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { getRatingPercent, AppRoute, AuthStatus, useAppDispatch, useAppSelector } from '../../../../shared';
+import { getRatingPercent, AppRoute, AuthStatus, FavoriteStatus, useAppDispatch, useAppSelector } from '../../../../shared';
 
 import { changeFavoriteStatus } from '../../../../store/async-action';
 import { redirectToRoute } from '../../../../store/action';
@@ -32,7 +32,7 @@ export const OfferInfo: React.FC<OfferInfoProps> = ({ offerData }) => {
       return;
     }
 
-    const status = isFavorite ? 0 : 1;
+    const status = isFavorite ? FavoriteStatus.NotFavorite : FavoriteStatus.Favorite;
     dispatch(changeFavoriteStatus({ offerId: id, status }));
   };
 
