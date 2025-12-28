@@ -59,7 +59,10 @@ describe('Component: CitiesList', () => {
     );
 
     render(withStoreComponent);
-    await userEvent.click(screen.getAllByRole('listitem')[1]);
+    const cityListItem = screen.getByText(mockCity2.name);
+    if (cityListItem) {
+      await userEvent.click(cityListItem);
+    }
     const actions = mockStore.getActions();
 
     expect(actions[0].type).toBe(setCity.type);

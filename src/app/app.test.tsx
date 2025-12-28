@@ -7,6 +7,12 @@ import { AppRoute, AuthStatus, NameSpace, OffersSortType } from '../shared';
 
 import App from './app';
 
+// Mock window.scrollTo
+Object.defineProperty(window, 'scrollTo', {
+  value: vi.fn(),
+  writable: true,
+});
+
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
 
