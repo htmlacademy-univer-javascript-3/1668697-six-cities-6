@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector, getCitiesData } from '../../../shared';
 import { getAuthStatus, getOffers, setCity } from '../../../store/slices';
 import { redirectToRoute } from '../../../store/action';
 
+// TODO: move to helpers
 const getRandomCity = (offers: ISimpleOfferInfo[]) => {
   const cities = getCitiesData(offers);
 
