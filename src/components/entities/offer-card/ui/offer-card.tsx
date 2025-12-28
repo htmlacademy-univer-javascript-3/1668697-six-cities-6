@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { OFFER_CARD_CLASSNAMES, AppRoute, AuthStatus } from '../../../../shared';
+import { OFFER_CARD_CLASSNAMES, AppRoute, AuthStatus, FavoriteStatus } from '../../../../shared';
 import { getRatingPercent, useAppDispatch, useAppSelector } from '../../../../shared';
 
 import { changeFavoriteStatus } from '../../../../store/async-action';
@@ -27,7 +27,7 @@ export const OfferCardComponent: React.FC<OfferCardProps> = ({ id, offerData, of
       return;
     }
 
-    const status = isFavorite ? 0 : 1;
+    const status = isFavorite ? FavoriteStatus.NotFavorite : FavoriteStatus.Favorite;
     dispatch(changeFavoriteStatus({ offerId: id, status }));
   };
 

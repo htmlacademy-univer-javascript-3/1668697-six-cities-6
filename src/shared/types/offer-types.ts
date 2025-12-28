@@ -53,3 +53,8 @@ export enum OffersSortType {
   PriceHightToLow = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export enum FavoriteStatus {
+  NotFavorite = 0,
+  Favorite = 1
+}
